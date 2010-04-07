@@ -8,36 +8,36 @@ using AutoPoco.Configuration.Providers;
 
 namespace AutoPoco.Configuration
 {
-    public class EngineConfigurationTypeMemberBuilder<TPoco, TMember> : IEngineConfigurationTypeMemberBuilder<TPoco, TMember>, IEngineConfigurationTypeMemberProvider
+    public class EngineConfigurationTypeMemberBuilder : IEngineConfigurationTypeMemberBuilder, IEngineConfigurationTypeMemberProvider
     {
-        private EngineConfigurationTypeBuilder<TPoco> mParentConfiguration;
-        private EngineTypeMember mMember;
-        private DatasourceFactory mDatasource;
+        protected EngineConfigurationTypeBuilder mParentConfiguration;
+        protected EngineTypeMember mMember;
+        protected DatasourceFactory mDatasource;
 
-        public EngineConfigurationTypeMemberBuilder(EngineTypeMember member, EngineConfigurationTypeBuilder<TPoco> parentConfiguration)
+        public EngineConfigurationTypeMemberBuilder(EngineTypeMember member, EngineConfigurationTypeBuilder parentConfiguration)
         {
             mMember = member;
             mParentConfiguration = parentConfiguration;
         }
 
-        public IEngineConfigurationTypeBuilder<TPoco> Use<TSource>() where TSource : IDatasource<TMember>
+        #region IEngineConfigurationTypeMemberBuilder Members
+
+        public IEngineConfigurationTypeBuilder Use(Type dataSource)
         {
-            mDatasource = new DatasourceFactory(typeof(TSource));
-            return mParentConfiguration;
+            throw new NotImplementedException();
         }
 
-        public IEngineConfigurationTypeBuilder<TPoco> Use<TSource>(params Object[] args) where TSource : IDatasource<TMember>
+        public IEngineConfigurationTypeBuilder Use(Type dataSource, params object[] args)
         {
-            mDatasource = new DatasourceFactory(typeof(TSource));
-            mDatasource.SetParams(args);
-            return mParentConfiguration;
+            throw new NotImplementedException();
         }
 
-        public IEngineConfigurationTypeBuilder<TPoco> Default()
+        public IEngineConfigurationTypeBuilder Default()
         {
-            mDatasource = null;
-            return mParentConfiguration;
+            throw new NotImplementedException();
         }
+
+        #endregion
 
         public EngineTypeMember GetConfigurationMember()
         {

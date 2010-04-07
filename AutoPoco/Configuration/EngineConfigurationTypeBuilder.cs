@@ -9,7 +9,7 @@ using AutoPoco.Engine;
 
 namespace AutoPoco.Configuration
 {
-    public class EngineConfigurationTypeBuilder : IEngineConfigurationTypeProvider
+    public class EngineConfigurationTypeBuilder : IEngineConfigurationTypeProvider, IEngineConfigurationTypeBuilder
     {
         protected List<IEngineConfigurationTypeMemberProvider> mMembers = new List<IEngineConfigurationTypeMemberProvider>();
         private Type mType;
@@ -27,6 +27,16 @@ namespace AutoPoco.Configuration
         protected EngineConfigurationTypeBuilder(Type type)
         {
             mType = type;
+        }
+
+        public IEngineConfigurationTypeMemberBuilder SetupProperty(string propertyName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEngineConfigurationTypeMemberBuilder SetupField(string fieldName)
+        {
+            throw new NotImplementedException();
         }
     }
 }

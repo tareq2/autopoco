@@ -22,8 +22,12 @@ namespace AutoPoco.Configuration
 
             //And return the public interface
             return (IEngineConfigurationTypeBuilder<T>)configuration;
-        }       
-        
+        }
+
+        public IEngineConfigurationTypeBuilder Include(Type t)
+        {
+            throw new NotImplementedException();
+        }        
        
         public void Conventions(Action<IEngineConventionConfiguration> config)
         {

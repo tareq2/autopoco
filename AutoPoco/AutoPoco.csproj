@@ -54,6 +54,7 @@
     <Compile Include="Configuration\EngineConfigurationType.cs" />
     <Compile Include="Configuration\EngineConfigurationTypeBuilder%27.cs" />
     <Compile Include="Configuration\EngineConfigurationTypeMember.cs" />
+    <Compile Include="Configuration\EngineConfigurationTypeMemberBuilder%27.cs" />
     <Compile Include="Configuration\EngineConventionConfiguration.cs" />
     <Compile Include="Configuration\EngineTypeFieldMember.cs" />
     <Compile Include="Configuration\EngineTypeMethodMember.cs" />
