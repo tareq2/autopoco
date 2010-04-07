@@ -7,7 +7,6 @@ namespace AutoPoco.Configuration.Providers
 {
     public interface IEngineConfigurationTypeMemberProvider
     {
-
         EngineTypeMember GetConfigurationMember();
 
         IEngineConfigurationDatasource GetDatasource();

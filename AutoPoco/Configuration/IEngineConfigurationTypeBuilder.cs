@@ -6,11 +6,16 @@ using System.Linq.Expressions;
 
 namespace AutoPoco.Configuration
 {
-    public interface IEngineConfigurationTypeBuilder<TPoco>
+    public interface IEngineConfigurationTypeBuilder
     {
         /// <summary>
-        /// Adds a specific rule for a member on the poco we're building rules for
+        /// Adds a specific rule for a property on the poco we're building rules for
         /// </summary>
-        IEngineConfigurationTypeMemberBuilder<TPoco, TMember> Setup<TMember>(Expression<Func<TPoco, TMember>> expression);
+        IEngineConfigurationTypeMemberBuilder SetupProperty(string propertyName);
+
+        /// <summary>
+        /// Adds a specific rule for a field on the poco we're building rules for
+        /// </summary>
+        IEngineConfigurationTypeMemberBuilder SetupField(string fieldName);
     }
 }
