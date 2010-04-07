@@ -14,7 +14,70 @@ namespace AutoPoco.Tests.Unit.Configuration
     public class EngineConfigurationTypeMemberBuilderTests
     {
         [Test]
-        public void Use_ReturnsTypeBuilder()
+        public void NotGeneric_Use_ReturnsTypeBuilder()
+        {
+            EngineConfigurationTypeBuilder configuration = new EngineConfigurationTypeBuilder(typeof(SimpleUser));
+            EngineConfigurationTypeMemberBuilder propertyConfiguration = new EngineConfigurationTypeMemberBuilder(null, configuration);
+
+            IEngineConfigurationTypeBuilder returnedConfiguration = propertyConfiguration.Use(typeof(SimpleDataSource));
+
+            Assert.AreEqual(configuration, returnedConfiguration);
+        }
+
+        [Test]
+        public void NotGeneric_UseInvalidDataSource_ThrowsArgumentException()
+        {
+            EngineConfigurationTypeBuilder configuration = new EngineConfigurationTypeBuilder(typeof(SimpleUser));
+            EngineConfigurationTypeMemberBuilder propertyConfiguration = new EngineConfigurationTypeMemberBuilder(null, configuration);
+
+            Assert.Throws<ArgumentException>(() => { propertyConfiguration.Use(typeof(SimpleUser)); });
+        }
+
+        [Test]
+        public void NotGeneric_UseWithArgs_ReturnsTypeBuilder()
+        {
+            EngineConfigurationTypeBuilder configuration = new EngineConfigurationTypeBuilder(typeof(SimpleUser));
+            EngineConfigurationTypeMemberBuilder propertyConfiguration = new EngineConfigurationTypeMemberBuilder(null, configuration);
+
+            IEngineConfigurationTypeBuilder returnedConfiguration = propertyConfiguration.Use(typeof(SimpleDataSource),0, 1, 10);
+
+            Assert.AreEqual(configuration, returnedConfiguration);
+        }
+
+        [Test]
+        public void NotGeneric_UseInvalidDataSourceWithArgs_ThrowsArgumentException()
+        {
+            EngineConfigurationTypeBuilder configuration = new EngineConfigurationTypeBuilder(typeof(SimpleUser));
+            EngineConfigurationTypeMemberBuilder propertyConfiguration = new EngineConfigurationTypeMemberBuilder(null, configuration);
+
+            Assert.Throws<ArgumentException>(() => { propertyConfiguration.Use(typeof(SimpleUser), 0, 1, 10); }); 
+        }
+
+        [Test]
+        public void NotGeneric_Default_ReturnsTypeBuilder()
+        {
+            EngineConfigurationTypeBuilder configuration = new EngineConfigurationTypeBuilder(typeof(SimpleUser));
+            EngineConfigurationTypeMemberBuilder propertyConfiguration = new EngineConfigurationTypeMemberBuilder(null, configuration);
+
+            IEngineConfigurationTypeBuilder returnedConfiguration = propertyConfiguration.Default();
+
+            Assert.AreEqual(configuration, returnedConfiguration);
+        }
+
+        [Test]
+        public void NotGeneric_Default_ResetsSource()
+        {
+            EngineConfigurationTypeBuilder configuration = new EngineConfigurationTypeBuilder(typeof(SimpleUser));
+            EngineConfigurationTypeMemberBuilder propertyConfiguration = new EngineConfigurationTypeMemberBuilder(null, configuration);
+
+            propertyConfiguration.Use(typeof(SimpleDataSource));
+            propertyConfiguration.Default();
+
+            Assert.IsNull(propertyConfiguration.GetDatasource());
+        }
+
+        [Test]
+        public void Generic_Use_ReturnsTypeBuilder()
         {
             EngineConfigurationTypeBuilder<SimpleUser> configuration = new EngineConfigurationTypeBuilder<SimpleUser>();
             EngineConfigurationTypeMemberBuilder<SimpleUser, string> propertyConfiguration = new EngineConfigurationTypeMemberBuilder<SimpleUser, string>(null, configuration);
@@ -25,7 +88,7 @@ namespace AutoPoco.Tests.Unit.Configuration
         }
 
         [Test]
-        public void UseWithArgs_ReturnsTypeBuilder()
+        public void Generic_UseWithArgs_ReturnsTypeBuilder()
         {
             EngineConfigurationTypeBuilder<SimpleUser> configuration = new EngineConfigurationTypeBuilder<SimpleUser>();
             EngineConfigurationTypeMemberBuilder<SimpleUser, string> propertyConfiguration = new EngineConfigurationTypeMemberBuilder<SimpleUser, string>(null, configuration);
@@ -36,7 +99,7 @@ namespace AutoPoco.Tests.Unit.Configuration
         }
 
         [Test]
-        public void Default_ReturnsTypeBuilder()
+        public void Generic_Default_ReturnsTypeBuilder()
         {
             EngineConfigurationTypeBuilder<SimpleUser> configuration = new EngineConfigurationTypeBuilder<SimpleUser>();
             EngineConfigurationTypeMemberBuilder<SimpleUser, string> propertyConfiguration = new EngineConfigurationTypeMemberBuilder<SimpleUser, string>(null, configuration);
@@ -47,7 +110,7 @@ namespace AutoPoco.Tests.Unit.Configuration
         }
 
         [Test]
-        public void Default_ResetsSource()
+        public void Generic_Default_ResetsSource()
         {
             EngineConfigurationTypeBuilder<SimpleUser> configuration = new EngineConfigurationTypeBuilder<SimpleUser>();
             EngineConfigurationTypeMemberBuilder<SimpleUser, string> propertyConfiguration = new EngineConfigurationTypeMemberBuilder<SimpleUser, string>(null, configuration);
@@ -59,7 +122,7 @@ namespace AutoPoco.Tests.Unit.Configuration
         }
 
         [Test]
-        public void GetConfigurationMember_ReturnsConfigurationMember()
+        public void Generic_GetConfigurationMember_ReturnsConfigurationMember()
         {
             EngineConfigurationTypeBuilder<SimpleUser> configuration = new EngineConfigurationTypeBuilder<SimpleUser>();
             EngineTypeMember member = ReflectionHelper.GetMember<SimpleUser>(x => x.EmailAddress);
@@ -73,7 +136,7 @@ namespace AutoPoco.Tests.Unit.Configuration
         }
 
         [Test]
-        public void GetConfigurationAction_Invalid_ReturnsNULL()
+        public void Generic_GetConfigurationAction_Invalid_ReturnsNULL()
         {
             EngineConfigurationTypeBuilder<SimpleUser> configuration = new EngineConfigurationTypeBuilder<SimpleUser>();
             EngineTypeMember member = ReflectionHelper.GetMember<SimpleUser>(x => x.EmailAddress);
@@ -86,7 +149,7 @@ namespace AutoPoco.Tests.Unit.Configuration
         }
 
         [Test]
-        public void GetConfigurationAction_Valid_ReturnsConfigurationAction()
+        public void Generic_GetConfigurationAction_Valid_ReturnsConfigurationAction()
         {
             EngineConfigurationTypeBuilder<SimpleUser> configuration = new EngineConfigurationTypeBuilder<SimpleUser>();
             EngineTypeMember member = ReflectionHelper.GetMember<SimpleUser>(x => x.EmailAddress);

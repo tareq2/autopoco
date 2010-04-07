@@ -24,7 +24,7 @@ namespace AutoPoco.Configuration
             return mMembers;
         }
 
-        protected EngineConfigurationTypeBuilder(Type type)
+        public EngineConfigurationTypeBuilder(Type type)
         {
             mType = type;
         }

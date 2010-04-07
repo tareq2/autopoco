@@ -15,12 +15,21 @@ namespace AutoPoco.Tests.Unit.Configuration
     public class EngineConfigurationBuilderTests
     {
         [Test]
-        public void Include_ReturnsTypeConfiguration()
+        public void Generic_Include_ReturnsTypeConfiguration()
         {
             EngineConfigurationBuilder config = new EngineConfigurationBuilder();
             IEngineConfigurationTypeBuilder<SimpleUser> user = config.Include<SimpleUser>();
 
             Assert.NotNull(user);
+        }
+
+        [Test]
+        public void NonGeneric_Include_ReturnsTypeConfiguration()
+        {
+            EngineConfigurationBuilder config = new EngineConfigurationBuilder();
+            IEngineConfigurationTypeBuilder builder = config.Include(typeof(SimpleUser));
+
+            Assert.NotNull(builder);
         }
 
         [Test]

@@ -12,8 +12,43 @@ namespace AutoPoco.Tests.Unit.Configuration
     [TestFixture]
     public class EngineConfigurationTypeBuilderTests
     {
+
         [Test]
-        public void Setup_WithProperty_ReturnsMemberConfiguration()
+        public void NonGeneric_Setup_WithProperty_ReturnsMemberConfiguration()
+        {
+            EngineConfigurationTypeBuilder configuration = new EngineConfigurationTypeBuilder(typeof(SimplePropertyClass));
+            IEngineConfigurationTypeMemberBuilder memberConfiguration = configuration.SetupProperty("SomeProperty");
+
+            Assert.NotNull(memberConfiguration);
+        }
+
+        [Test]
+        public void NonGeneric_Setup_WithField_ReturnsMemberConfiguration()
+        {
+            EngineConfigurationTypeBuilder configuration = new EngineConfigurationTypeBuilder(typeof(SimpleFieldClass));
+            IEngineConfigurationTypeMemberBuilder memberConfiguration = configuration.SetupProperty("SomeField");
+
+            Assert.NotNull(memberConfiguration);
+        }
+
+        [Test]
+        public void NonGeneric_Setup_WithNonExistentProperty_ThrowsArgumentException()
+        {
+            EngineConfigurationTypeBuilder configuration = new EngineConfigurationTypeBuilder(typeof(SimplePropertyClass));
+
+            Assert.Throws<ArgumentException>(() => { configuration.SetupProperty("SomeNonExistantProperty"); });
+        }
+
+        [Test]
+        public void NonGeneric_Setup_WithNonExistentField_ThrowsArgumentException()
+        {
+            EngineConfigurationTypeBuilder configuration = new EngineConfigurationTypeBuilder(typeof(SimpleFieldClass));
+            Assert.Throws<ArgumentException>(() => { configuration.SetupProperty("SomeNonExistantField"); });
+        }
+        
+
+        [Test]
+        public void Generic_Setup_WithProperty_ReturnsMemberConfiguration()
         {
             EngineConfigurationTypeBuilder<SimplePropertyClass> configuration = new EngineConfigurationTypeBuilder<SimplePropertyClass>();
             IEngineConfigurationTypeMemberBuilder<SimplePropertyClass, String> memberConfiguration = configuration.Setup(x => x.SomeProperty);
@@ -22,7 +57,7 @@ namespace AutoPoco.Tests.Unit.Configuration
         }
 
         [Test]
-        public void Setup_WithField_ReturnsMemberConfiguration()
+        public void Generic_Setup_WithField_ReturnsMemberConfiguration()
         {
             EngineConfigurationTypeBuilder<SimpleFieldClass> configuration = new EngineConfigurationTypeBuilder<SimpleFieldClass>();
             IEngineConfigurationTypeMemberBuilder<SimpleFieldClass, String> memberConfiguration = configuration.Setup(x => x.SomeField);
@@ -45,7 +80,7 @@ namespace AutoPoco.Tests.Unit.Configuration
             EngineConfigurationTypeBuilder<SimpleFieldClass> configuration = new EngineConfigurationTypeBuilder<SimpleFieldClass>();
 
             configuration.Setup(x => x.SomeField);
-            configuration.Setup(x => x.SomeOtherField);
+            configuration.SetupField("SomeOtherField");
 
             var members = configuration.GetConfigurationMembers();
 
