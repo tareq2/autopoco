@@ -85,6 +85,8 @@
     <Compile Include="Conventions\IdMemberConvention.cs" />
     <Compile Include="Conventions\ReferenceMemberConvention.cs" />
     <Compile Include="DataSources\ValueSource.cs" />
+    <Compile Include="Engine\CollectionContext.cs" />
+    <Compile Include="Engine\CollectionSequenceSelectionContext.cs" />
     <Compile Include="Engine\DatasourceBase.cs" />
     <Compile Include="Engine\GenerationSessionFactory.cs" />
     <Compile Include="Engine\ICollectionContext.cs" />
@@ -105,7 +107,7 @@
     <Compile Include="Actions\ObjectFieldSetFromSourceAction.cs" />
     <Compile Include="Actions\ObjectPropertySetFromSourceAction.cs" />
     <Compile Include="Engine\IObjectBuilder.cs" />
-    <Compile Include="Engine\ICollectionSelectionContext.cs" />
+    <Compile Include="Engine\ICollectionSequenceSelectionContext.cs" />
     <Compile Include="StringExtensions.cs" />
     <Compile Include="DataSources\AutoSource.cs" />
     <Compile Include="DataSources\DefaultFloatSource.cs" />

@@ -2,29 +2,35 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Linq.Expressions;
 
 namespace AutoPoco.Engine
 {
     public interface ICollectionContext<TPoco, TCollection> where TCollection : ICollection<TPoco>
     {
         /// <summary>
-        /// Specifies that the first 'group' of items created have some specific properties
+        /// Imposes a property value on all the items in the current selection
+        /// </summary>
+        ICollectionContext<TPoco, TCollection> Impose<TMember>(Expression<Func<TPoco, TMember>> propertyExpr, TMember value);
+
+        /// <summary>
+        /// Gets the first items in this collection for modification
         /// </summary>
         /// <param name="count"></param>
         /// <returns></returns>
-        ICollectionSelectionContext<TPoco, TCollection> First(int count);
+        ICollectionSequenceSelectionContext<TPoco, TCollection> First(int count);
 
         /// <summary>
-        /// Specifies that a random number of items created have some specific properties
+        /// Gets a random selection from this collection for modification
         /// </summary>
         /// <param name="count"></param>
         /// <returns></returns>
-        ICollectionSelectionContext<TPoco, TCollection> Random(int count);
+        ICollectionSequenceSelectionContext<TPoco, TCollection> Random(int count);
 
         /// <summary>
-        /// Specifies that all of the items created have some specified properties
+        /// Gets the current generated collection of items
         /// </summary>
         /// <returns></returns>
-        ICollectionSelectionContext<TPoco, TCollection> All();
+        TCollection Get();
     }
 }

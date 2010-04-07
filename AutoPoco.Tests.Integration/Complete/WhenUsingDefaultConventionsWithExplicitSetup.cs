@@ -40,22 +40,22 @@ namespace AutoPoco.Tests.Integration.Complete
         }
 
         [Test]
-        public void Get_SimpleUserRole_HasRandomName()
+        public void Single_SimpleUserRole_HasRandomName()
         {
-            SimpleUserRole role = mSession.With<SimpleUserRole>().Get();
+            SimpleUserRole role = mSession.Single<SimpleUserRole>().Get();
             Assert.GreaterOrEqual(role.Name.Length, 5);
             Assert.LessOrEqual(role.Name.Length, 10);
         }
 
         [Test]
-        public void Get_SimpleUser_HasValidEmailAddress()
+        public void Single_SimpleUser_HasValidEmailAddress()
         {
-           SimpleUser user = mSession.With<SimpleUser>().Get();
+           SimpleUser user = mSession.Single<SimpleUser>().Get();
            Assert.IsTrue(user.EmailAddress.Contains("@"));
         }
 
         [Test]
-        public void Get_SimpleSeveralUsers_HaveUniqueEmailAddresses()
+        public void Single_SimpleSeveralUsers_HaveUniqueEmailAddresses()
         {
             throw new NotImplementedException();
             SimpleUser[] users = null; // mSession.With<SimpleUser>().Get();
@@ -65,9 +65,9 @@ namespace AutoPoco.Tests.Integration.Complete
         }
 
         [Test]
-        public void Get_SimpleUser_ImposeCustomEmailAddress_HasCustomEmailAddress()
+        public void Single_SimpleUser_ImposeCustomEmailAddress_HasCustomEmailAddress()
         {
-            SimpleUser user = mSession.With<SimpleUser>()
+            SimpleUser user = mSession.Single<SimpleUser>()
                 .Impose(x => x.EmailAddress, "override@override.com")
                 .Get();
 
@@ -75,91 +75,114 @@ namespace AutoPoco.Tests.Integration.Complete
         }
 
         [Test]
-        public void Get_SimpleUser_HasValidFirstName()
+        public void Single_SimpleUser_HasValidFirstName()
         {
-            SimpleUser user = mSession.With<SimpleUser>().Get();
+            SimpleUser user = mSession.Single<SimpleUser>().Get();
             Assert.IsTrue(user.FirstName.Length > 2);
         }
 
         [Test]
-        public void Get_SimpleUser_HasValidLastName()
+        public void Single_SimpleUser_HasValidLastName()
         {
-            SimpleUser user = mSession.With<SimpleUser>().Get();
+            SimpleUser user = mSession.Single<SimpleUser>().Get();
             Assert.IsTrue(user.LastName.Length > 2);
         }
 
         [Test]
         public void SimpleFieldClass_SomePropertyNotNull()
         {
-            SimpleFieldClass fieldClass = mSession.With<SimpleFieldClass>().Get();
+            SimpleFieldClass fieldClass = mSession.Single<SimpleFieldClass>().Get();
             Assert.NotNull(fieldClass.SomeField);
         }
 
         [Test]
         public void SimpleFieldClass_SomeOtherPropertyNotNull()
         {
-            SimpleFieldClass fieldClass = mSession.With<SimpleFieldClass>().Get();
+            SimpleFieldClass fieldClass = mSession.Single<SimpleFieldClass>().Get();
             Assert.NotNull(fieldClass.SomeOtherField);
         }
-
-
+        
         [Test]
         public void DefaultPropertyClass_StringIsEmpty()
         {
-            DefaultPropertyClass propertyClass = mSession.With<DefaultPropertyClass>().Get();
+            DefaultPropertyClass propertyClass = mSession.Single<DefaultPropertyClass>().Get();
             Assert.AreEqual("", propertyClass.String);
         }
 
         [Test]
         public void DefaultPropertyClass_FloatEqualsZero()
         {
-            DefaultPropertyClass propertyClass = mSession.With<DefaultPropertyClass>().Get();
+            DefaultPropertyClass propertyClass = mSession.Single<DefaultPropertyClass>().Get();
             Assert.AreEqual(0, propertyClass.Float);
         }
 
         [Test]
         public void DefaultPropertyClass_IntegerEqualsZero()
         {
-            DefaultPropertyClass propertyClass = mSession.With<DefaultPropertyClass>().Get();
+            DefaultPropertyClass propertyClass = mSession.Single<DefaultPropertyClass>().Get();
             Assert.AreEqual(0, propertyClass.Integer);
         }
 
         [Test]
         public void DefaultPropertyClass_DateTimeIsMin()
         {
-            DefaultPropertyClass propertyClass = mSession.With<DefaultPropertyClass>().Get();
+            DefaultPropertyClass propertyClass = mSession.Single<DefaultPropertyClass>().Get();
             Assert.AreEqual(DateTime.MinValue, propertyClass.Date);
         }
-
-
+        
         [Test]
         public void DefaultFieldClass_StringIsEmpty()
         {
-            DefaultFieldClass propertyClass = mSession.With<DefaultFieldClass>().Get();
+            DefaultFieldClass propertyClass = mSession.Single<DefaultFieldClass>().Get();
             Assert.AreEqual("", propertyClass.String);
         }
 
         [Test]
         public void DefaultFieldClass_FloatEqualsZero()
         {
-            DefaultFieldClass propertyClass = mSession.With<DefaultFieldClass>().Get();
+            DefaultFieldClass propertyClass = mSession.Single<DefaultFieldClass>().Get();
             Assert.AreEqual(0, propertyClass.Float);
         }
 
         [Test]
         public void DefaultFieldClass_IntegerEqualsZero()
         {
-            DefaultFieldClass propertyClass = mSession.With<DefaultFieldClass>().Get();
+            DefaultFieldClass propertyClass = mSession.Single<DefaultFieldClass>().Get();
             Assert.AreEqual(0, propertyClass.Integer);
         }
 
         [Test]
         public void DefaultFieldClass_DateTimeIsMin()
         {
-            DefaultFieldClass propertyClass = mSession.With<DefaultFieldClass>().Get();
+            DefaultFieldClass propertyClass = mSession.Single<DefaultFieldClass>().Get();
             Assert.AreEqual(DateTime.MinValue, propertyClass.Date);
         }
 
+        [Test]
+        public void List_SimpleUser_ReturnsList()
+        {
+            var list = mSession.List<SimpleUser>(10)
+                .First(5)
+                    .Impose(x => x.LastName, "first")
+                .Next(5)
+                    .Impose(x => x.LastName, "last")
+             .All().Get();
 
+            Assert.AreEqual(10, list.Count);
+            Assert.AreEqual(5, list.Count(x => x.LastName == "first"));
+            Assert.AreEqual(5, list.Count(x => x.LastName == "last"));
+        }
+
+        [Test]
+        public void List_SimpleUser_FirstHasUniqueName()
+        { 
+        
+        }
+
+        [Test]
+        public void List_SimpleUser_RandomHaveSameName()
+        {
+
+        }
     }
 }

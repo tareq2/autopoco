@@ -18,12 +18,24 @@ namespace AutoPoco.Engine
             this.RegisteredTypes = types;
         }
 
-        public IObjectGenerator<T> With<T>()
+        public IObjectGenerator<TPoco> Single<TPoco>()
         {
-            Type searchType = typeof(T);
+            Type searchType = typeof(TPoco);
             IObjectBuilder foundType = RegisteredTypes.Where(x => x.InnerType == searchType).SingleOrDefault();
             if (foundType == null) { throw new ArgumentException("Unrecognised type requested", "T"); }
-            return new ObjectGenerator<T>(this, foundType);
+            return new ObjectGenerator<TPoco>(this, foundType);
+        }
+
+        public ICollectionContext<TPoco, IList<TPoco>> List<TPoco>(int count)
+        {
+            Type searchType = typeof(TPoco);
+            IObjectBuilder foundType = RegisteredTypes.Where(x => x.InnerType == searchType).SingleOrDefault();
+            if (foundType == null) { throw new ArgumentException("Unrecognised type requested", "T"); }
+
+            return new CollectionContext<TPoco, IList<TPoco>>(
+               Enumerable.Range(0, count)
+                    .Select(x=> this.Single<TPoco>()).ToArray()
+               .AsEnumerable());
         }
     }
 }

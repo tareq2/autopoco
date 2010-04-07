@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Complete\WhenCreatingACustomisedList.cs" />
     <Compile Include="Complete\WhenUsingDefaultConventionsWithExplicitSetup.cs" />
     <Compile Include="Complete\WhenUsingDefaultConventionsWithNoExplicitSetup.cs" />
     <Compile Include="Complete\WhenUsingCustomConventionsWithNoExplicitSetup.cs" />

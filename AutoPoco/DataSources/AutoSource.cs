@@ -10,7 +10,7 @@ namespace AutoPoco.DataSources
     {
         public override T Next(IGenerationSession session)
         {
-            return session.With<T>().Get();
+            return session.Single<T>().Get();
         }
     }
 }

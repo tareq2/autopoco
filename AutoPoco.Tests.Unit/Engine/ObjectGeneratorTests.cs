@@ -42,7 +42,7 @@ namespace AutoPoco.Tests.Unit.Engine
         }
 
         [Test]
-        public void Get_ReturnsSingleObject()
+        public void Single_ReturnsSingleObject()
         {
             SimpleUser user = mTestGenerator.Get();
             Assert.AreEqual(mTestPropertyValue, user.EmailAddress);
@@ -51,7 +51,7 @@ namespace AutoPoco.Tests.Unit.Engine
         }
 
         [Test]
-        public void Get_AppliesExtraActions()
+        public void Single_AppliesExtraActions()
         {
             Mock<IObjectAction> action = new Mock<IObjectAction>();
             Object actionObject = null;

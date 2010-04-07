@@ -24,18 +24,35 @@ namespace AutoPoco.Tests.Unit.Engine
         }
 
         [Test]
-        public void With_ValidType_ReturnsObjectGenerator()
+        public void Single_ValidType_ReturnsObjectGenerator()
         {
-           IObjectGenerator<SimpleUser> userGenerator = mGenerationSession.With<SimpleUser>();
+           IObjectGenerator<SimpleUser> userGenerator = mGenerationSession.Single<SimpleUser>();
            Assert.NotNull(userGenerator);
         }
 
         [Test]
-        public void With_InvalidType_ThrowsException()
+        public void Single_InvalidType_ThrowsException()
         {
             Assert.Throws<ArgumentException>(() =>
             {
-                mGenerationSession.With<SimplePropertyClass>();
+                mGenerationSession.Single<SimplePropertyClass>();
+            });
+        }
+
+        [Test]
+        public void List_ValidType_ReturnsCollectionContext()
+        {
+            ICollectionContext<SimpleUser, IList<SimpleUser>> userGenerator = mGenerationSession.List<SimpleUser>(10);
+
+            Assert.NotNull(userGenerator);
+        }
+
+        [Test]
+        public void List_InvalidType_ReturnsCollectionContext()
+        {
+            Assert.Throws<ArgumentException>(() =>
+            {
+                mGenerationSession.List<SimplePropertyClass>(10);
             });
         }
     }

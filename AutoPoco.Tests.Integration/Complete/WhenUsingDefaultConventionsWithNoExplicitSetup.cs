@@ -36,49 +36,49 @@ namespace AutoPoco.Tests.Integration.Complete
         [Test]
         public void SimpleUser_RoleNotNull()
         {
-            SimpleUser user = mSession.With<SimpleUser>().Get();
+            SimpleUser user = mSession.Single<SimpleUser>().Get();
             Assert.NotNull(user.Role);
         }
 
         [Test]
         public void SimpleUser_EmailIsNotNull()
         {
-           SimpleUser user = mSession.With<SimpleUser>().Get();
+           SimpleUser user = mSession.Single<SimpleUser>().Get();
            Assert.NotNull(user.EmailAddress);
         }
 
         [Test]
         public void SimpleUser_RoleIsNotNull()
         {
-            SimpleUser user = mSession.With<SimpleUser>().Get();
+            SimpleUser user = mSession.Single<SimpleUser>().Get();
             Assert.NotNull(user.Role);
         }
 
         [Test]
         public void SimpleUser_FirstNameNotNull()
         {
-            SimpleUser user = mSession.With<SimpleUser>().Get();
+            SimpleUser user = mSession.Single<SimpleUser>().Get();
             Assert.NotNull(user.FirstName);
         }
 
         [Test]
         public void SimpleUser_LastNameNotNull()
         {
-            SimpleUser user = mSession.With<SimpleUser>().Get();
+            SimpleUser user = mSession.Single<SimpleUser>().Get();
             Assert.NotNull(user.LastName);
         }
 
         [Test]
         public void SimpleFieldClass_SomePropertyNotNull()
         {
-            SimpleFieldClass fieldClass = mSession.With<SimpleFieldClass>().Get();
+            SimpleFieldClass fieldClass = mSession.Single<SimpleFieldClass>().Get();
             Assert.NotNull(fieldClass.SomeField);
         }
 
         [Test]
         public void SimpleFieldClass_SomeOtherPropertyNotNull()
         {
-            SimpleFieldClass fieldClass = mSession.With<SimpleFieldClass>().Get();
+            SimpleFieldClass fieldClass = mSession.Single<SimpleFieldClass>().Get();
             Assert.NotNull(fieldClass.SomeOtherField);
         }
 
@@ -86,28 +86,28 @@ namespace AutoPoco.Tests.Integration.Complete
         [Test]
         public void DefaultPropertyClass_StringIsEmpty()
         {
-            DefaultPropertyClass propertyClass = mSession.With<DefaultPropertyClass>().Get();
+            DefaultPropertyClass propertyClass = mSession.Single<DefaultPropertyClass>().Get();
             Assert.AreEqual("", propertyClass.String);
         }
 
         [Test]
         public void DefaultPropertyClass_FloatEqualsZero()
         {
-            DefaultPropertyClass propertyClass = mSession.With<DefaultPropertyClass>().Get();
+            DefaultPropertyClass propertyClass = mSession.Single<DefaultPropertyClass>().Get();
             Assert.AreEqual(0, propertyClass.Float);
         }
 
         [Test]
         public void DefaultPropertyClass_IntegerEqualsZero()
         {
-            DefaultPropertyClass propertyClass = mSession.With<DefaultPropertyClass>().Get();
+            DefaultPropertyClass propertyClass = mSession.Single<DefaultPropertyClass>().Get();
             Assert.AreEqual(0, propertyClass.Integer);
         }
 
         [Test]
         public void DefaultPropertyClass_DateTimeIsMin()
         {
-            DefaultPropertyClass propertyClass = mSession.With<DefaultPropertyClass>().Get();
+            DefaultPropertyClass propertyClass = mSession.Single<DefaultPropertyClass>().Get();
             Assert.AreEqual(DateTime.MinValue, propertyClass.Date);
         }
 
@@ -115,28 +115,28 @@ namespace AutoPoco.Tests.Integration.Complete
         [Test]
         public void DefaultFieldClass_StringIsEmpty()
         {
-            DefaultFieldClass propertyClass = mSession.With<DefaultFieldClass>().Get();
+            DefaultFieldClass propertyClass = mSession.Single<DefaultFieldClass>().Get();
             Assert.AreEqual("", propertyClass.String);
         }
 
         [Test]
         public void DefaultFieldClass_FloatEqualsZero()
         {
-            DefaultFieldClass propertyClass = mSession.With<DefaultFieldClass>().Get();
+            DefaultFieldClass propertyClass = mSession.Single<DefaultFieldClass>().Get();
             Assert.AreEqual(0, propertyClass.Float);
         }
 
         [Test]
         public void DefaultFieldClass_IntegerEqualsZero()
         {
-            DefaultFieldClass propertyClass = mSession.With<DefaultFieldClass>().Get();
+            DefaultFieldClass propertyClass = mSession.Single<DefaultFieldClass>().Get();
             Assert.AreEqual(0, propertyClass.Integer);
         }
 
         [Test]
         public void DefaultFieldClass_DateTimeIsMin()
         {
-            DefaultFieldClass propertyClass = mSession.With<DefaultFieldClass>().Get();
+            DefaultFieldClass propertyClass = mSession.Single<DefaultFieldClass>().Get();
             Assert.AreEqual(DateTime.MinValue, propertyClass.Date);
         }
     }

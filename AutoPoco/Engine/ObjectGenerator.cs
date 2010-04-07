@@ -35,11 +35,6 @@ namespace AutoPoco.Engine
             return (T)createdObject;
         }
 
-        public ICollectionContext<T, IList<T>> List(int count)
-        {
-            throw new NotImplementedException();
-        }
-
         public void AddAction(IObjectAction action)
         {
             mOverrides.Add(action);

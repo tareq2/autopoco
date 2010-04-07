@@ -31,21 +31,21 @@ namespace AutoPoco.Tests.Integration.Complete
         [Test]
         public void SimpleUser_CanBeCreated()
         {
-            SimpleUser user = mSession.With<SimpleUser>().Get();
+            SimpleUser user = mSession.Single<SimpleUser>().Get();
             Assert.NotNull(user);
         }
 
         [Test]
         public void SimpleFieldClass_CanBeCreated()
         {
-            SimpleFieldClass obj = mSession.With<SimpleFieldClass>().Get();
+            SimpleFieldClass obj = mSession.Single<SimpleFieldClass>().Get();
             Assert.NotNull(obj);
         }
 
         [Test]
         public void SimplePropertyClass_CanBeCreated()
         {
-            SimplePropertyClass obj = mSession.With<SimplePropertyClass>().Get();
+            SimplePropertyClass obj = mSession.Single<SimplePropertyClass>().Get();
             Assert.NotNull(obj);
         }
     }

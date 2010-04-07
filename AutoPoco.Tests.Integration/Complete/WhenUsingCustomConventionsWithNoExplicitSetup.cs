@@ -33,28 +33,28 @@ namespace AutoPoco.Tests.Integration.Complete
         [Test]
         public void TestProperty_HasTestValue()
         {
-           TestType testType = mSession.With<TestType>().Get();
+           TestType testType = mSession.Single<TestType>().Get();
            Assert.AreEqual("Test", testType.TestProperty);
         }
 
         [Test]
         public void TestField_HasTestValue()
         {
-            TestType testType = mSession.With<TestType>().Get();
+            TestType testType = mSession.Single<TestType>().Get();
             Assert.AreEqual("Test", testType.TestField);
         }
 
         [Test]
         public void TestEmptyField_IsNull()
         {
-            TestType testType = mSession.With<TestType>().Get();
+            TestType testType = mSession.Single<TestType>().Get();
             Assert.IsNull(testType.TestEmptyField);
         }
 
         [Test]
         public void TestEmptyProperty_IsNull()
         {
-            TestType testType = mSession.With<TestType>().Get();
+            TestType testType = mSession.Single<TestType>().Get();
             Assert.IsNull(testType.TestEmptyProperty);
         }
 

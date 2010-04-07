@@ -61,41 +61,41 @@ namespace AutoPoco.Tests.Integration.Engine
         [Test]
         public void CreateSimpleFieldClass_SomeFieldIsSet()
         {
-            var simpleFieldClass = this.GenerationSession.With<SimpleFieldClass>().Get();
+            var simpleFieldClass = this.GenerationSession.Single<SimpleFieldClass>().Get();
             Assert.AreEqual("one", simpleFieldClass.SomeField);
         }
 
         [Test]
         public void CreateSimpleFieldClass_SomeOtherFieldIsSet()
         {
-            var simpleFieldClass = this.GenerationSession.With<SimpleFieldClass>().Get();
+            var simpleFieldClass = this.GenerationSession.Single<SimpleFieldClass>().Get();
             Assert.AreEqual("other", simpleFieldClass.SomeOtherField);
         }
 
         [Test]
         public void CreateUnknownClass_ThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => { this.GenerationSession.With<SimplePropertyClass>(); });
+            Assert.Throws<ArgumentException>(() => { this.GenerationSession.Single<SimplePropertyClass>(); });
         }
 
         [Test]
         public void CreateUser_EmailAddressIsSet()
         {
-            var user = this.GenerationSession.With<SimpleUser>().Get();
+            var user = this.GenerationSession.Single<SimpleUser>().Get();
             Assert.AreEqual("test@test.com", user.EmailAddress);
         }
 
         [Test]
         public void CreateUser_FirstNameIsSet()
         {
-            var user = this.GenerationSession.With<SimpleUser>().Get();
+            var user = this.GenerationSession.Single<SimpleUser>().Get();
             Assert.AreEqual("first", user.FirstName);
         }
 
         [Test]
         public void CreateUser_LastNameIsSet()
         {
-            var user = this.GenerationSession.With<SimpleUser>().Get();
+            var user = this.GenerationSession.Single<SimpleUser>().Get();
             Assert.AreEqual("last", user.LastName);
         }
     }
