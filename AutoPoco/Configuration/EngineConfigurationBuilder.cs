@@ -23,7 +23,8 @@ namespace AutoPoco.Configuration
             //And return the public interface
             return (IEngineConfigurationTypeBuilder<T>)configuration;
         }
-
+        
+       
         public void Conventions(Action<IEngineConventionConfiguration> config)
         {
             config.Invoke(mConventions);

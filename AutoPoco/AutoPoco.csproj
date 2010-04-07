@@ -48,6 +48,7 @@
     <Compile Include="Actions\ObjectFieldSetFromValueAction.cs" />
     <Compile Include="Actions\ObjectPropertySetFromValueAction.cs" />
     <Compile Include="AutoPocoContainer.cs" />
+    <Compile Include="ConfigurationExtensions.cs" />
     <Compile Include="Configuration\DatasourceFactory.cs" />
     <Compile Include="Configuration\EngineConfiguration.cs" />
     <Compile Include="Configuration\EngineConfigurationType.cs" />
