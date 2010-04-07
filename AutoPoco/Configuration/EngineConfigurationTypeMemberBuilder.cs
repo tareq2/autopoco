@@ -24,17 +24,23 @@ namespace AutoPoco.Configuration
 
         public IEngineConfigurationTypeBuilder Use(Type dataSource)
         {
-            throw new NotImplementedException();
+            if (dataSource.GetInterface(typeof(IDatasource).FullName) == null) { throw new ArgumentException("dataSource does not implement IDatasource", "dataSource"); }
+            mDatasource = new DatasourceFactory(dataSource);
+            return mParentConfiguration;
         }
 
         public IEngineConfigurationTypeBuilder Use(Type dataSource, params object[] args)
         {
-            throw new NotImplementedException();
+            if (dataSource.GetInterface(typeof(IDatasource).FullName) == null) { throw new ArgumentException("dataSource does not implement IDatasource", "dataSource"); }
+            mDatasource = new DatasourceFactory(dataSource);
+            mDatasource.SetParams(args);
+            return mParentConfiguration;
         }
 
         public IEngineConfigurationTypeBuilder Default()
         {
-            throw new NotImplementedException();
+            mDatasource = null;
+            return mParentConfiguration;
         }
 
         #endregion

@@ -26,7 +26,14 @@ namespace AutoPoco.Configuration
 
         public IEngineConfigurationTypeBuilder Include(Type t)
         {
-            throw new NotImplementedException();
+            // Create the configuration
+            var configuration = new EngineConfigurationTypeBuilder(t);
+
+            // Store it locally
+            mTypes.Add(configuration);
+
+            //And return the public interface
+            return configuration;
         }        
        
         public void Conventions(Action<IEngineConventionConfiguration> config)

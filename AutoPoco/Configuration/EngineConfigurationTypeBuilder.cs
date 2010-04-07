@@ -6,6 +6,7 @@ using System.Linq.Expressions;
 using AutoPoco.Util;
 using AutoPoco.Configuration.Providers;
 using AutoPoco.Engine;
+using System.Reflection;
 
 namespace AutoPoco.Configuration
 {
@@ -31,12 +32,20 @@ namespace AutoPoco.Configuration
 
         public IEngineConfigurationTypeMemberBuilder SetupProperty(string propertyName)
         {
-            throw new NotImplementedException();
+            MemberInfo info = mType.GetProperty(propertyName);
+            if (info == null) { throw new ArgumentException("Property does not exist", propertyName); }
+            var memberBuilder = new EngineConfigurationTypeMemberBuilder(ReflectionHelper.GetMember(info), this);
+            mMembers.Add(memberBuilder);
+            return memberBuilder;
         }
 
         public IEngineConfigurationTypeMemberBuilder SetupField(string fieldName)
         {
-            throw new NotImplementedException();
+            FieldInfo info = mType.GetField(fieldName);
+            if (info == null) { throw new ArgumentException("Field does not exist", fieldName); }
+            var memberBuilder = new EngineConfigurationTypeMemberBuilder(ReflectionHelper.GetMember(info), this);
+            mMembers.Add(memberBuilder);
+            return memberBuilder;
         }
     }
 }

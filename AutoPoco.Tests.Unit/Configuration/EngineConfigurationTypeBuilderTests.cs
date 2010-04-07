@@ -26,7 +26,7 @@ namespace AutoPoco.Tests.Unit.Configuration
         public void NonGeneric_Setup_WithField_ReturnsMemberConfiguration()
         {
             EngineConfigurationTypeBuilder configuration = new EngineConfigurationTypeBuilder(typeof(SimpleFieldClass));
-            IEngineConfigurationTypeMemberBuilder memberConfiguration = configuration.SetupProperty("SomeField");
+            IEngineConfigurationTypeMemberBuilder memberConfiguration = configuration.SetupField("SomeField");
 
             Assert.NotNull(memberConfiguration);
         }
