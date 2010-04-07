@@ -8,9 +8,13 @@ namespace AutoPoco
 {
     public static class ConfigurationExtensions
     {
-        public static IEngineConfigurationBuilder AddAllTypesFromAssemblyContainingType<T>(this IEngineConfigurationBuilder builder)
+        public static IEngineConfigurationBuilder AddFromAssemblyContainingType<T>(this IEngineConfigurationBuilder builder)
         {
-            throw new NotImplementedException();
+            foreach (var type in typeof(T).Assembly.GetTypes())
+            {
+                builder.Include(type);
+            }
+            return builder;
         }
     }
 }

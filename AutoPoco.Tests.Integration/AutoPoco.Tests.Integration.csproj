@@ -52,6 +52,7 @@
     <Compile Include="Complete\WhenUsingDefaultConventionsWithExplicitSetup.cs" />
     <Compile Include="Complete\WhenUsingDefaultConventionsWithNoExplicitSetup.cs" />
     <Compile Include="Complete\WhenUsingCustomConventionsWithNoExplicitSetup.cs" />
+    <Compile Include="Complete\WhenUsingFullAssemblyScanningWithDefaultConventions.cs" />
     <Compile Include="Complete\WhenUsingNoConventionsWithNoExplicitSetup.cs" />
     <Compile Include="Configuration\ConfigurationBaseTest.cs" />
     <Compile Include="Configuration\WhenSimpleUserIsRegisteredWithProperties.cs" />
