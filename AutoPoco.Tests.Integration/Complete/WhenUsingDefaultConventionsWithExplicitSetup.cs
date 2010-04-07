@@ -57,7 +57,8 @@ namespace AutoPoco.Tests.Integration.Complete
         [Test]
         public void Get_SimpleSeveralUsers_HaveUniqueEmailAddresses()
         {
-            SimpleUser[] users = mSession.With<SimpleUser>().Get(10);
+            throw new NotImplementedException();
+            SimpleUser[] users = null; // mSession.With<SimpleUser>().Get();
 
             Assert.True(
                 users.Where(x => users.Count(y => y.EmailAddress == x.EmailAddress) > 1).Count() == 0);
@@ -71,17 +72,6 @@ namespace AutoPoco.Tests.Integration.Complete
                 .Get();
 
             Assert.AreEqual("override@override.com", user.EmailAddress);
-        }
-
-        [Test]
-        public void Get_SimpleUser_ImposeSameRole_HaveSameRole()
-        {
-            SimpleUser[] users = mSession.With<SimpleUser>()
-                .Impose(x=>x.Role, mSession.With<SimpleUserRole>().Impose(x=>x.Name, "Role").Get())                    
-                .Get(10);
-
-            Assert.True(
-                users.Where(x => users.Count(y => y.Role == x.Role) == 10).Count() == 10);
         }
 
         [Test]

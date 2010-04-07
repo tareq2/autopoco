@@ -35,14 +35,9 @@ namespace AutoPoco.Engine
             return (T)createdObject;
         }
 
-        public T[] Get(int count)
+        public ICollectionContext<T, IList<T>> List(int count)
         {
-            List<T> values = new List<T>();
-            for (int x = 0; x < count; x++)
-            {
-                values.Add(Get());
-            }
-            return values.ToArray();
+            throw new NotImplementedException();
         }
 
         public void AddAction(IObjectAction action)
@@ -64,6 +59,5 @@ namespace AutoPoco.Engine
                         
             return this;
         }
-
     }
 }

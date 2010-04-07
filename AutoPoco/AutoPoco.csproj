@@ -87,6 +87,7 @@
     <Compile Include="DataSources\ValueSource.cs" />
     <Compile Include="Engine\DatasourceBase.cs" />
     <Compile Include="Engine\GenerationSessionFactory.cs" />
+    <Compile Include="Engine\ICollectionContext.cs" />
     <Compile Include="Engine\IDatasource.cs" />
     <Compile Include="Configuration\IEngineConfigurationBuilder.cs" />
     <Compile Include="Configuration\IEngineConfigurationTypeBuilder.cs" />
@@ -104,6 +105,7 @@
     <Compile Include="Actions\ObjectFieldSetFromSourceAction.cs" />
     <Compile Include="Actions\ObjectPropertySetFromSourceAction.cs" />
     <Compile Include="Engine\IObjectBuilder.cs" />
+    <Compile Include="Engine\ICollectionSelectionContext.cs" />
     <Compile Include="StringExtensions.cs" />
     <Compile Include="DataSources\AutoSource.cs" />
     <Compile Include="DataSources\DefaultFloatSource.cs" />

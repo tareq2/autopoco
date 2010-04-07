@@ -6,20 +6,20 @@ using System.Linq.Expressions;
 
 namespace AutoPoco.Engine
 {
-    public interface IObjectGenerator<T>
+    public interface IObjectGenerator<TPoco>
     {
         /// <summary>
         /// Creates an instance of an object conforming to the specified rules
         /// </summary>
         /// <returns></returns>
-        T Get();
+        TPoco Get();
 
         /// <summary>
-        /// Creates an array of objects conforming to the specified values
+        /// Creates a list of objects conforming to the specified values
         /// </summary>
         /// <param name="count"></param>
         /// <returns></returns>
-        T[] Get(int count);
+        ICollectionContext<TPoco, IList<TPoco>> List(int count);
 
         /// <summary>
         /// Imposes a value on the created object that overrides any rules speciifed in configuration
@@ -27,6 +27,6 @@ namespace AutoPoco.Engine
         /// <typeparam name="TMember"></typeparam>
         /// <param name="propertyExpr"></param>
         /// <returns></returns>
-        IObjectGenerator<T> Impose<TMember>(Expression<Func<T, TMember>> propertyExpr, TMember value);
+        IObjectGenerator<TPoco> Impose<TMember>(Expression<Func<TPoco, TMember>> propertyExpr, TMember value);
     }
 }

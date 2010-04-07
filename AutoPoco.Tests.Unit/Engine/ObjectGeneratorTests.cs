@@ -51,13 +51,6 @@ namespace AutoPoco.Tests.Unit.Engine
         }
 
         [Test]
-        public void Get_ReturnsMultipleObjects()
-        {
-            SimpleUser[] users = mTestGenerator.Get(10);
-            Assert.AreEqual(10, users.Length);
-        }
-
-        [Test]
         public void Get_AppliesExtraActions()
         {
             Mock<IObjectAction> action = new Mock<IObjectAction>();
