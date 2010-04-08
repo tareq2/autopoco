@@ -10,6 +10,7 @@ namespace AutoPoco.DataSources
     {
         private int mMin;
         private int mMax;
+        private Random mRandom = new Random(1337);
 
         public RandomStringSource(int min, int max)
         {
@@ -18,13 +19,12 @@ namespace AutoPoco.DataSources
         }
 
         public override string Next(IGenerationSession session)
-        {
-            Random random = new Random();
+        {            
             StringBuilder builder = new StringBuilder();
-            int length = random.Next(mMin, mMax + 1);
+            int length = mRandom.Next(mMin, mMax + 1);
             for (int x = 0; x < length; x++)
             {
-                int value = random.Next(65, 123);
+                int value = mRandom.Next(65, 123);
                 builder.Append((char)value);
             }
             return builder.ToString();

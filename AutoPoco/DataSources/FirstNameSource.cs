@@ -8,7 +8,7 @@ namespace AutoPoco.DataSources
 {
     public class FirstNameSource : DatasourceBase<String>
     {
-        private Random mRandom = new Random();
+        private Random mRandom = new Random(1337);
 
         public override string Next(IGenerationSession session)
         {

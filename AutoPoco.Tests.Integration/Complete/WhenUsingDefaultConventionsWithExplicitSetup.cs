@@ -69,6 +69,8 @@ namespace AutoPoco.Tests.Integration.Complete
         {
             SimpleUser user = mSession.Single<SimpleUser>()
                 .Impose(x => x.EmailAddress, "override@override.com")
+                .Impose(x => x.FirstName, "Override")
+                .Impose(x => x.LastName, "Override")
                 .Get();
 
             Assert.AreEqual("override@override.com", user.EmailAddress);

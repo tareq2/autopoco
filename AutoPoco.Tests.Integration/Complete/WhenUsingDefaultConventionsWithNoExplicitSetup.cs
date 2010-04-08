@@ -24,7 +24,6 @@ namespace AutoPoco.Tests.Integration.Complete
                 });
                 x.Include<SimpleUser>();
                 x.Include<SimpleUserRole>();
-                x.Include<SimpleUserRole>();
                 x.Include<SimpleFieldClass>();
                 x.Include<SimplePropertyClass>();
                 x.Include<DefaultPropertyClass>();

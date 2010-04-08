@@ -28,8 +28,13 @@ namespace AutoPoco.Tests.Integration.Complete
             })
             .CreateSession();
 
+            SimpleUserRole roleOne = mSession.Single<SimpleUserRole>()
+                              .Impose(x => x.Name, "RoleOne").Get();
+            SimpleUserRole roleTwo = mSession.Single<SimpleUserRole>()
+                              .Impose(x => x.Name, "RoleTwo").Get();
+            SimpleUserRole roleThree = mSession.Single<SimpleUserRole>()
+                              .Impose(x => x.Name, "RoleThree").Get();
 
-           // Set up a list of 100 people
             mUsers = mSession.List<SimpleUser>(100)
                  .First(50)
                       .Impose(x => x.FirstName, "Rob")
@@ -39,18 +44,13 @@ namespace AutoPoco.Tests.Integration.Complete
                       .Impose(x => x.LastName, "Smith")
                   .All()
                   .Random(25)
-                      .Impose(x => x.Role,
-                          mSession.Single<SimpleUserRole>()
-                              .Impose(x => x.Name, "RoleOne").Get())
+                      .Impose(x => x.Role,roleOne)
                    .Next(25)
-                      .Impose(x => x.Role,
-                          mSession.Single<SimpleUserRole>()
-                              .Impose(x => x.Name, "RoleTwo").Get())
+                      .Impose(x => x.Role,roleTwo)
                   .Next(50)
-                      .Impose(x => x.Role,
-                          mSession.Single<SimpleUserRole>()
-                              .Impose(x => x.Name, "RoleThree").Get())
+                      .Impose(x => x.Role, roleThree)
                  .All().Get();
+
         }
 
         [Test]

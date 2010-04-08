@@ -10,6 +10,7 @@ namespace AutoPoco.Engine
         : ICollectionContext<TPoco, TCollection> where TCollection : ICollection<TPoco>
     {
         private IEnumerable<IObjectGenerator<TPoco>> mGenerators;
+        private Random mRandom = new Random(1337);
 
         public CollectionContext(IEnumerable<IObjectGenerator<TPoco>> generators)
         {
@@ -35,12 +36,10 @@ namespace AutoPoco.Engine
 
         public ICollectionSequenceSelectionContext<TPoco, TCollection> Random(int count)
         {
-            Random random = new Random();
-
             // Randomise and return
             return new CollectionSequenceSelectionContext<TPoco, TCollection>(
                 this,
-                 mGenerators.OrderBy(r => random.Next()).ToArray(),
+                 mGenerators.OrderBy(r => mRandom.Next()).ToArray(),
                 count);           
         }
 
