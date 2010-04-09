@@ -8,6 +8,8 @@ using AutoPoco.DataSources;
 using NUnit.Framework;
 using AutoPoco.Engine;
 using AutoPoco.Testing;
+using AutoPoco.Configuration.Providers;
+using Moq;
 
 namespace AutoPoco.Tests.Unit.Configuration
 {
@@ -43,6 +45,16 @@ namespace AutoPoco.Tests.Unit.Configuration
             });
 
             Assert.IsTrue(wasInvoked);
+        }
+
+        [Test]
+        public void RegisterTypeProvider_RegistersTypeProvider()
+        {
+            EngineConfigurationBuilder config = new EngineConfigurationBuilder();
+            Mock<IEngineConfigurationTypeProvider> providerMock = new Mock<IEngineConfigurationTypeProvider>();
+            config.RegisterTypeProvider(providerMock.Object);
+
+            Assert.IsTrue(config.GetConfigurationTypes().Contains(providerMock.Object));
         }
     }
 }

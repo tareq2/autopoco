@@ -12,5 +12,6 @@ namespace AutoPoco.Configuration
         /// Adds a specific rule for a member on the poco we're building rules for
         /// </summary>
         IEngineConfigurationTypeMemberBuilder<TPoco, TMember> Setup<TMember>(Expression<Func<TPoco, TMember>> expression);
+       
     }
 }

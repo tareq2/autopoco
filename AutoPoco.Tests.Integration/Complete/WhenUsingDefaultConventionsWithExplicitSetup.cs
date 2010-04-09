@@ -57,8 +57,7 @@ namespace AutoPoco.Tests.Integration.Complete
         [Test]
         public void Single_SimpleSeveralUsers_HaveUniqueEmailAddresses()
         {
-            throw new NotImplementedException();
-            SimpleUser[] users = null; // mSession.With<SimpleUser>().Get();
+            SimpleUser[] users = mSession.List<SimpleUser>(10).Get().ToArray();
 
             Assert.True(
                 users.Where(x => users.Count(y => y.EmailAddress == x.EmailAddress) > 1).Count() == 0);

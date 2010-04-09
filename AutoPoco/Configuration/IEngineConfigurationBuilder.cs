@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using AutoPoco.Engine;
+using AutoPoco.Configuration.Providers;
 
 namespace AutoPoco.Configuration
 {
@@ -25,6 +26,11 @@ namespace AutoPoco.Configuration
         /// <summary>
         /// Sets up the conventions that the engine will use
         /// </summary>
-        void Conventions(Action<IEngineConventionConfiguration> config);   
+        void Conventions(Action<IEngineConventionConfiguration> config);
+
+        /// <summary>
+        /// Manually adds a type provider to the builder
+        /// </summary>
+        void RegisterTypeProvider(IEngineConfigurationTypeProvider provider);
     }
 }

@@ -6,6 +6,8 @@ using NUnit.Framework;
 using AutoPoco.Configuration;
 using AutoPoco.DataSources;
 using AutoPoco.Testing;
+using Moq;
+using AutoPoco.Configuration.Providers;
 
 namespace AutoPoco.Tests.Unit.Configuration
 {
@@ -16,7 +18,7 @@ namespace AutoPoco.Tests.Unit.Configuration
         [Test]
         public void NonGeneric_Setup_WithProperty_ReturnsMemberConfiguration()
         {
-            EngineConfigurationTypeBuilder configuration = new EngineConfigurationTypeBuilder(typeof(SimplePropertyClass));
+            IEngineConfigurationTypeBuilder configuration = new EngineConfigurationTypeBuilder(typeof(SimplePropertyClass));
             IEngineConfigurationTypeMemberBuilder memberConfiguration = configuration.SetupProperty("SomeProperty");
 
             Assert.NotNull(memberConfiguration);
@@ -25,7 +27,7 @@ namespace AutoPoco.Tests.Unit.Configuration
         [Test]
         public void NonGeneric_Setup_WithField_ReturnsMemberConfiguration()
         {
-            EngineConfigurationTypeBuilder configuration = new EngineConfigurationTypeBuilder(typeof(SimpleFieldClass));
+            IEngineConfigurationTypeBuilder configuration = new EngineConfigurationTypeBuilder(typeof(SimpleFieldClass));
             IEngineConfigurationTypeMemberBuilder memberConfiguration = configuration.SetupField("SomeField");
 
             Assert.NotNull(memberConfiguration);
@@ -34,7 +36,7 @@ namespace AutoPoco.Tests.Unit.Configuration
         [Test]
         public void NonGeneric_Setup_WithNonExistentProperty_ThrowsArgumentException()
         {
-            EngineConfigurationTypeBuilder configuration = new EngineConfigurationTypeBuilder(typeof(SimplePropertyClass));
+            IEngineConfigurationTypeBuilder configuration = new EngineConfigurationTypeBuilder(typeof(SimplePropertyClass));
 
             Assert.Throws<ArgumentException>(() => { configuration.SetupProperty("SomeNonExistantProperty"); });
         }
@@ -42,7 +44,7 @@ namespace AutoPoco.Tests.Unit.Configuration
         [Test]
         public void NonGeneric_Setup_WithNonExistentField_ThrowsArgumentException()
         {
-            EngineConfigurationTypeBuilder configuration = new EngineConfigurationTypeBuilder(typeof(SimpleFieldClass));
+            IEngineConfigurationTypeBuilder configuration = new EngineConfigurationTypeBuilder(typeof(SimpleFieldClass));
             Assert.Throws<ArgumentException>(() => { configuration.SetupProperty("SomeNonExistantField"); });
         }
         
@@ -68,7 +70,7 @@ namespace AutoPoco.Tests.Unit.Configuration
         [Test]
         public void GetConfigurationType_ReturnsType()
         {
-            EngineConfigurationTypeBuilder<SimpleFieldClass> configuration = new EngineConfigurationTypeBuilder<SimpleFieldClass>();
+            IEngineConfigurationTypeProvider configuration = new EngineConfigurationTypeBuilder<SimpleFieldClass>();
             Type type = configuration.GetConfigurationType();
 
             Assert.AreEqual(typeof(SimpleFieldClass), type);
@@ -80,11 +82,12 @@ namespace AutoPoco.Tests.Unit.Configuration
             EngineConfigurationTypeBuilder<SimpleFieldClass> configuration = new EngineConfigurationTypeBuilder<SimpleFieldClass>();
 
             configuration.Setup(x => x.SomeField);
-            configuration.SetupField("SomeOtherField");
+            ((IEngineConfigurationTypeBuilder)configuration).SetupField("SomeOtherField");
 
-            var members = configuration.GetConfigurationMembers();
+            var members = ((IEngineConfigurationTypeProvider)configuration).GetConfigurationMembers();
 
             Assert.AreEqual(2, members.Count());
         }
+
     }
 }

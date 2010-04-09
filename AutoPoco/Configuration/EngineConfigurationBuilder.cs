@@ -130,5 +130,10 @@ namespace AutoPoco.Configuration
             }
             return configuration;
         }
+
+        public void RegisterTypeProvider(IEngineConfigurationTypeProvider provider)
+        {
+            mTypes.Add(provider);
+        }
     }
 }

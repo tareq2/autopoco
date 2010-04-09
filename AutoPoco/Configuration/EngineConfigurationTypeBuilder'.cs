@@ -18,7 +18,7 @@ namespace AutoPoco.Configuration
             var configuration = new EngineConfigurationTypeMemberBuilder<TPoco, TMember>(member, this);
 
             // Store it in the local list
-            mMembers.Add(configuration);
+            this.RegisterTypeMemberProvider(configuration);
 
             // And return it
             return (IEngineConfigurationTypeMemberBuilder<TPoco, TMember>)configuration;
