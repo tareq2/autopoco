@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Actions\ObjectFieldSetFromValueAction.cs" />
+    <Compile Include="Actions\ObjectMethodInvokeFromSourceAction.cs" />
     <Compile Include="Actions\ObjectPropertySetFromValueAction.cs" />
     <Compile Include="AutoPocoContainer.cs" />
     <Compile Include="ConfigurationExtensions.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="Configuration\TypeFieldConventionContext.cs" />
     <Compile Include="Configuration\TypeMemberConventionContext.cs" />
     <Compile Include="Configuration\TypePropertyConventionContext.cs" />
+    <Compile Include="Configuration\Use.cs" />
     <Compile Include="Conventions\DefaultTypeConvention.cs" />
     <Compile Include="Conventions\IdMemberConvention.cs" />
     <Compile Include="Conventions\ReferenceMemberConvention.cs" />

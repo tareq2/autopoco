@@ -53,6 +53,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Actions\ObjectFieldSetFromSourceActionTests.cs" />
+    <Compile Include="Actions\ObjectFieldSetFromValueActionTests.cs" />
+    <Compile Include="Actions\ObjectMethodInvokeFromSourceActionTests.cs" />
+    <Compile Include="Actions\ObjectPropertySetFromSourceActionTests.cs" />
+    <Compile Include="Actions\ObjectPropertySetFromValueActionTests.cs" />
     <Compile Include="AutoPocoContainerTests.cs" />
     <Compile Include="Configuration\DataSourceFactoryTests.cs" />
     <Compile Include="Configuration\EngineConfigurationBuilderTests.cs" />

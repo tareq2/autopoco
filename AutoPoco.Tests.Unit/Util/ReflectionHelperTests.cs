@@ -7,6 +7,8 @@ using AutoPoco.Util;
 using System.Reflection;
 using AutoPoco.Configuration;
 using AutoPoco.Testing;
+using AutoPoco.DataSources;
+using System.Linq.Expressions;
 
 namespace AutoPoco.Tests.Unit.Util
 {
@@ -44,5 +46,6 @@ namespace AutoPoco.Tests.Unit.Util
 
             Assert.AreEqual("SomeField", info.Name);
         }
+        
     }
 }

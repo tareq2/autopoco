@@ -18,9 +18,9 @@ namespace AutoPoco.Tests.Unit.Configuration
         {
             EngineConfigurationTypeMember member = new EngineConfigurationTypeMember(ReflectionHelper.GetMember<SimpleUser>(x => x.FirstName));
             Mock<IEngineConfigurationDatasource> sourceMock = new Mock<IEngineConfigurationDatasource>();
-            member.SetSource(sourceMock.Object);
+            member.SetDatasource(sourceMock.Object);
 
-            var source2 = member.GetSource();
+            var source2 = member.GetDatasources().First();
 
             Assert.AreEqual(sourceMock.Object, source2);
         }

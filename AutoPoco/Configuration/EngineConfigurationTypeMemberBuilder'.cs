@@ -18,20 +18,20 @@ namespace AutoPoco.Configuration
 
         public IEngineConfigurationTypeBuilder<TPoco> Use<TSource>() where TSource : IDatasource<TMember>
         {
-            mDatasource = new DatasourceFactory(typeof(TSource));
-            return mParentConfiguration;
+            return Use<TSource>(new Object[] { });
         }
 
         public IEngineConfigurationTypeBuilder<TPoco> Use<TSource>(params Object[] args) where TSource : IDatasource<TMember>
         {
-            mDatasource = new DatasourceFactory(typeof(TSource));
-            mDatasource.SetParams(args);
+            DatasourceFactory factory = new DatasourceFactory(typeof(TSource));
+            factory.SetParams(args);
+            SetDatasources(factory);
             return mParentConfiguration;
         }
 
-        public IEngineConfigurationTypeBuilder<TPoco> Default()
+        public new IEngineConfigurationTypeBuilder<TPoco> Default()
         {
-            mDatasource = null;
+            base.Default();
             return mParentConfiguration;
         }       
     }

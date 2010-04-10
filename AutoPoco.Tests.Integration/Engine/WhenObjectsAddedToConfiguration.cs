@@ -34,9 +34,9 @@ namespace AutoPoco.Tests.Integration.Engine
             var lastNameFactory = new DatasourceFactory(typeof(ValueSource));
             lastNameFactory.SetParams("last");
 
-            simpleUserConfig.GetRegisteredMember(emailMember).SetSource(emailSourceFactory);
-            simpleUserConfig.GetRegisteredMember(firstNameMember).SetSource(firstNameFactory);
-            simpleUserConfig.GetRegisteredMember(lastNameMember).SetSource(lastNameFactory);
+            simpleUserConfig.GetRegisteredMember(emailMember).SetDatasource(emailSourceFactory);
+            simpleUserConfig.GetRegisteredMember(firstNameMember).SetDatasource(firstNameFactory);
+            simpleUserConfig.GetRegisteredMember(lastNameMember).SetDatasource(lastNameFactory);
 
 
             this.Configuration.RegisterType(typeof(SimpleFieldClass));
@@ -53,8 +53,8 @@ namespace AutoPoco.Tests.Integration.Engine
             var someOtherFieldFactory = new DatasourceFactory(typeof(ValueSource));
             someOtherFieldFactory.SetParams("other");
 
-            simpleFieldConfig.GetRegisteredMember(someFieldMember).SetSource(someFieldFactory);
-            simpleFieldConfig.GetRegisteredMember(someOtherField).SetSource(someOtherFieldFactory);
+            simpleFieldConfig.GetRegisteredMember(someFieldMember).SetDatasource(someFieldFactory);
+            simpleFieldConfig.GetRegisteredMember(someOtherField).SetDatasource(someOtherFieldFactory);
         }
 
 

@@ -48,6 +48,48 @@ namespace AutoPoco.Tests.Unit.Configuration
             Assert.Throws<ArgumentException>(() => { configuration.SetupProperty("SomeNonExistantField"); });
         }
         
+        [Test]
+        public void NonGeneric_SetupMethod_WithNonExistentMethod_ThrowsArgumentException()
+        {
+            EngineConfigurationTypeBuilder configuration = new EngineConfigurationTypeBuilder(typeof(SimpleMethodClass));
+            Assert.Throws<ArgumentException>(() => { configuration.SetupMethod("DoesNotExist"); });
+        }
+        
+        [Test]
+        public void Generic_Invoke_WithFunc_ReturnsConfiguration()
+        {
+            EngineConfigurationTypeBuilder<SimpleMethodClass> configuration = new EngineConfigurationTypeBuilder<SimpleMethodClass>();
+            IEngineConfigurationTypeBuilder<SimpleMethodClass> returnValue = configuration.Invoke(x => x.SetSomething("Something"));
+
+            Assert.AreEqual(configuration, returnValue);  
+        }
+
+        [Test]
+        public void Generic_Invoke_WithAction_ReturnsConfiguration()
+        {
+            EngineConfigurationTypeBuilder<SimpleMethodClass> configuration = new EngineConfigurationTypeBuilder<SimpleMethodClass>();
+            IEngineConfigurationTypeBuilder<SimpleMethodClass> returnValue = configuration.Invoke(x => x.ReturnSomething());
+
+            Assert.AreEqual(configuration, returnValue);
+        }
+
+        [Test]
+        public void NonGeneric_SetupMethod_ReturnsConfiguration()
+        {
+            EngineConfigurationTypeBuilder configuration = new EngineConfigurationTypeBuilder(typeof(SimpleMethodClass));
+            IEngineConfigurationTypeBuilder returnValue = configuration.SetupMethod("ReturnSomething");
+
+            Assert.AreEqual(configuration, returnValue);
+        }
+
+        [Test]
+        public void NonGeneric_SetupMethodWithParameters_ReturnsConfiguration()
+        {
+            EngineConfigurationTypeBuilder configuration = new EngineConfigurationTypeBuilder(typeof(SimpleMethodClass));
+            IEngineConfigurationTypeBuilder returnValue = configuration.SetupMethod("SetSomething", "Something" );
+
+            Assert.AreEqual(configuration, returnValue);
+        }
 
         [Test]
         public void Generic_Setup_WithProperty_ReturnsMemberConfiguration()
@@ -89,5 +131,42 @@ namespace AutoPoco.Tests.Unit.Configuration
             Assert.AreEqual(2, members.Count());
         }
 
+        [Test]
+        public void GetConfigurationMembersWithMethods_ReturnsMembers()
+        {
+            EngineConfigurationTypeBuilder<SimpleMethodClass> configuration = new EngineConfigurationTypeBuilder<SimpleMethodClass>();
+
+            configuration.Invoke(x => x.SetSomething("Literal"));
+            configuration.SetupMethod("ReturnSomething");
+
+            var members = ((IEngineConfigurationTypeProvider)configuration).GetConfigurationMembers();
+
+            Assert.AreEqual(2, members.Count());
+        }
+
+        [Test]
+        public void Invoke_WithInvalidMethodCall_ThrowsArgumentException()
+        {
+            EngineConfigurationTypeBuilder<SimpleMethodClass> configuration = new EngineConfigurationTypeBuilder<SimpleMethodClass>();
+            Assert.Throws<ArgumentException>(() =>
+            {
+                configuration.Invoke(x => x.SetSomething(new SimpleMethodClass().ReturnSomething()));
+            });
+        }
+
+        [Test]
+        public void Invoke_WithInvalidGenericMethodCall_ThrowsArgumentException()
+        {
+            EngineConfigurationTypeBuilder<SimpleMethodClass> configuration = new EngineConfigurationTypeBuilder<SimpleMethodClass>();
+            Assert.Throws<ArgumentException>(() =>
+            {
+                configuration.Invoke(x => x.SetSomething(TestGenericClass.Something<string>()));
+            });
+        }
+
+        public static class TestGenericClass
+        {
+            public static T Something<T>() { return default(T); }
+        }
     }
 }

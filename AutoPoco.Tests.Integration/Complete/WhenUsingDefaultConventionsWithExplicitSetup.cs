@@ -6,6 +6,7 @@ using AutoPoco.Engine;
 using AutoPoco.Testing;
 using AutoPoco.DataSources;
 using NUnit.Framework;
+using AutoPoco.Configuration;
 
 namespace AutoPoco.Tests.Integration.Complete
 {
@@ -23,20 +24,51 @@ namespace AutoPoco.Tests.Integration.Complete
                     c.UseDefaultConventions();
                 });
 
+                x.Include<SimpleMethodClass>()
+                    .Invoke(c => c.SetSomething(
+                        Use.Source<String, RandomStringSource>(5, 10),
+                        Use.Source<String, LastNameSource>()))
+                    .Invoke(c => c.ReturnSomething());
+
                 x.Include<SimpleUser>()
                     .Setup(c => c.EmailAddress).Use<EmailAddressSource>()
                     .Setup(c => c.FirstName).Use<FirstNameSource>()
                     .Setup(c => c.LastName).Use<LastNameSource>();
 
+             
+
                 x.Include<SimpleUserRole>()
                     .Setup(c => c.Name).Random(5, 10);
+                             
 
                 x.Include<SimpleFieldClass>();
-                x.Include<SimplePropertyClass>();
+                x.Include<SimplePropertyClass>();           
                 x.Include<DefaultPropertyClass>();
                 x.Include<DefaultFieldClass>();
+               
             })
             .CreateSession();
+        }
+
+        [Test]
+        public void Single_SimpleMethodClass_ReturnSomething_Invoked()
+        {
+            SimpleMethodClass result = mSession.Single<SimpleMethodClass>().Get();
+            Assert.True(result.ReturnSomethingCalled);
+        }
+
+        [Test]
+        public void Single_SimpleMethodClass_SetSomething_SetsValueCorrectlyFromSource()
+        {
+            SimpleMethodClass result = mSession.Single<SimpleMethodClass>().Get();
+            Assert.IsTrue(result.Value.Length >= 5 && result.Value.Length <= 10);
+        }
+
+        [Test]
+        public void Single_SimpleMethodClass_SetSomething_SetsOtherValueCorrectlyFromSource()
+        {
+            SimpleMethodClass result = mSession.Single<SimpleMethodClass>().Get();
+            Assert.IsTrue(result.OtherValue.Length >= 2);
         }
 
         [Test]

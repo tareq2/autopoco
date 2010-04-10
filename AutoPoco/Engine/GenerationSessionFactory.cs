@@ -28,20 +28,30 @@ namespace AutoPoco.Engine
                     .ToList()
                     .ForEach(x =>
                     {
-                        var source = x.GetSource();
-                        if(source == null) return;
+                        var sources = x.GetDatasources().Select(s=>s.Build()).ToList();
 
                         if (x.Member.IsField)
                         {
+                            if(sources.Count == 0) {return;}
+
                             builder.AddAction(new ObjectFieldSetFromSourceAction(
                                (EngineTypeFieldMember)x.Member,
-                               source.Build()));
+                               sources.First()));
                         }
                         else if (x.Member.IsProperty)
                         {
+                            if(sources.Count == 0) {return;}
+                            
                             builder.AddAction(new ObjectPropertySetFromSourceAction(
                                (EngineTypePropertyMember)x.Member,
-                               source.Build()));
+                               sources.First()));
+                        }
+                        else if (x.Member.IsMethod)
+                        {
+                            builder.AddAction(new ObjectMethodInvokeFromSourceAction(
+                               (EngineTypeMethodMember)x.Member,
+                               sources
+                               ));
                         }
                     });
 

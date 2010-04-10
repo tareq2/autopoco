@@ -28,7 +28,7 @@ namespace AutoPoco.Configuration
         {
             var factory = new DatasourceFactory(typeof(ValueSource));
             factory.SetParams(value);
-            mTypeMember.SetSource(factory);
+            mTypeMember.SetDatasource(factory);
         }
 
         public void SetSource<T>() where T : AutoPoco.Engine.IDatasource
@@ -38,7 +38,7 @@ namespace AutoPoco.Configuration
 
         public void SetSource(Type t)
         {
-            mTypeMember.SetSource(new DatasourceFactory(t));
+            mTypeMember.SetDatasource(new DatasourceFactory(t));
         }
 
         public TypeMemberConventionContext(IEngineConfiguration configuration, IEngineConfigurationTypeMember member)

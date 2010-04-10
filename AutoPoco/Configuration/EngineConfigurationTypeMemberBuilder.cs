@@ -12,7 +12,7 @@ namespace AutoPoco.Configuration
     {
         protected EngineConfigurationTypeBuilder mParentConfiguration;
         protected EngineTypeMember mMember;
-        protected DatasourceFactory mDatasource;
+        protected List<DatasourceFactory> mDatasources = new List<DatasourceFactory>();
 
         public EngineConfigurationTypeMemberBuilder(EngineTypeMember member, EngineConfigurationTypeBuilder parentConfiguration)
         {
@@ -20,39 +20,45 @@ namespace AutoPoco.Configuration
             mParentConfiguration = parentConfiguration;
         }
 
-        #region IEngineConfigurationTypeMemberBuilder Members
-
         public IEngineConfigurationTypeBuilder Use(Type dataSource)
         {
-            if (dataSource.GetInterface(typeof(IDatasource).FullName) == null) { throw new ArgumentException("dataSource does not implement IDatasource", "dataSource"); }
-            mDatasource = new DatasourceFactory(dataSource);
-            return mParentConfiguration;
+            return Use(dataSource, new Object[] { });
         }
 
         public IEngineConfigurationTypeBuilder Use(Type dataSource, params object[] args)
         {
             if (dataSource.GetInterface(typeof(IDatasource).FullName) == null) { throw new ArgumentException("dataSource does not implement IDatasource", "dataSource"); }
-            mDatasource = new DatasourceFactory(dataSource);
-            mDatasource.SetParams(args);
+            mDatasources.Clear();
+            
+            DatasourceFactory newFactory = new DatasourceFactory(dataSource);
+            newFactory.SetParams(args);
+            mDatasources.Add(newFactory);          
             return mParentConfiguration;
+        }
+
+        public void SetDatasources(params DatasourceFactory[] dataSources)
+        {
+            mDatasources.Clear();
+            if (dataSources.Length > 0)
+            {
+                mDatasources.AddRange(dataSources);
+            }
         }
 
         public IEngineConfigurationTypeBuilder Default()
         {
-            mDatasource = null;
+            mDatasources.Clear();
             return mParentConfiguration;
         }
-
-        #endregion
 
         public EngineTypeMember GetConfigurationMember()
         {
             return mMember;
         }
 
-        public IEngineConfigurationDatasource GetDatasource()
+        public IEnumerable<IEngineConfigurationDatasource> GetDatasources()
         {
-            return mDatasource;
+            return mDatasources.Cast<IEngineConfigurationDatasource>();
         }
     }
 }

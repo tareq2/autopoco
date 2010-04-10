@@ -20,16 +20,22 @@ namespace AutoPoco.Configuration
         }
 
         /// <summary>
-        /// Sets the action being performed to this member on type instantation
+        /// Sets a single data source for the type member
         /// </summary>
         /// <param name="action"></param>
-        void SetSource(IEngineConfigurationDatasource action);
+        void SetDatasource(IEngineConfigurationDatasource action);
+        
+        /// <summary>
+        /// Sets multiple data sources for the type member
+        /// </summary>
+        /// <param name="sources"></param>
+        void SetDatasources(IEnumerable<IEngineConfigurationDatasource> sources);
 
         /// <summary>
-        /// Gets the action being performed to this member on type instantiation
+        /// Gets the data sources required to populate this member on type instantiation
         /// </summary>
         /// <returns></returns>
-        IEngineConfigurationDatasource GetSource();
+        IEnumerable<IEngineConfigurationDatasource> GetDatasources();
 
     }
 }

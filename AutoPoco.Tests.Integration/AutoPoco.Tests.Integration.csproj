@@ -56,6 +56,8 @@
     <Compile Include="Complete\WhenUsingFullAssemblyScanningWithDefaultConventions.cs" />
     <Compile Include="Complete\WhenUsingNoConventionsWithNoExplicitSetup.cs" />
     <Compile Include="Configuration\ConfigurationBaseTest.cs" />
+    <Compile Include="Configuration\WhenMethodIsRegisteredWithArguments.cs" />
+    <Compile Include="Configuration\WhenMethodIsRegisteredWithNoArguments.cs" />
     <Compile Include="Configuration\WhenSimpleUserIsRegisteredWithProperties.cs" />
     <Compile Include="Configuration\WhenThreeTypesAreRegistered.cs" />
     <Compile Include="Configuration\WhenTypeConventionApplied.cs" />

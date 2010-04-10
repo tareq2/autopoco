@@ -73,7 +73,7 @@ namespace AutoPoco.Configuration
                 }
             }
 
-            // Go through all of the now-registered types and do their members
+            // Go through all of the explicitly-registered types and do their members
             foreach (var type in this.GetConfigurationTypes())
             {
                 var configuredType = configuration.GetRegisteredType(type.GetConfigurationType());
@@ -90,10 +90,10 @@ namespace AutoPoco.Configuration
                     }
 
                     // Set the action on that member if a datasource has been set explicitly for this type
-                    var datasource = member.GetDatasource();
-                    if (datasource != null)
+                    var datasources = member.GetDatasources();
+                    if (datasources.Count() > 0)
                     {
-                        configuredMember.SetSource(datasource);
+                        configuredMember.SetDatasources(datasources);
                     }
                 }
 
@@ -101,7 +101,7 @@ namespace AutoPoco.Configuration
                 foreach (var member in configuredType.GetRegisteredMembers())
                 {
                     // If it's already been set, then ignore it
-                    if (member.GetSource() != null) { continue; }
+                    if (member.GetDatasources().FirstOrDefault() != null) { continue; }
 
                     // Apply the appropriate conventions
                     if (member.Member.IsField)
@@ -124,7 +124,6 @@ namespace AutoPoco.Configuration
                             x.Apply(new TypePropertyConventionContext(configuration, member));
                         });
                     }
-
                 }
 
             }

@@ -7,7 +7,8 @@ namespace AutoPoco.Configuration
 {
     public class EngineConfigurationTypeMember : IEngineConfigurationTypeMember
     {
-        private IEngineConfigurationDatasource mDataSource;
+        private List<IEngineConfigurationDatasource> mDataSources = new List<IEngineConfigurationDatasource>();
+
         private EngineTypeMember mMember;
 
         public EngineConfigurationTypeMember(EngineTypeMember member)
@@ -20,14 +21,21 @@ namespace AutoPoco.Configuration
             get { return mMember; }
         }
 
-        public void SetSource(IEngineConfigurationDatasource action)
+        public void SetDatasource(IEngineConfigurationDatasource action)
         {
-            mDataSource = action;
+            mDataSources.Clear();
+            mDataSources.Add(action);
         }
 
-        public IEngineConfigurationDatasource GetSource()
+        public void SetDatasources(IEnumerable<IEngineConfigurationDatasource> sources)
         {
-            return mDataSource;
+            mDataSources.Clear();
+            mDataSources.AddRange(sources);
+        }
+
+        public IEnumerable<IEngineConfigurationDatasource> GetDatasources()
+        {
+            return mDataSources;
         }
     }
 }

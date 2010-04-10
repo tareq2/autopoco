@@ -28,14 +28,14 @@ namespace AutoPoco.Tests.Unit.Configuration
         public void SetValue_SetsDatasource()
         {
             mContext.SetValue(10);
-            mMemberMock.Verify(x => x.SetSource(It.IsAny<IEngineConfigurationDatasource>()), Times.Once());
+            mMemberMock.Verify(x => x.SetDatasource(It.IsAny<IEngineConfigurationDatasource>()), Times.Once());
         }
 
         [Test]
         public void SetValue_SetsValueDataSource()
         {
             IEngineConfigurationDatasource source = null;
-            mMemberMock.Setup(x => x.SetSource(It.IsAny<IEngineConfigurationDatasource>())).Callback((IEngineConfigurationDatasource configSource) =>
+            mMemberMock.Setup(x => x.SetDatasource(It.IsAny<IEngineConfigurationDatasource>())).Callback((IEngineConfigurationDatasource configSource) =>
             {
                 source = configSource;
             });
@@ -48,14 +48,14 @@ namespace AutoPoco.Tests.Unit.Configuration
         public void SetSouce_SetsDatasource()
         {
             mContext.SetSource<TestSource>();
-            mMemberMock.Verify(x => x.SetSource(It.IsAny<IEngineConfigurationDatasource>()), Times.Once());
+            mMemberMock.Verify(x => x.SetDatasource(It.IsAny<IEngineConfigurationDatasource>()), Times.Once());
         }
 
         [Test]
         public void SetSource_SetsCorrectDatasource()
         {
             IEngineConfigurationDatasource source = null;
-            mMemberMock.Setup(x => x.SetSource(It.IsAny<IEngineConfigurationDatasource>())).Callback((IEngineConfigurationDatasource configSource) =>
+            mMemberMock.Setup(x => x.SetDatasource(It.IsAny<IEngineConfigurationDatasource>())).Callback((IEngineConfigurationDatasource configSource) =>
             {
                 source = configSource;
             });

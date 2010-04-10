@@ -13,13 +13,32 @@ namespace AutoPoco.Testing
             set;
         }
 
+        public string OtherValue
+        {
+            get;
+            set;
+        }
+
+        public bool ReturnSomethingCalled
+        {
+            get;
+            set;
+        }
+
         public void SetSomething(String value)
         {
             this.Value = value;
         }
 
+        public void SetSomething(String value, string otherValue)
+        {
+            this.Value = value;
+            this.OtherValue = otherValue;
+        }
+
         public string ReturnSomething()
         {
+            ReturnSomethingCalled = true;
             return string.Empty;
         }
     }

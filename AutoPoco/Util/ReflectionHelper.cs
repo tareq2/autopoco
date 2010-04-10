@@ -44,7 +44,22 @@ namespace AutoPoco.Util
 
             return memberExpression.Member;              
         }
+        
+        public static string GetMethodName<TPoco>(Expression<Action<TPoco>> action)
+        {
+            MethodCallExpression methodExpression = action.Body as MethodCallExpression;
+            if (methodExpression == null) { throw new ArgumentException("Method expression expected, and not passed in", "action"); }
+            return methodExpression.Method.Name;
+            throw new NotImplementedException();
+        }
 
+        public static string GetMethodName<TPoco, TReturn>(Expression<Func<TPoco, TReturn>> function)
+        {
+            MethodCallExpression methodExpression = function.Body as MethodCallExpression;
+            if (methodExpression == null) { throw new ArgumentException("Method expression expected, and not passed in", "action"); }
+            return methodExpression.Method.Name;
+            throw new NotImplementedException();
+        }
 
         public static EngineTypeMember GetMember(MemberInfo info)
         {
@@ -62,5 +77,6 @@ namespace AutoPoco.Util
             }
             throw new ArgumentException("Unsupported member type", "info");
         }
+        
     }
 }

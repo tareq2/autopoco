@@ -73,7 +73,7 @@ namespace AutoPoco.Tests.Unit.Configuration
             propertyConfiguration.Use(typeof(SimpleDataSource));
             propertyConfiguration.Default();
 
-            Assert.IsNull(propertyConfiguration.GetDatasource());
+            Assert.AreEqual(0, propertyConfiguration.GetDatasources().Count());
         }
 
         [Test]
@@ -118,7 +118,7 @@ namespace AutoPoco.Tests.Unit.Configuration
              propertyConfiguration.Use<SimpleDataSource>();
              propertyConfiguration.Default();
 
-            Assert.IsNull(propertyConfiguration.GetDatasource());
+            Assert.AreEqual(0, propertyConfiguration.GetDatasources().Count());
         }
 
         [Test]
@@ -144,7 +144,7 @@ namespace AutoPoco.Tests.Unit.Configuration
             EngineConfigurationTypeMemberBuilder<SimpleUser, string> propertyConfiguration = new EngineConfigurationTypeMemberBuilder<SimpleUser, string>(
                 member, configuration);
 
-            IEngineConfigurationDatasource returnAction = propertyConfiguration.GetDatasource();
+            IEngineConfigurationDatasource returnAction = propertyConfiguration.GetDatasources().FirstOrDefault();
             Assert.Null(returnAction);
         }
 
@@ -158,10 +158,8 @@ namespace AutoPoco.Tests.Unit.Configuration
                 member, configuration);
             propertyConfiguration.Use<SimpleDataSource>();
 
-            IEngineConfigurationDatasource returnAction = propertyConfiguration.GetDatasource();
+            IEngineConfigurationDatasource returnAction = propertyConfiguration.GetDatasources().FirstOrDefault();
             Assert.NotNull(returnAction);
         }
-
-
     }
 }

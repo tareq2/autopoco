@@ -33,7 +33,7 @@ namespace AutoPoco.Tests.Integration.Configuration
         [Test]
         public void PropertySourceIsSetFromConvention()
         {
-            var source = mField.GetSource().Build();
+            var source = mField.GetDatasources().First().Build();
             Assert.AreEqual(typeof(TestDataSource), source.GetType());
         }
 
