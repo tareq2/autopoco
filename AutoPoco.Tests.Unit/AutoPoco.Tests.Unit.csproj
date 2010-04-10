@@ -55,7 +55,9 @@
   <ItemGroup>
     <Compile Include="Actions\ObjectFieldSetFromSourceActionTests.cs" />
     <Compile Include="Actions\ObjectFieldSetFromValueActionTests.cs" />
+    <Compile Include="Actions\ObjectMethodInvokeActionActionTests.cs" />
     <Compile Include="Actions\ObjectMethodInvokeFromSourceActionTests.cs" />
+    <Compile Include="Actions\ObjectMethodInvokeFuncActionTests.cs" />
     <Compile Include="Actions\ObjectPropertySetFromSourceActionTests.cs" />
     <Compile Include="Actions\ObjectPropertySetFromValueActionTests.cs" />
     <Compile Include="AutoPocoContainerTests.cs" />

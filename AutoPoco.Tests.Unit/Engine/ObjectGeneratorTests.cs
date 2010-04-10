@@ -16,7 +16,8 @@ namespace AutoPoco.Tests.Unit.Engine
     public class ObjectGeneratorTests
     {
         string mTestPropertyValue = "TestValue";
-        ObjectGenerator<SimpleUser> mTestGenerator;
+        ObjectGenerator<SimpleUser> mUserGenerator;
+        ObjectGenerator<SimpleMethodClass> mMethodGenerator;
 
         [SetUp]
         public void TestSetup()
@@ -38,13 +39,16 @@ namespace AutoPoco.Tests.Unit.Engine
                     new SimpleDataSource(mTestPropertyValue)
                     ));
 
-            mTestGenerator = new ObjectGenerator<SimpleUser>(null,builder);               
+            mMethodGenerator = new ObjectGenerator<SimpleMethodClass>(
+                null, builder);
+
+            mUserGenerator = new ObjectGenerator<SimpleUser>(null,builder);               
         }
 
         [Test]
         public void Single_ReturnsSingleObject()
         {
-            SimpleUser user = mTestGenerator.Get();
+            SimpleUser user = mUserGenerator.Get();
             Assert.AreEqual(mTestPropertyValue, user.EmailAddress);
             Assert.AreEqual(mTestPropertyValue, user.FirstName);
             Assert.AreEqual(mTestPropertyValue, user.LastName);
@@ -60,8 +64,8 @@ namespace AutoPoco.Tests.Unit.Engine
                 {
                     actionObject = dest;
                 });
-            mTestGenerator.AddAction(action.Object);
-            SimpleUser user = mTestGenerator.Get();
+            mUserGenerator.AddAction(action.Object);
+            SimpleUser user = mUserGenerator.Get();
 
             Assert.AreEqual(actionObject, user);
         }
@@ -70,7 +74,7 @@ namespace AutoPoco.Tests.Unit.Engine
         public void Impose_OverridesDataSource()
         {
             String newValue = "SomethingElse";
-            SimpleUser user = mTestGenerator.Impose(x => x.EmailAddress, newValue).Get();
+            SimpleUser user = mUserGenerator.Impose(x => x.EmailAddress, newValue).Get();
 
             Assert.AreEqual(newValue, user.EmailAddress);
             Assert.AreEqual(mTestPropertyValue, user.FirstName);
@@ -80,9 +84,27 @@ namespace AutoPoco.Tests.Unit.Engine
         [Test]
         public void Impose_ReturnsGenerator()
         {
-             IObjectGenerator<SimpleUser> generator = mTestGenerator.Impose(x => x.EmailAddress, "");
+             IObjectGenerator<SimpleUser> generator = mUserGenerator.Impose(x => x.EmailAddress, "");
 
-             Assert.AreEqual(mTestGenerator, generator);
+             Assert.AreEqual(mUserGenerator, generator);
+        }
+
+        [Test]
+        public void Invoke_WithFunc_ReturnsGenerator()
+        {
+            IObjectGenerator<SimpleMethodClass> generator = mMethodGenerator.Invoke(
+                x => x.ReturnSomething());
+
+            Assert.AreEqual(mMethodGenerator, generator);
+        }
+
+        [Test]
+        public void Invoke_WithAction_ReturnsGenerator()
+        {
+            IObjectGenerator<SimpleMethodClass> generator = mMethodGenerator.Invoke(
+                x => x.SetSomething("Test"));
+
+            Assert.AreEqual(mMethodGenerator, generator);
         }
     }
 }

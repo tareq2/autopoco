@@ -42,6 +42,24 @@ namespace AutoPoco.Engine
             return this;             
         }
 
+        public ICollectionSequenceSelectionContext<TPoco, TCollection> Invoke(Expression<Action<TPoco>> methodExpr)
+        {
+            foreach (var item in mSelected)
+            {
+                item.Invoke(methodExpr);
+            }
+            return this;    
+        }
+
+        public ICollectionSequenceSelectionContext<TPoco, TCollection> Invoke<TMember>(Expression<Func<TPoco, TMember>> methodExpr)
+        {
+            foreach (var item in mSelected)
+            {
+                item.Invoke(methodExpr);
+            }
+            return this;    
+        }
+
         public ICollectionSequenceSelectionContext<TPoco, TCollection> Next(int count)
         {
             // Skip ahead + return this

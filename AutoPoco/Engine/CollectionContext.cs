@@ -57,5 +57,23 @@ namespace AutoPoco.Engine
             }         
             throw new InvalidOperationException();
         }
+
+        public ICollectionContext<TPoco, TCollection> Invoke(Expression<Action<TPoco>> methodExpr)
+        {
+            foreach (var item in mGenerators)
+            {
+                item.Invoke(methodExpr);
+            }
+            return this;   
+        }
+
+        public ICollectionContext<TPoco, TCollection> Invoke<TMember>(Expression<Func<TPoco, TMember>> methodExpr)
+        {
+            foreach (var item in mGenerators)
+            {
+                item.Invoke(methodExpr);
+            }
+            return this;   
+        }
     }
 }

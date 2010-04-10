@@ -21,5 +21,19 @@ namespace AutoPoco.Engine
         /// <param name="propertyExpr"></param>
         /// <returns></returns>
         IObjectGenerator<TPoco> Impose<TMember>(Expression<Func<TPoco, TMember>> propertyExpr, TMember value);
+
+        /// <summary>
+        /// Invokes a method on all the items in the current selection
+        /// </summary>
+        /// <param name="methodExpr"></param>
+        /// <returns></returns>
+        IObjectGenerator<TPoco> Invoke(Expression<Action<TPoco>> methodExpr);
+
+        /// <summary>
+        /// Invokes a method on all the items in the current selection
+        /// </summary>
+        /// <param name="methodExpr"></param>
+        /// <returns></returns>
+        IObjectGenerator<TPoco> Invoke<TMember>(Expression<Func<TPoco, TMember>> methodExpr);
     }
 }

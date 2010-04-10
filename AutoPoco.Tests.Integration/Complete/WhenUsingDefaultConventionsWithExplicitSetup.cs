@@ -33,13 +33,10 @@ namespace AutoPoco.Tests.Integration.Complete
                 x.Include<SimpleUser>()
                     .Setup(c => c.EmailAddress).Use<EmailAddressSource>()
                     .Setup(c => c.FirstName).Use<FirstNameSource>()
-                    .Setup(c => c.LastName).Use<LastNameSource>();
-
-             
+                    .Setup(c => c.LastName).Use<LastNameSource>();             
 
                 x.Include<SimpleUserRole>()
-                    .Setup(c => c.Name).Random(5, 10);
-                             
+                    .Setup(c => c.Name).Random(5, 10);                             
 
                 x.Include<SimpleFieldClass>();
                 x.Include<SimplePropertyClass>();           

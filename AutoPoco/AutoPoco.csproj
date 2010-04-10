@@ -47,6 +47,8 @@
   <ItemGroup>
     <Compile Include="Actions\ObjectFieldSetFromValueAction.cs" />
     <Compile Include="Actions\ObjectMethodInvokeFromSourceAction.cs" />
+    <Compile Include="Actions\ObjectMethodInvokeActionAction.cs" />
+    <Compile Include="Actions\ObjectMethodInvokeFuncAction.cs" />
     <Compile Include="Actions\ObjectPropertySetFromValueAction.cs" />
     <Compile Include="AutoPocoContainer.cs" />
     <Compile Include="ConfigurationExtensions.cs" />

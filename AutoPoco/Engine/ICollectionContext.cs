@@ -14,6 +14,20 @@ namespace AutoPoco.Engine
         ICollectionContext<TPoco, TCollection> Impose<TMember>(Expression<Func<TPoco, TMember>> propertyExpr, TMember value);
 
         /// <summary>
+        /// Invokes a method on all the items in the current selection
+        /// </summary>
+        /// <param name="methodExpr"></param>
+        /// <returns></returns>
+        ICollectionContext<TPoco, TCollection> Invoke(Expression<Action<TPoco>> methodExpr);
+
+        /// <summary>
+        /// Invokes a method on all the items in the current selection
+        /// </summary>
+        /// <param name="methodExpr"></param>
+        /// <returns></returns>
+        ICollectionContext<TPoco, TCollection> Invoke<TMember>(Expression<Func<TPoco, TMember>> methodExpr);
+
+        /// <summary>
         /// Gets the first items in this collection for modification
         /// </summary>
         /// <param name="count"></param>

@@ -5,6 +5,7 @@ using System.Text;
 using AutoPoco.Configuration;
 using AutoPoco.Util;
 using AutoPoco.Actions;
+using System.Linq.Expressions;
 
 namespace AutoPoco.Engine
 {
@@ -52,6 +53,20 @@ namespace AutoPoco.Engine
                 this.AddAction(new ObjectPropertySetFromValueAction((EngineTypePropertyMember)member, value));
             }
                         
+            return this;
+        }
+
+        public IObjectGenerator<T> Invoke(System.Linq.Expressions.Expression<Action<T>> methodExpr)
+        {
+            ObjectMethodInvokeActionAction<T> invoker = new ObjectMethodInvokeActionAction<T>(methodExpr.Compile());
+            mOverrides.Add(invoker);
+            return this;
+        }
+
+        public IObjectGenerator<T> Invoke<TMember>(System.Linq.Expressions.Expression<Func<T, TMember>> methodExpr)
+        {
+            ObjectMethodInvokeFuncAction<T, TMember> invoker = new ObjectMethodInvokeFuncAction<T, TMember>(methodExpr.Compile());
+            mOverrides.Add(invoker);
             return this;
         }
     }
