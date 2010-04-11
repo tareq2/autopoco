@@ -22,5 +22,10 @@ namespace AutoPoco.Conventions
                 context.RegisterField(field);
             }                
         }
+
+        public void SpecifyRequirements(ITypeMemberConventionRequirements requirements)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

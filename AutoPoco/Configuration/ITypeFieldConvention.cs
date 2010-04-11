@@ -8,7 +8,13 @@ namespace AutoPoco.Configuration
     public interface ITypeFieldConvention : IConvention
     {
         /// <summary>
-        /// Apply the convention to the registered property
+        /// Specify the conditions under which this convention will be invoked
+        /// </summary>
+        /// <param name="requirements"></param>
+        void SpecifyRequirements(ITypeMemberConventionRequirements requirements);
+
+        /// <summary>
+        /// Apply the convention to the registered field
         /// </summary>
         void Apply(ITypeFieldConventionContext context);
     }

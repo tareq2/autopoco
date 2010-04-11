@@ -41,10 +41,12 @@ namespace AutoPoco.Tests.Integration.Complete
                 x.Include<SimpleFieldClass>();
                 x.Include<SimplePropertyClass>();           
                 x.Include<DefaultPropertyClass>();
-                x.Include<DefaultFieldClass>();
+                x.Include<DefaultFieldClass>();                             
                
             })
             .CreateSession();
+
+           
         }
 
         [Test]

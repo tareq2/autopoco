@@ -92,6 +92,11 @@ namespace AutoPoco.Tests.Integration.Complete
             {
                 context.SetValue("Test");
             }
+
+            public void SpecifyRequirements(ITypeMemberConventionRequirements requirements)
+            {
+                throw new NotImplementedException();
+            }
         }
 
         public class TestPropertyConvention : ITypePropertyConvention
@@ -99,6 +104,11 @@ namespace AutoPoco.Tests.Integration.Complete
             public void Apply(ITypePropertyConventionContext context)
             {
                 context.SetValue("Test");
+            }
+
+            public void SpecifyRequirements(ITypeMemberConventionRequirements requirements)
+            {
+                throw new NotImplementedException();
             }
         }
 

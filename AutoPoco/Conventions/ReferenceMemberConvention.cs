@@ -14,18 +14,22 @@ namespace AutoPoco.Conventions
             if (context.Configuration.GetRegisteredTypes()
                 .Where(x => x.RegisteredType == context.Member.FieldInfo.FieldType).Count() > 0)
             {
-                context.SetSource(typeof(AutoSource<>).MakeGenericType(context.Member.FieldInfo.FieldType));               
+                context.SetSource(typeof(AutoSource<>).MakeGenericType(context.Member.FieldInfo.FieldType));
             }
         }
 
-       public void Apply(ITypePropertyConventionContext context)
+        public void Apply(ITypePropertyConventionContext context)
         {
-            if (context.Configuration.GetRegisteredTypes()            
+            if (context.Configuration.GetRegisteredTypes()
                 .Where(x => x.RegisteredType == context.Member.PropertyInfo.PropertyType).Count() > 0)
             {
                 context.SetSource(typeof(AutoSource<>).MakeGenericType(context.Member.PropertyInfo.PropertyType));
             }
         }
 
+        public void SpecifyRequirements(ITypeMemberConventionRequirements requirements)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

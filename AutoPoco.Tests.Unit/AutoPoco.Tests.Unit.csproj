@@ -72,6 +72,7 @@
     <Compile Include="Configuration\TestMapClass.cs" />
     <Compile Include="Configuration\TypeConventionContextTests.cs" />
     <Compile Include="Configuration\TypeMemberConventionContextTests.cs" />
+    <Compile Include="Configuration\TypeMemberConventionRequirementsTests.cs" />
     <Compile Include="DataSources\AutoSourceTests.cs" />
     <Compile Include="DataSources\DefaultFloatSourceTests.cs" />
     <Compile Include="DataSources\DefaultIntegerSourceTests.cs" />

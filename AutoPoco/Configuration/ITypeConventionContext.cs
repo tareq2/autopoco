@@ -28,6 +28,5 @@ namespace AutoPoco.Configuration
         /// <param name="propertyName"></param>
         void RegisterProperty(PropertyInfo property);
 
-        // TODO: Register Methods for invocation
     }
 }

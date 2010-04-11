@@ -48,6 +48,11 @@ namespace AutoPoco.Tests.Integration.Configuration
             {
                 context.SetSource<TestDataSource>();
             }
+
+            public void SpecifyRequirements(ITypeMemberConventionRequirements requirements)
+            {
+                throw new NotImplementedException();
+            }
         }
 
         public class TestDataSource : IDatasource

@@ -23,5 +23,10 @@ namespace AutoPoco.Conventions
                 context.SetValue(DateTime.MinValue);
             }
         }
+
+        public void SpecifyRequirements(ITypeMemberConventionRequirements requirements)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

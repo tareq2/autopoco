@@ -74,6 +74,7 @@
     <Compile Include="Configuration\ITypeConvention.cs" />
     <Compile Include="Configuration\ITypeConventionContext.cs" />
     <Compile Include="Configuration\ITypeFieldConventionContext.cs" />
+    <Compile Include="Configuration\ITypeMemberConventionRequirements.cs" />
     <Compile Include="Configuration\ITypePropertyConvention.cs" />
     <Compile Include="Configuration\ITypePropertyConventionContext.cs" />
     <Compile Include="Configuration\Providers\IEngineConfigurationProvider.cs" />
@@ -82,11 +83,13 @@
     <Compile Include="Configuration\Providers\IEngineConventionProvider.cs" />
     <Compile Include="Configuration\TypeConventionContext.cs" />
     <Compile Include="Configuration\TypeFieldConventionContext.cs" />
+    <Compile Include="Configuration\TypeFieldConventionRequirements.cs" />
     <Compile Include="Configuration\TypeMemberConventionContext.cs" />
+    <Compile Include="Configuration\TypeMemberConventionRequirements.cs" />
     <Compile Include="Configuration\TypePropertyConventionContext.cs" />
+    <Compile Include="Configuration\TypePropertyConventionRequirements.cs" />
     <Compile Include="Configuration\Use.cs" />
     <Compile Include="Conventions\DefaultTypeConvention.cs" />
-    <Compile Include="Conventions\IdMemberConvention.cs" />
     <Compile Include="Conventions\ReferenceMemberConvention.cs" />
     <Compile Include="DataSources\ValueSource.cs" />
     <Compile Include="Engine\CollectionContext.cs" />
