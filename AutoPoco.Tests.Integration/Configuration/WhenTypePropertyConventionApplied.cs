@@ -13,7 +13,8 @@ namespace AutoPoco.Tests.Integration.Configuration
     {
         private IEngineConfiguration mConfiguration;
         private IEngineConfigurationType mType;
-        private IEngineConfigurationTypeMember mProperty;
+        private IEngineConfigurationTypeMember mTestProperty;
+        private IEngineConfigurationTypeMember mTestIgnoreProperty;
 
         [SetUp]
         public void Setup()
@@ -22,24 +23,40 @@ namespace AutoPoco.Tests.Integration.Configuration
             {
                 x.Register<TestPropertyConvention>();
             });
-            this.Builder.Include<TestPropertyClass>().Setup(x => x.Test);
+            this.Builder.Include<TestPropertyClass>()
+                .Setup(x => x.Test).Default()
+                .Setup(x => x.TestIgnore);
 
             mConfiguration = new EngineConfigurationFactory().Create(this.Builder, this.Builder.ConventionProvider);
             mType = mConfiguration.GetRegisteredType(typeof(TestPropertyClass));
-            mProperty = mType.GetRegisteredMembers().Where(x => x.Member.Name == "Test").Single();
+            mTestProperty = mType.GetRegisteredMembers().Where(x => x.Member.Name == "Test").Single();
+            mTestIgnoreProperty = mType.GetRegisteredMembers().Where(x => x.Member.Name == "TestIgnore").Single();
         }
 
 
         [Test]
-        public void PropertySourceIsSetFromConvention()
+        public void TestPropertySourceIsSetFromConvention()
         {
-            var source = mProperty.GetDatasources().First().Build();
+            var source = mTestProperty.GetDatasources().First().Build();
             Assert.AreEqual(typeof(TestDataSource), source.GetType());
+        }
+
+        [Test]
+        public void IgnoredPropertySourceIsNotSetFromConvention()
+        {
+            var source = mTestProperty.GetDatasources().SingleOrDefault();
+            Assert.Null(source);
         }
 
         public class TestPropertyClass
         {
             public string Test
+            {
+                get;
+                set;
+            }
+
+            public string TestIgnore
             {
                 get;
                 set;
@@ -55,7 +72,7 @@ namespace AutoPoco.Tests.Integration.Configuration
 
             public void SpecifyRequirements(ITypeMemberConventionRequirements requirements)
             {
-                throw new NotImplementedException();
+                requirements.Name(x => x == "Test");
             }
         }
 

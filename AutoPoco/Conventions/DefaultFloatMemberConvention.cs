@@ -26,7 +26,7 @@ namespace AutoPoco.Conventions
 
         public void SpecifyRequirements(ITypeMemberConventionRequirements requirements)
         {
-            throw new NotImplementedException();
+            requirements.Type(x => x == typeof(float));
         }
     }
 }

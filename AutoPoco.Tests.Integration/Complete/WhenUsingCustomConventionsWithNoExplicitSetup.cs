@@ -95,7 +95,7 @@ namespace AutoPoco.Tests.Integration.Complete
 
             public void SpecifyRequirements(ITypeMemberConventionRequirements requirements)
             {
-                throw new NotImplementedException();
+               
             }
         }
 
@@ -108,7 +108,7 @@ namespace AutoPoco.Tests.Integration.Complete
 
             public void SpecifyRequirements(ITypeMemberConventionRequirements requirements)
             {
-                throw new NotImplementedException();
+                
             }
         }
 

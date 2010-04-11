@@ -13,7 +13,9 @@ namespace AutoPoco.Tests.Integration.Configuration
     {
         private IEngineConfiguration mConfiguration;
         private IEngineConfigurationType mType;
-        private IEngineConfigurationTypeMember mField;
+
+        private IEngineConfigurationTypeMember mTestField;
+        private IEngineConfigurationTypeMember mTestIgnoreField;
 
         [SetUp]
         public void Setup()
@@ -22,24 +24,35 @@ namespace AutoPoco.Tests.Integration.Configuration
             {
                 x.Register<TestPropertyConvention>();
             });
-            this.Builder.Include<TestFieldClass>().Setup(x => x.Test);
+            this.Builder.Include<TestFieldClass>()
+                .Setup(x => x.Test).Default()
+                .Setup(x => x.TestIgnore);
 
             mConfiguration = new EngineConfigurationFactory().Create(this.Builder, this.Builder.ConventionProvider);
             mType = mConfiguration.GetRegisteredType(typeof(TestFieldClass));
-            mField = mType.GetRegisteredMembers().Where(x => x.Member.Name == "Test").Single();
+            mTestField = mType.GetRegisteredMembers().Where(x => x.Member.Name == "Test").Single();
+            mTestIgnoreField = mType.GetRegisteredMembers().Where(x => x.Member.Name == "TestIgnore").Single();
         }
 
 
         [Test]
-        public void PropertySourceIsSetFromConvention()
+        public void FieldSourceIsSetFromConvention()
         {
-            var source = mField.GetDatasources().First().Build();
+            var source = mTestField.GetDatasources().First().Build();
             Assert.AreEqual(typeof(TestDataSource), source.GetType());
+        }
+
+        [Test]
+        public void IgnoredFieldSourceIsNotSetFromConvention()
+        {
+            var source = mTestIgnoreField.GetDatasources().SingleOrDefault();
+            Assert.Null(source);
         }
 
         public class TestFieldClass
         {
             public string Test;
+            public string TestIgnore;
         }
 
         public class TestPropertyConvention : ITypeFieldConvention
@@ -51,7 +64,7 @@ namespace AutoPoco.Tests.Integration.Configuration
 
             public void SpecifyRequirements(ITypeMemberConventionRequirements requirements)
             {
-                throw new NotImplementedException();
+                requirements.Name(x => x == "Test");
             }
         }
 

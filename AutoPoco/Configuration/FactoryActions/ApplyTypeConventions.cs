@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using AutoPoco.Configuration.Providers;
 
-namespace AutoPoco.Configuration
+namespace AutoPoco.Configuration.FactoryActions
 {
-    class EngineConfigurationFactoryApplyTypeConventionsTypeAction : IEngineConfigurationFactoryTypeAction
+    public class ApplyTypeConventions : IEngineConfigurationFactoryTypeAction
     {
         private IEngineConfiguration mConfiguration;
         private IEngineConventionProvider mConventionProvider;
 
-        public EngineConfigurationFactoryApplyTypeConventionsTypeAction(IEngineConfiguration configuration, IEngineConventionProvider conventionProvider)
+        public ApplyTypeConventions(IEngineConfiguration configuration, IEngineConventionProvider conventionProvider)
         {
             mConfiguration = configuration;
             mConventionProvider = conventionProvider;

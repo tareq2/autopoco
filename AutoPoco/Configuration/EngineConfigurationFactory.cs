@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using AutoPoco.Configuration.Providers;
+using AutoPoco.Configuration.FactoryActions;
 
 namespace AutoPoco.Configuration
 {
@@ -14,11 +15,11 @@ namespace AutoPoco.Configuration
             List<IEngineConfigurationFactoryTypeAction> actions = new List<IEngineConfigurationFactoryTypeAction>();
             
             // Create the actions
-            actions.Add(new EngineConfigurationFactoryApplyTypeConventionsTypeAction(
+            actions.Add(new ApplyTypeConventions(
                 configuration, conventionProvider));
-            actions.Add(new EngineConfigurationFactoryApplyTypeMemberConfigurationTypeAction(
+            actions.Add(new ApplyTypeMemberConfiguration(
                 configurationProvider, configuration, conventionProvider));
-            actions.Add(new EngineConfigurationFactoryApplyTypeMemberConventionsTypeAction(
+            actions.Add(new ApplyTypeMemberConventions(
                configuration, conventionProvider));
 
             // Scan for the types

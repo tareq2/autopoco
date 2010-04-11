@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using AutoPoco.Configuration.Providers;
 
-namespace AutoPoco.Configuration
+namespace AutoPoco.Configuration.FactoryActions
 {
-    public class EngineConfigurationFactoryApplyTypeMemberConventionsTypeAction : IEngineConfigurationFactoryTypeAction
+    public class ApplyTypeMemberConventions : IEngineConfigurationFactoryTypeAction
     {
         private IEngineConfiguration mConfiguration;
         private IEngineConventionProvider mConventionProvider;
 
-        public EngineConfigurationFactoryApplyTypeMemberConventionsTypeAction(
+        public ApplyTypeMemberConventions(
             IEngineConfiguration configuration, 
             IEngineConventionProvider conventionProvider)
         {
@@ -34,7 +34,12 @@ namespace AutoPoco.Configuration
                     .ToList()
                     .ForEach(x =>
                     {
-                        x.Apply(new TypeFieldConventionContext(mConfiguration, member));
+                        TypeFieldConventionRequirements requirements = new TypeFieldConventionRequirements();
+                        x.SpecifyRequirements(requirements);
+                        if (requirements.IsValid((EngineTypeFieldMember)member.Member))
+                        {
+                            x.Apply(new TypeFieldConventionContext(mConfiguration, member));
+                        }
                     });
                 }
                 if (member.Member.IsProperty)
@@ -44,7 +49,12 @@ namespace AutoPoco.Configuration
                     .ToList()
                     .ForEach(x =>
                     {
-                        x.Apply(new TypePropertyConventionContext(mConfiguration, member));
+                        TypePropertyConventionRequirements requirements = new TypePropertyConventionRequirements();
+                        x.SpecifyRequirements(requirements);
+                        if (requirements.IsValid((EngineTypePropertyMember)member.Member))
+                        {
+                            x.Apply(new TypePropertyConventionContext(mConfiguration, member));
+                        }
                     });
                 }
             }           
