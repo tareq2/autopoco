@@ -22,7 +22,7 @@ namespace AutoPoco.Tests.Integration.Configuration
         {
             this.Builder.Conventions(x =>
             {
-                x.Register<TestPropertyConvention>();
+                x.Register<TestFieldConvention>();
             });
             this.Builder.Include<TestFieldClass>()
                 .Setup(x => x.Test).Default()
@@ -55,7 +55,7 @@ namespace AutoPoco.Tests.Integration.Configuration
             public string TestIgnore;
         }
 
-        public class TestPropertyConvention : ITypeFieldConvention
+        public class TestFieldConvention : ITypeFieldConvention
         {
             public void Apply(ITypeFieldConventionContext context)
             {

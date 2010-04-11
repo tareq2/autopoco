@@ -57,9 +57,10 @@
     <Compile Include="Complete\WhenUsingNoConventionsWithNoExplicitSetup.cs" />
     <Compile Include="Configuration\ConfigurationBaseTest.cs" />
     <Compile Include="Configuration\WhenMethodIsRegisteredWithArguments.cs" />
-    <Compile Include="Configuration\WhenMethodIsRegisteredWithNoArguments.cs" />
+    <Compile Include="Complete\WhenMultipleConventionsApplyToSameField.cs" />
     <Compile Include="Configuration\WhenSimpleUserIsRegisteredWithProperties.cs" />
     <Compile Include="Configuration\WhenThreeTypesAreRegistered.cs" />
+    <Compile Include="Complete\WhenMultipleConventionsApplyToSameProperty.cs" />
     <Compile Include="Configuration\WhenTypeConventionApplied.cs" />
     <Compile Include="Configuration\WhenTypeFieldConventionApplied.cs" />
     <Compile Include="Configuration\WhenTypePropertyConventionApplied.cs" />

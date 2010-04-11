@@ -66,6 +66,7 @@
     <Compile Include="Configuration\EngineTypeFieldMember.cs" />
     <Compile Include="Configuration\EngineTypeMethodMember.cs" />
     <Compile Include="Configuration\EngineTypePropertyMember.cs" />
+    <Compile Include="Configuration\FactoryActions\RegisterTypeMembersFromConfiguration.cs" />
     <Compile Include="Configuration\IConvention.cs" />
     <Compile Include="Configuration\IEngineConfiguration.cs" />
     <Compile Include="Configuration\IEngineConfigurationFactory.cs" />

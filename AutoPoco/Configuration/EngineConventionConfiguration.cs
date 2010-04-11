@@ -16,7 +16,7 @@ namespace AutoPoco.Configuration
             mConventions.Add(conventionType);
         }
 
-        public void Register<T>()
+        public void Register<T>() where T : IConvention
         {
             Register(typeof(T));
         }

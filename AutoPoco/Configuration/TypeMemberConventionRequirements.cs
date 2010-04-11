@@ -32,5 +32,15 @@ namespace AutoPoco.Configuration
             if (mNameRule == null) { return true; }
             return mNameRule.Invoke(name);
         }
+
+        internal bool HasNameRule()
+        {
+            return mNameRule != null;
+        }
+
+        internal bool HasTypeRule()
+        {
+            return mTypeRule != null;
+        }
     }
 }

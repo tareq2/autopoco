@@ -17,16 +17,29 @@ namespace AutoPoco.Configuration
             // Create the actions
             actions.Add(new ApplyTypeConventions(
                 configuration, conventionProvider));
-            actions.Add(new ApplyTypeMemberConfiguration(
+            actions.Add(new RegisterTypeMembersFromConfiguration(
                 configurationProvider, configuration, conventionProvider));
             actions.Add(new ApplyTypeMemberConventions(
                configuration, conventionProvider));
+            actions.Add(new ApplyTypeMemberConfiguration(
+                configurationProvider, configuration, conventionProvider));            
 
             // Scan for the types
             FindAndRegisterAllTypes(configurationProvider, configuration);
 
+            // Get all the type conventions
+            var typeConventions = conventionProvider.Find<ITypeConvention>()
+                .Select(y => (ITypeConvention)Activator.CreateInstance(y))
+                .ToList();
+
             foreach (var type in configuration.GetRegisteredTypes())
             {
+                // Apply Type Conventions            
+                typeConventions.ForEach(x =>
+                {
+                    x.Apply(new TypeConventionContext(type));
+                });
+
                 // Apply all actions to that type             
                 actions.ForEach(a => a.Apply(type));
             }

@@ -19,45 +19,64 @@ namespace AutoPoco.Configuration.FactoryActions
             mConventionProvider = conventionProvider;
         }
 
+        private int ScoreRequirements(TypeMemberConventionRequirements requirements)
+        {
+            int score = 0;
+            if (requirements.HasNameRule()) { score+=2; }
+            if (requirements.HasTypeRule()) { score++; }
+            return score;
+        }
+
         public void Apply(IEngineConfigurationType type)
         {
             foreach (var member in type.GetRegisteredMembers())
             {
-                // If it's already been set, then ignore it
-                if (member.GetDatasources().FirstOrDefault() != null) { continue; }
-
                 // Apply the appropriate conventions
                 if (member.Member.IsField)
                 {
-                    mConventionProvider.Find<ITypeFieldConvention>()
-                    .Select(t => (ITypeFieldConvention)Activator.CreateInstance(t))
-                    .ToList()
-                    .ForEach(x =>
+                    var convention = mConventionProvider.Find<ITypeFieldConvention>()
+                    .Select(t =>
                     {
-                        TypeFieldConventionRequirements requirements = new TypeFieldConventionRequirements();
-                        x.SpecifyRequirements(requirements);
-                        if (requirements.IsValid((EngineTypeFieldMember)member.Member))
+                        var details = new
                         {
-                            x.Apply(new TypeFieldConventionContext(mConfiguration, member));
-                        }
-                    });
+                            Convention = (ITypeFieldConvention)Activator.CreateInstance(t),
+                            Requirements = new TypeFieldConventionRequirements()
+                        };
+                        details.Convention.SpecifyRequirements(details.Requirements);
+                        return details;
+                    })
+                    .Where(x => x.Requirements.IsValid((EngineTypeFieldMember)member.Member))
+                    .OrderByDescending(x => ScoreRequirements(x.Requirements))
+                    .FirstOrDefault();
+
+                    if (convention != null)
+                    {
+                        convention.Convention.Apply(new TypeFieldConventionContext(mConfiguration, member));
+                    }
                 }
                 if (member.Member.IsProperty)
                 {
-                    mConventionProvider.Find<ITypePropertyConvention>()
-                    .Select(t => (ITypePropertyConvention)Activator.CreateInstance(t))
-                    .ToList()
-                    .ForEach(x =>
+                    var convention = mConventionProvider.Find<ITypePropertyConvention>()
+                         .Select(t =>
+                         {
+                             var details = new
+                             {
+                                 Convention = (ITypePropertyConvention)Activator.CreateInstance(t),
+                                 Requirements = new TypePropertyConventionRequirements()
+                             };
+                             details.Convention.SpecifyRequirements(details.Requirements);
+                             return details;
+                         })
+                         .Where(x => x.Requirements.IsValid((EngineTypePropertyMember)member.Member))
+                         .OrderByDescending(x => ScoreRequirements(x.Requirements))
+                         .FirstOrDefault();
+
+                    if (convention != null)
                     {
-                        TypePropertyConventionRequirements requirements = new TypePropertyConventionRequirements();
-                        x.SpecifyRequirements(requirements);
-                        if (requirements.IsValid((EngineTypePropertyMember)member.Member))
-                        {
-                            x.Apply(new TypePropertyConventionContext(mConfiguration, member));
-                        }
-                    });
+                        convention.Convention.Apply(new TypePropertyConventionContext(mConfiguration, member));
+                    }
                 }
-            }           
+            }          
         }
     }
 }

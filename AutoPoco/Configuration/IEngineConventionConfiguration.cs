@@ -18,7 +18,7 @@ namespace AutoPoco.Configuration
         /// Registers a convention with the engine
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        void Register<T>();
+        void Register<T>() where T : IConvention;
 
         /// <summary>
         /// Scans the assembly containing the type specified for conventions

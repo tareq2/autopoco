@@ -6,13 +6,13 @@ using AutoPoco.Configuration.Providers;
 
 namespace AutoPoco.Configuration.FactoryActions
 {
-    public class ApplyTypeMemberConfiguration : IEngineConfigurationFactoryTypeAction
+    public class RegisterTypeMembersFromConfiguration: IEngineConfigurationFactoryTypeAction
     {
         private IEngineConfiguration mConfiguration;
         private IEngineConventionProvider mConventionProvider;
         private IEngineConfigurationProvider mConfigurationProvider;
 
-        public ApplyTypeMemberConfiguration(
+        public RegisterTypeMembersFromConfiguration(
             IEngineConfigurationProvider configurationProvider,
             IEngineConfiguration configuration, 
             IEngineConventionProvider conventionProvider)
@@ -24,22 +24,19 @@ namespace AutoPoco.Configuration.FactoryActions
 
         public void Apply(IEngineConfigurationType type)
         {
-            IEngineConfigurationTypeProvider typeProvider = mConfigurationProvider.GetConfigurationTypes().Where(x => x.GetConfigurationType() == type.RegisteredType).SingleOrDefault();
+            IEngineConfigurationTypeProvider typeProvider = mConfigurationProvider.GetConfigurationTypes().Where(x => x.GetConfigurationType() == type.RegisteredType).Single();
 
             foreach (var member in typeProvider.GetConfigurationMembers())
             {
                 EngineTypeMember typeMember = member.GetConfigurationMember();
 
-                // Get the member
-                var configuredMember = type.GetRegisteredMember(typeMember);
-
-                // Set the action on that member if a datasource has been set explicitly for this type
-                var datasources = member.GetDatasources();
-                if (datasources.Count() > 0)
+                // Register the member if necessary
+                if (type.GetRegisteredMember(typeMember) == null)
                 {
-                    configuredMember.SetDatasources(datasources);
+                    type.RegisterMember(typeMember);
                 }
             }
         }
+
     }
 }

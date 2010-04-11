@@ -44,7 +44,7 @@ namespace AutoPoco.Tests.Integration.Configuration
         [Test]
         public void IgnoredPropertySourceIsNotSetFromConvention()
         {
-            var source = mTestProperty.GetDatasources().SingleOrDefault();
+            var source = mTestIgnoreProperty.GetDatasources().SingleOrDefault();
             Assert.Null(source);
         }
 
