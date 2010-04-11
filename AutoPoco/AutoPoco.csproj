@@ -54,6 +54,7 @@
     <Compile Include="ConfigurationExtensions.cs" />
     <Compile Include="Configuration\DatasourceFactory.cs" />
     <Compile Include="Configuration\EngineConfiguration.cs" />
+    <Compile Include="Configuration\EngineConfigurationFactory.cs" />
     <Compile Include="Configuration\EngineConfigurationType.cs" />
     <Compile Include="Configuration\EngineConfigurationTypeBuilder%27.cs" />
     <Compile Include="Configuration\EngineConfigurationTypeMember.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="Configuration\EngineTypePropertyMember.cs" />
     <Compile Include="Configuration\IConvention.cs" />
     <Compile Include="Configuration\IEngineConfiguration.cs" />
+    <Compile Include="Configuration\IEngineConfigurationFactory.cs" />
     <Compile Include="Configuration\IEngineConfigurationType.cs" />
     <Compile Include="Configuration\IEngineConfigurationTypeBuilder%27.cs" />
     <Compile Include="Configuration\IEngineConfigurationTypeMember.cs" />

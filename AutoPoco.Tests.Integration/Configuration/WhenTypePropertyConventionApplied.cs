@@ -24,7 +24,7 @@ namespace AutoPoco.Tests.Integration.Configuration
             });
             this.Builder.Include<TestPropertyClass>().Setup(x => x.Test);
 
-            mConfiguration = this.Builder.Build();
+            mConfiguration = new EngineConfigurationFactory().Create(this.Builder, this.Builder.ConventionProvider);
             mType = mConfiguration.GetRegisteredType(typeof(TestPropertyClass));
             mProperty = mType.GetRegisteredMembers().Where(x => x.Member.Name == "Test").Single();
         }

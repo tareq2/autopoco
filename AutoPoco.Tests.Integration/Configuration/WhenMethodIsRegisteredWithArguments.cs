@@ -33,7 +33,7 @@ namespace AutoPoco.Tests.Integration.Configuration
                     Use.Source<String, FirstNameSource>(),
                     Use.Source<String, LastNameSource>()));
 
-            Configuration = this.Builder.Build();
+            Configuration = new EngineConfigurationFactory().Create(this.Builder, this.Builder.ConventionProvider);
 
             // Get some info for the tests
             mEngineConfigurationType = Configuration.GetRegisteredType(typeof(SimpleMethodClass));

@@ -26,7 +26,7 @@ namespace AutoPoco.Tests.Integration.Configuration
                 .Setup(x => x.FirstName).Default()
                 .Setup(x => x.LastName).Default();
 
-            Configuration = this.Builder.Build();       
+            Configuration = new EngineConfigurationFactory().Create(this.Builder, this.Builder.ConventionProvider);      
         }
 
         [Test]

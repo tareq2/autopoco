@@ -22,7 +22,7 @@ namespace AutoPoco.Tests.Integration.Configuration
             });
             this.Builder.Include<TestTypeClass>();
 
-            mConfiguration = this.Builder.Build();
+            mConfiguration = new EngineConfigurationFactory().Create(this.Builder, this.Builder.ConventionProvider);
             mType = mConfiguration.GetRegisteredType(typeof(TestTypeClass));
         }
 
