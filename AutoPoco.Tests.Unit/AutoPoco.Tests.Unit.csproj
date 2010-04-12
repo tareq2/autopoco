@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C42D227E-9EC0-45A5-A045-2B7E31D70013}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AutoPoco.Tests.Unit</RootNamespace>
+    <AssemblyName>AutoPoco.Tests.Unit</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Moq, Version=4.0.812.4, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_Libs\Moq\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.5.3.9345, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_Libs\NUnit\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Actions\ObjectFieldSetFromSourceActionTests.cs" />
+    <Compile Include="Actions\ObjectFieldSetFromValueActionTests.cs" />
+    <Compile Include="Actions\ObjectMethodInvokeActionActionTests.cs" />
+    <Compile Include="Actions\ObjectMethodInvokeFromSourceActionTests.cs" />
+    <Compile Include="Actions\ObjectMethodInvokeFuncActionTests.cs" />
+    <Compile Include="Actions\ObjectPropertySetFromSourceActionTests.cs" />
+    <Compile Include="Actions\ObjectPropertySetFromValueActionTests.cs" />
+    <Compile Include="AutoPocoContainerTests.cs" />
+    <Compile Include="Configuration\DataSourceFactoryTests.cs" />
+    <Compile Include="Configuration\EngineConfigurationBuilderTests.cs" />
+    <Compile Include="Configuration\EngineConfigurationTests.cs" />
+    <Compile Include="Configuration\EngineConfigurationTypeMemberTests.cs" />
+    <Compile Include="Configuration\EngineConfigurationTypeTests.cs" />
+    <Compile Include="Configuration\EngineConventionConfigurationTests.cs" />
+    <Compile Include="Configuration\EngineConfigurationTypeBuilderTests.cs" />
+    <Compile Include="Configuration\EngineConfigurationTypeMemberBuilderTests.cs" />
+    <Compile Include="Configuration\TestMapClass.cs" />
+    <Compile Include="Configuration\TypeConventionContextTests.cs" />
+    <Compile Include="Configuration\TypeMemberConventionContextTests.cs" />
+    <Compile Include="Configuration\TypeMemberConventionRequirementsTests.cs" />
+    <Compile Include="DataSources\AutoSourceTests.cs" />
+    <Compile Include="DataSources\DataOfBirthSourceTests.cs" />
+    <Compile Include="DataSources\DefaultFloatSourceTests.cs" />
+    <Compile Include="DataSources\DefaultIntegerSourceTests.cs" />
+    <Compile Include="DataSources\DefaultStringSourceTests.cs" />
+    <Compile Include="DataSources\EmailAddressSourceTests.cs" />
+    <Compile Include="DataSources\FirstNameSourceTests.cs" />
+    <Compile Include="DataSources\GuidSourceTests.cs" />
+    <Compile Include="DataSources\IntegerIdSourceTests.cs" />
+    <Compile Include="DataSources\LastNameSourceTests.cs" />
+    <Compile Include="DataSources\RandomStringSourceTests.cs" />
+    <Compile Include="DataSources\ValueSourceTests.cs" />
+    <Compile Include="Engine\CollectionContextTests.cs" />
+    <Compile Include="Engine\CollectionSequenceSelectionContextTests.cs" />
+    <Compile Include="Engine\GenerationSessionFactoryTests.cs" />
+    <Compile Include="Engine\GenerationSessionTests.cs" />
+    <Compile Include="Engine\ObjectBuilderTests.cs" />
+    <Compile Include="Engine\ObjectGeneratorTests.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Util\ReflectionHelperTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AutoPoco.Testing\AutoPoco.Testing.csproj">
+      <Project>{260D2207-AB8C-409F-A322-F8EC7573EB42}</Project>
+      <Name>AutoPoco.Testing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AutoPoco\AutoPoco.csproj">
+      <Project>{EDD484D5-0445-403A-BE50-CF50462DDBA6}</Project>
+      <Name>AutoPoco</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

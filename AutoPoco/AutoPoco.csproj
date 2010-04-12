@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{EDD484D5-0445-403A-BE50-CF50462DDBA6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AutoPoco</RootNamespace>
+    <AssemblyName>AutoPoco</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Actions\ObjectFieldSetFromValueAction.cs" />
+    <Compile Include="Actions\ObjectMethodInvokeFromSourceAction.cs" />
+    <Compile Include="Actions\ObjectMethodInvokeActionAction.cs" />
+    <Compile Include="Actions\ObjectMethodInvokeFuncAction.cs" />
+    <Compile Include="Actions\ObjectPropertySetFromValueAction.cs" />
+    <Compile Include="AutoPocoContainer.cs" />
+    <Compile Include="ConfigurationExtensions.cs" />
+    <Compile Include="Configuration\DatasourceFactory.cs" />
+    <Compile Include="Configuration\EngineConfiguration.cs" />
+    <Compile Include="Configuration\FactoryActions\ApplyTypeMemberConfiguration.cs" />
+    <Compile Include="Configuration\EngineConfigurationFactory.cs" />
+    <Compile Include="Configuration\FactoryActions\ApplyTypeConventions.cs" />
+    <Compile Include="Configuration\FactoryActions\ApplyTypeMemberConventions.cs" />
+    <Compile Include="Configuration\EngineConfigurationType.cs" />
+    <Compile Include="Configuration\EngineConfigurationTypeBuilder%27.cs" />
+    <Compile Include="Configuration\EngineConfigurationTypeMember.cs" />
+    <Compile Include="Configuration\EngineConfigurationTypeMemberBuilder%27.cs" />
+    <Compile Include="Configuration\EngineConventionConfiguration.cs" />
+    <Compile Include="Configuration\EngineTypeFieldMember.cs" />
+    <Compile Include="Configuration\EngineTypeMethodMember.cs" />
+    <Compile Include="Configuration\EngineTypePropertyMember.cs" />
+    <Compile Include="Configuration\FactoryActions\RegisterTypeMembersFromConfiguration.cs" />
+    <Compile Include="Configuration\IConvention.cs" />
+    <Compile Include="Configuration\IEngineConfiguration.cs" />
+    <Compile Include="Configuration\IEngineConfigurationFactory.cs" />
+    <Compile Include="Configuration\IEngineConfigurationFactoryTypeAction.cs" />
+    <Compile Include="Configuration\IEngineConfigurationType.cs" />
+    <Compile Include="Configuration\IEngineConfigurationTypeBuilder%27.cs" />
+    <Compile Include="Configuration\IEngineConfigurationTypeMember.cs" />
+    <Compile Include="Configuration\IEngineConfigurationDatasource.cs" />
+    <Compile Include="Configuration\IEngineConfigurationTypeMemberBuilder%27.cs" />
+    <Compile Include="Configuration\IEngineConventionConfiguration.cs" />
+    <Compile Include="Configuration\ITypeFieldConvention.cs" />
+    <Compile Include="Configuration\ITypeConvention.cs" />
+    <Compile Include="Configuration\ITypeConventionContext.cs" />
+    <Compile Include="Configuration\ITypeFieldConventionContext.cs" />
+    <Compile Include="Configuration\ITypeMemberConventionRequirements.cs" />
+    <Compile Include="Configuration\ITypePropertyConvention.cs" />
+    <Compile Include="Configuration\ITypePropertyConventionContext.cs" />
+    <Compile Include="Configuration\Providers\IEngineConfigurationProvider.cs" />
+    <Compile Include="Configuration\Providers\IEngineConfigurationTypeMemberProvider.cs" />
+    <Compile Include="Configuration\Providers\IEngineConfigurationTypeProvider.cs" />
+    <Compile Include="Configuration\Providers\IEngineConventionProvider.cs" />
+    <Compile Include="Configuration\TypeConventionContext.cs" />
+    <Compile Include="Configuration\TypeFieldConventionContext.cs" />
+    <Compile Include="Configuration\TypeFieldConventionRequirements.cs" />
+    <Compile Include="Configuration\TypeMemberConventionContext.cs" />
+    <Compile Include="Configuration\TypeMemberConventionRequirements.cs" />
+    <Compile Include="Configuration\TypePropertyConventionContext.cs" />
+    <Compile Include="Configuration\TypePropertyConventionRequirements.cs" />
+    <Compile Include="Configuration\Use.cs" />
+    <Compile Include="Conventions\DefaultTypeConvention.cs" />
+    <Compile Include="Conventions\ReferenceMemberConvention.cs" />
+    <Compile Include="DataSources\ValueSource.cs" />
+    <Compile Include="Engine\CollectionContext.cs" />
+    <Compile Include="Engine\CollectionSequenceSelectionContext.cs" />
+    <Compile Include="Engine\DatasourceBase.cs" />
+    <Compile Include="Engine\GenerationSessionFactory.cs" />
+    <Compile Include="Engine\ICollectionContext.cs" />
+    <Compile Include="Engine\IDatasource.cs" />
+    <Compile Include="Configuration\IEngineConfigurationBuilder.cs" />
+    <Compile Include="Configuration\IEngineConfigurationTypeBuilder.cs" />
+    <Compile Include="Configuration\IEngineConfigurationTypeMemberBuilder.cs" />
+    <Compile Include="Configuration\EngineConfigurationBuilder.cs" />
+    <Compile Include="Configuration\EngineConfigurationTypeBuilder.cs" />
+    <Compile Include="Configuration\EngineTypeMember.cs" />
+    <Compile Include="Configuration\EngineConfigurationTypeMemberBuilder.cs" />
+    <Compile Include="Conventions\DefaultDatetimeMemberConvention.cs" />
+    <Compile Include="Conventions\DefaultFloatMemberConvention.cs" />
+    <Compile Include="Conventions\DefaultIntegerMemberConvention.cs" />
+    <Compile Include="Conventions\DefaultStringMemberConvention.cs" />
+    <Compile Include="Engine\IGenerationSessionFactory.cs" />
+    <Compile Include="Engine\IObjectAction.cs" />
+    <Compile Include="Actions\ObjectFieldSetFromSourceAction.cs" />
+    <Compile Include="Actions\ObjectPropertySetFromSourceAction.cs" />
+    <Compile Include="Engine\IObjectBuilder.cs" />
+    <Compile Include="Engine\ICollectionSequenceSelectionContext.cs" />
+    <Compile Include="StringExtensions.cs" />
+    <Compile Include="DataSources\AutoSource.cs" />
+    <Compile Include="DataSources\DefaultFloatSource.cs" />
+    <Compile Include="DataSources\DefaultIntegerSource.cs" />
+    <Compile Include="DataSources\DefaultStringSource.cs" />
+    <Compile Include="DataSources\IntegerIdSource.cs" />
+    <Compile Include="Engine\GenerationSession.cs" />
+    <Compile Include="Engine\IObjectGenerator.cs" />
+    <Compile Include="Engine\ObjectGenerator.cs" />
+    <Compile Include="Engine\ObjectBuilder.cs" />
+    <Compile Include="Engine\IGenerationSession.cs" />
+    <Compile Include="DataSources\EmailAddressSource.cs" />
+    <Compile Include="DataSources\FirstNameSource.cs" />
+    <Compile Include="DataSources\LastNameSource.cs" />
+    <Compile Include="DataSources\RandomStringSource.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Util\ReflectionHelper.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
