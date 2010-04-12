@@ -20,7 +20,7 @@ namespace AutoPoco.Configuration
             }
         }
 
-        public IEngineConfigurationTypeBuilder<T> Include<T>() where T : new()
+        public IEngineConfigurationTypeBuilder<T> Include<T>()
         {
             // Create the configuration
             var configuration = new EngineConfigurationTypeBuilder<T>();

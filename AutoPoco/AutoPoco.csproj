@@ -84,6 +84,7 @@
     <Compile Include="Configuration\ITypeMemberConventionRequirements.cs" />
     <Compile Include="Configuration\ITypePropertyConvention.cs" />
     <Compile Include="Configuration\ITypePropertyConventionContext.cs" />
+    <Compile Include="Configuration\MethodInvocationContext.cs" />
     <Compile Include="Configuration\Providers\IEngineConfigurationProvider.cs" />
     <Compile Include="Configuration\Providers\IEngineConfigurationTypeMemberProvider.cs" />
     <Compile Include="Configuration\Providers\IEngineConfigurationTypeProvider.cs" />
@@ -122,6 +123,7 @@
     <Compile Include="Actions\ObjectPropertySetFromSourceAction.cs" />
     <Compile Include="Engine\IObjectBuilder.cs" />
     <Compile Include="Engine\ICollectionSequenceSelectionContext.cs" />
+    <Compile Include="StandardExtensions.cs" />
     <Compile Include="StringExtensions.cs" />
     <Compile Include="DataSources\AutoSource.cs" />
     <Compile Include="DataSources\DefaultFloatSource.cs" />

@@ -39,6 +39,29 @@ namespace AutoPoco.Tests.Unit.Configuration
         }
 
         [Test]
+        public void RegisterMethod_TypeMethodRegistered()
+        {
+            MethodInfo info = typeof(TestClass).GetMethod("Method");
+            Mock<IEngineConfigurationTypeMember> typeMemberMock =new Mock<IEngineConfigurationTypeMember>();
+            
+            MethodInvocationContext context = new MethodInvocationContext();
+            context.AddArgumentValue(5);
+
+            int count = 0;
+            mTypeMock.Setup(x => x.GetRegisteredMember(It.IsAny<EngineTypeMember>()))
+                .Returns(()=>
+                {
+                    if (count == 0) { count++; return null; }
+                    else
+                    {
+                        return typeMemberMock.Object;
+                    }
+                });
+            mContext.RegisterMethod(info, context);
+            mTypeMock.Verify(x => x.RegisterMember(It.Is<EngineTypeMember>(y => y.Name == info.Name)), Times.Once());
+        }
+
+        [Test]
         public void Target_ReturnsConfigurationType()
         {
             mTypeMock.SetupGet(x => x.RegisteredType).Returns(typeof(TestClass));
@@ -52,6 +75,11 @@ namespace AutoPoco.Tests.Unit.Configuration
             {
                 get;
                 set;
+            }
+
+            public void Method(int value)
+            {
+
             }
         }
     }

@@ -37,9 +37,21 @@ namespace AutoPoco.Configuration
             }
         }
 
+        public void RegisterMethod(MethodInfo method, MethodInvocationContext context)
+        {
+            var member = ReflectionHelper.GetMember(method);
+            if (mType.GetRegisteredMember(member) == null)
+            {
+                mType.RegisterMember(member);
+            }
+            var registeredMember = mType.GetRegisteredMember(member);
+            registeredMember.SetDatasources(context.GetArguments().Cast<IEngineConfigurationDatasource>());
+        }
+
         public TypeConventionContext(IEngineConfigurationType type)
         {
             mType = type;
         }
+
     }
 }

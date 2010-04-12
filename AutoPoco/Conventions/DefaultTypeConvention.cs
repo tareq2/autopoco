@@ -11,13 +11,18 @@ namespace AutoPoco.Conventions
         public void Apply(ITypeConventionContext context)
         {
             // Register every public property on this type
-            foreach(var property in context.Target.GetProperties( System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance))
+            foreach(var property in context.Target
+                .GetProperties( System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance)
+                .Where(x=> !x.PropertyType.ContainsGenericParameters)
+                )
             {
                 context.RegisterProperty(property);
             }
 
             // Register every public field on this type
-            foreach (var field in context.Target.GetFields(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance))
+            foreach (var field in context.Target
+                .GetFields(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance)
+                .Where(x => !x.FieldType.ContainsGenericParameters))
             {
                 context.RegisterField(field);
             }                

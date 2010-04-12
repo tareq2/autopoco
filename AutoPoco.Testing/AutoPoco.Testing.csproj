@@ -48,8 +48,12 @@
     <Compile Include="BlankDataSource.cs" />
     <Compile Include="DefaultFieldClass.cs" />
     <Compile Include="DefaultPropertyClass.cs" />
+    <Compile Include="IGenericInterface.cs" />
+    <Compile Include="ISimpleInterface.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SimpleBaseClass.cs" />
     <Compile Include="SimpleDataSource.cs" />
+    <Compile Include="SimpleDerivedClass.cs" />
     <Compile Include="SimpleFieldClass.cs" />
     <Compile Include="SimpleMemberConvention.cs" />
     <Compile Include="SimpleMethodClass.cs" />

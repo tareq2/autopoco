@@ -69,6 +69,7 @@
     <Compile Include="Configuration\EngineConventionConfigurationTests.cs" />
     <Compile Include="Configuration\EngineConfigurationTypeBuilderTests.cs" />
     <Compile Include="Configuration\EngineConfigurationTypeMemberBuilderTests.cs" />
+    <Compile Include="Configuration\MethodInvocationContextTests.cs" />
     <Compile Include="Configuration\TestMapClass.cs" />
     <Compile Include="Configuration\TypeConventionContextTests.cs" />
     <Compile Include="Configuration\TypeMemberConventionContextTests.cs" />

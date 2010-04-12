@@ -45,8 +45,7 @@ namespace AutoPoco.Tests.Integration.Complete
                
             })
             .CreateSession();
-
-           
+          
         }
 
         [Test]

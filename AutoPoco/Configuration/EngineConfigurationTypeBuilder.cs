@@ -49,36 +49,24 @@ namespace AutoPoco.Configuration
             return memberBuilder;
         }
 
-        public IEngineConfigurationTypeBuilder SetupMethod(string methodName, params object[] args)
+        public IEngineConfigurationTypeBuilder SetupMethod(string methodName)
         {
+            return SetupMethod(methodName, new MethodInvocationContext());
+        }
+
+        public IEngineConfigurationTypeBuilder SetupMethod(string methodName, MethodInvocationContext context)
+        {
+            DatasourceFactory[] factories = context.GetArguments().ToArray();
             MethodInfo info = mType.GetMethods(BindingFlags.Public | BindingFlags.Instance).Where(x => 
-                x.Name == methodName 
-                && x.GetParameters().Length == args.Length)
+                x.Name == methodName
+                && x.GetParameters().Length == factories.Length)
                 .FirstOrDefault();
 
             if (info == null) { throw new ArgumentException("Method does not exist", methodName); }
 
             var memberBuilder = new EngineConfigurationTypeMemberBuilder(ReflectionHelper.GetMember(info), this);
             mMembers.Add(memberBuilder);
-
-            // Map the arguments to data sources
-            List<DatasourceFactory> datasourceFactories = new List<DatasourceFactory>();
-            foreach (var arg in args)
-            {
-                // If it's a datasource, then we need to use that data source
-                if (arg.GetType().IsAssignableFrom(typeof(DatasourceFactory)))
-                {
-                    datasourceFactories.Add((DatasourceFactory)arg);
-                }
-                else
-                {
-                    // Literal
-                    DatasourceFactory factory = new DatasourceFactory(typeof(ValueSource));
-                    factory.SetParams(arg);
-                    datasourceFactories.Add(factory);
-                }
-                memberBuilder.SetDatasources(datasourceFactories.ToArray());
-            }
+            memberBuilder.SetDatasources(factories);
 
             return this;
         }
