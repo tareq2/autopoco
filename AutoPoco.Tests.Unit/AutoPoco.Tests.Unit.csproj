@@ -83,6 +83,7 @@
     <Compile Include="DataSources\DefaultIntegerSourceTests.cs" />
     <Compile Include="DataSources\DefaultStringSourceTests.cs" />
     <Compile Include="DataSources\EmailAddressSourceTests.cs" />
+    <Compile Include="DataSources\EnumerableSourceTests.cs" />
     <Compile Include="DataSources\FirstNameSourceTests.cs" />
     <Compile Include="DataSources\GuidSourceTests.cs" />
     <Compile Include="DataSources\IntegerIdSourceTests.cs" />
