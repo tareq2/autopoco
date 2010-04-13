@@ -103,6 +103,7 @@
     <Compile Include="DataSources\CountrySource.cs" />
     <Compile Include="DataSources\CreditCardSource.cs" />
     <Compile Include="DataSources\DateOfBirthSource.cs" />
+    <Compile Include="DataSources\EnumerableSource.cs" />
     <Compile Include="DataSources\GuidSource.cs" />
     <Compile Include="DataSources\LoremIpsumSource.cs" />
     <Compile Include="DataSources\UsStatesSource.cs" />
