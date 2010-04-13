@@ -75,6 +75,9 @@
     <Compile Include="Configuration\TypeMemberConventionContextTests.cs" />
     <Compile Include="Configuration\TypeMemberConventionRequirementsTests.cs" />
     <Compile Include="DataSources\AutoSourceTests.cs" />
+    <Compile Include="DataSources\ColorSourceTests.cs" />
+    <Compile Include="DataSources\CountrySourceTests.cs" />
+    <Compile Include="DataSources\CreditCardSourceTests.cs" />
     <Compile Include="DataSources\DataOfBirthSourceTests.cs" />
     <Compile Include="DataSources\DefaultFloatSourceTests.cs" />
     <Compile Include="DataSources\DefaultIntegerSourceTests.cs" />
@@ -84,7 +87,9 @@
     <Compile Include="DataSources\GuidSourceTests.cs" />
     <Compile Include="DataSources\IntegerIdSourceTests.cs" />
     <Compile Include="DataSources\LastNameSourceTests.cs" />
+    <Compile Include="DataSources\LoremIpsumTests.cs" />
     <Compile Include="DataSources\RandomStringSourceTests.cs" />
+    <Compile Include="DataSources\UsStateSourceTests.cs" />
     <Compile Include="DataSources\ValueSourceTests.cs" />
     <Compile Include="Engine\CollectionContextTests.cs" />
     <Compile Include="Engine\CollectionSequenceSelectionContextTests.cs" />
