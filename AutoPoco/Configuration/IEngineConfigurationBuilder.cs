@@ -14,7 +14,7 @@ namespace AutoPoco.Configuration
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>
-        IEngineConfigurationTypeBuilder<T> Include<T>() where T : new();
+        IEngineConfigurationTypeBuilder<TPoco> Include<TPoco>();
 
         /// <summary>
         /// Registeres a type with the configuration and allows further configuration of that type

@@ -27,7 +27,7 @@ namespace AutoPoco.Tests.Integration.Configuration
                 .Setup(x => x.Test).Default()
                 .Setup(x => x.TestIgnore);
 
-            mConfiguration = new EngineConfigurationFactory().Create(this.Builder, this.Builder.ConventionProvider);
+            mConfiguration = new DefaultEngineConfigurationFactory().Create(this.Builder, this.Builder.ConventionProvider);
             mType = mConfiguration.GetRegisteredType(typeof(TestPropertyClass));
             mTestProperty = mType.GetRegisteredMembers().Where(x => x.Member.Name == "Test").Single();
             mTestIgnoreProperty = mType.GetRegisteredMembers().Where(x => x.Member.Name == "TestIgnore").Single();

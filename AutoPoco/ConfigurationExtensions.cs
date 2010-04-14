@@ -11,7 +11,7 @@ namespace AutoPoco
         public static IEngineConfigurationBuilder AddFromAssemblyContainingType<T>(this IEngineConfigurationBuilder builder)
         {
             foreach (var type in typeof(T).Assembly.GetTypes())
-            {
+            {                
                 builder.Include(type);
             }
             return builder;

@@ -35,7 +35,7 @@ namespace AutoPoco.Configuration
 
         public IEnumerable<IEngineConfigurationDatasource> GetDatasources()
         {
-            return mDataSources;
+            return mDataSources.ToArray();
         }
     }
 }

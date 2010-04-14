@@ -29,38 +29,38 @@ namespace AutoPoco.Configuration
 
         public IEngineConfigurationTypeBuilder<TPoco> Invoke(Expression<Action<TPoco>> action)
         {
-            Object[] args = GetMethodArgs(action);
+            MethodInvocationContext context = GetMethodArgs(action);
             String name = ReflectionHelper.GetMethodName(action);
-            this.SetupMethod(name, args);
+            this.SetupMethod(name, context);
             return this;
         }
 
         public IEngineConfigurationTypeBuilder<TPoco> Invoke<TReturn>(Expression<Func<TPoco, TReturn>> func)
         {
-            Object[] args = GetMethodArgs(func);
+            MethodInvocationContext context = GetMethodArgs(func);
             String name = ReflectionHelper.GetMethodName(func);
-            this.SetupMethod(name, args);
+            this.SetupMethod(name, context);
             return this;
         }
 
 
-        private Object[] GetMethodArgs<TPoco>(Expression<Action<TPoco>> action)
+        private MethodInvocationContext GetMethodArgs<TPoco>(Expression<Action<TPoco>> action)
         {
             MethodCallExpression methodExpression = action.Body as MethodCallExpression;
             if (methodExpression == null) { throw new ArgumentException("Method expression expected, and not passed in", "action"); }
             return GetMethodArgs(methodExpression);
         }
 
-        private Object[] GetMethodArgs<TPoco, TReturn>(Expression<Func<TPoco, TReturn>> function)
+        private MethodInvocationContext GetMethodArgs<TPoco, TReturn>(Expression<Func<TPoco, TReturn>> function)
         {
             MethodCallExpression methodExpression = function.Body as MethodCallExpression;
             if (methodExpression == null) { throw new ArgumentException("Method expression expected, and not passed in", "action"); }
             return GetMethodArgs(methodExpression);
         }
-        
-        private Object[] GetMethodArgs(MethodCallExpression methodExpression)
+
+        private MethodInvocationContext GetMethodArgs(MethodCallExpression methodExpression)
         {
-            List<Object> args = new List<object>();
+            MethodInvocationContext context = new MethodInvocationContext();
             foreach (var arg in methodExpression.Arguments)
             {
                 switch (arg.NodeType)
@@ -71,27 +71,23 @@ namespace AutoPoco.Configuration
 
                         // Extract the data source type
                         Type sourceType = ExtractDatasourceType(paramCall);
-
-                        // Extract any data source arguments
-                        DatasourceFactory factory = new DatasourceFactory(sourceType);
-
                         Object[] factoryArgs = ExtractDatasourceParameters(paramCall);
-                        if (factoryArgs.Length > 0) { factory.SetParams(factoryArgs); }
 
-                        args.Add(factory);
+                        context.AddArgumentSource(sourceType, factoryArgs);
+
                         break;
                     case ExpressionType.Constant:
 
                         // Simply pop the constant into the list
                         ConstantExpression paramConstant = arg as ConstantExpression;
-                        args.Add(paramConstant.Value);
+                        context.AddArgumentValue(paramConstant);
                         break;
                     default:
                         throw new ArgumentException("Unsupported argument used in method invocation list", "action");
                 }
             }
 
-            return args.ToArray();
+            return context;
         }
 
         private Type ExtractDatasourceType(MethodCallExpression paramCall)

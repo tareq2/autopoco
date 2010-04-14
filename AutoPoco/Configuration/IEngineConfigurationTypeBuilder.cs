@@ -24,6 +24,6 @@ namespace AutoPoco.Configuration
         /// <param name="methodName">The method to be invoked on creation</param>
         /// <param name="args">The parameters to pass into the method. If the arg is a 'Type' that derives from IDatasource, this will be invoked and the created object shall be used as the paremeter</param>
         /// <returns></returns>
-        IEngineConfigurationTypeBuilder SetupMethod(string methodName, params Object[] args);
+        IEngineConfigurationTypeBuilder SetupMethod(string methodName, MethodInvocationContext context);
     }
 }

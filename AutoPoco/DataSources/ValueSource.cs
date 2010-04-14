@@ -20,4 +20,10 @@ namespace AutoPoco.DataSources
             return mValue;
         }
     }
+
+    public class ValueSource<T> : ValueSource, IDatasource<T>
+    {
+        public ValueSource(Object value) : base(value) { }
+    }
+    
 }
