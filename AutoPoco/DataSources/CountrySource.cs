@@ -7,13 +7,13 @@ namespace AutoPoco.DataSources
 {
     public class CountrySource : DatasourceBase<string>
     {
-        private readonly Random _random;
-        private readonly CultureInfo[] _cultures;
+        private readonly Random mRandom;
+        private readonly CultureInfo[] mCultures;
 
         public CountrySource()
         {
-            _random = new Random();
-            _cultures = CultureInfo.GetCultures(CultureTypes.AllCultures & ~CultureTypes.NeutralCultures);
+            mRandom = new Random(1337);
+            mCultures = CultureInfo.GetCultures(CultureTypes.AllCultures & ~CultureTypes.NeutralCultures);
         }
 
         #region Overrides of DatasourceBase<string>
@@ -25,8 +25,8 @@ namespace AutoPoco.DataSources
             // skip the invariant culture (not a country)
             do
             {
-                var index = _random.Next(1, _cultures.Count() - 1);
-                country = _cultures[index].EnglishName;
+                var index = mRandom.Next(1, mCultures.Count() - 1);
+                country = mCultures[index].EnglishName;
             
                 // some are combination of countries, let's skip them
             } while (country.Contains(","));

@@ -6,7 +6,7 @@ namespace AutoPoco.DataSources
 {
     public class LoremIpsumSource : DatasourceBase<string>
     {
-        private readonly int _times;
+        private readonly int mTimes;
 
         public LoremIpsumSource()
             : this(1)
@@ -14,16 +14,14 @@ namespace AutoPoco.DataSources
 
         public LoremIpsumSource(int times)
         {
-            _times = times;
+            mTimes = times;
         }
-
-        #region Overrides of DatasourceBase<string>
 
         public override string Next(IGenerationSession session)
         {
             var builder = new StringBuilder(Resources.LoremIpsum);
 
-            for (int i = 1; i < _times; i++)
+            for (int i = 1; i < mTimes; i++)
             {
                 builder.AppendLine();
                 builder.AppendLine();
@@ -32,7 +30,5 @@ namespace AutoPoco.DataSources
 
             return builder.ToString();
         }
-
-        #endregion
     }
 }

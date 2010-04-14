@@ -6,15 +6,15 @@ namespace AutoPoco.DataSources
 {
     public class ColorSource : DatasourceBase<Color>
     {
-        private readonly int _max;
-        private readonly Random _random;
-        private readonly int _min;
+        private readonly int mMax;
+        private readonly Random mRandom;
+        private readonly int mMin;
 
         public ColorSource()
         {
-            _random = new Random();
-            _min = 0;
-            _max = 255;
+            mRandom = new Random(1337);
+            mMin = 0;
+            mMax = 255;
         }
 
         #region Overrides of DatasourceBase<Color>
@@ -22,9 +22,9 @@ namespace AutoPoco.DataSources
         public override Color Next(IGenerationSession session)
         {
             return Color.FromArgb(
-                _random.Next(_min, _max), 
-                _random.Next(_min, _max), 
-                _random.Next(_min, _max)
+                mRandom.Next(mMin, mMax), 
+                mRandom.Next(mMin, mMax), 
+                mRandom.Next(mMin, mMax)
                 );
         }
 

@@ -12,9 +12,9 @@ namespace AutoPoco.DataSources
     public class EnumerableSource<TSource, T> : DatasourceBase<IEnumerable<T>>
         where TSource : IDatasource<T>
     {
-        private readonly int _count;
-        private readonly object[] _args;
-        private readonly IDatasource<T> _source;
+        private readonly int mCount;
+        private readonly object[] mArgs;
+        private readonly IDatasource<T> mSource;
 
         public EnumerableSource(int count)
             : this(count, new object[] { })
@@ -22,18 +22,18 @@ namespace AutoPoco.DataSources
 
         public EnumerableSource(int count, params object[] args)
         {
-            _count = count;
-            _args = args;
+            mCount = count;
+            mArgs = args;
 
             var factory = new DatasourceFactory(typeof(TSource));
-            factory.SetParams(_args);
-            _source = (IDatasource<T>)factory.Build();
+            factory.SetParams(mArgs);
+            mSource = (IDatasource<T>)factory.Build();
         }
 
         public override IEnumerable<T> Next(IGenerationSession session)
         {
-            for (var i = 0; i < _count; i++)
-                yield return (T)_source.Next(session);
+            for (var i = 0; i < mCount; i++)
+                yield return (T)mSource.Next(session);
         }
     }
 }

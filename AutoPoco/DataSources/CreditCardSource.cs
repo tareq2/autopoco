@@ -7,8 +7,8 @@ namespace AutoPoco.DataSources
 {
     public class CreditCardSource : DatasourceBase<string>
     {
-        private readonly CreditCardType _preferred;
-        private readonly Random _random;
+        private readonly CreditCardType mPreferred;
+        private readonly Random mRandom;
 
         public enum CreditCardType
         {
@@ -25,18 +25,16 @@ namespace AutoPoco.DataSources
 
         public CreditCardSource(CreditCardType preferred)
         {
-            _preferred = preferred;
-            _random = new Random();
+            mPreferred = preferred;
+            mRandom = new Random(1337);
         }
-
-        #region Overrides of DatasourceBase<string>
 
         public override string Next(IGenerationSession session)
         {
-            var cardType = _preferred;
+            var cardType = mPreferred;
 
-            if (_preferred == CreditCardType.Random)
-                cardType = (CreditCardType)_random.Next(1, 4);
+            if (mPreferred == CreditCardType.Random)
+                cardType = (CreditCardType)mRandom.Next(1, 4);
 
             switch (cardType)
             {
@@ -52,7 +50,5 @@ namespace AutoPoco.DataSources
                     return null;
             }
         }
-
-        #endregion
     }
 }
