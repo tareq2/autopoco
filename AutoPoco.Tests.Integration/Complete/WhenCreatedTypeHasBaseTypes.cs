@@ -7,6 +7,7 @@ using NUnit.Framework;
 using AutoPoco;
 using AutoPoco.Engine;
 using AutoPoco.Testing;
+using AutoPoco.DataSources;
 
 namespace AutoPoco.Tests.Integration.Complete
 {
@@ -26,7 +27,7 @@ namespace AutoPoco.Tests.Integration.Complete
                 });
                 x.Include<ISimpleInterface>()
                     .Setup(c => c.InterfaceValue).Value("Test");
-                x.Include<SimpleBaseClass>()
+                 x.Include<SimpleBaseClass>()
                     .Setup(c => c.BaseProperty).Value("Test")
                     .Setup(c => c.BaseVirtualProperty).Value("Base");
                 x.Include<SimpleDerivedClass>()

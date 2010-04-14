@@ -12,29 +12,29 @@ namespace AutoPoco.Util
     {
         public static EngineTypeMember GetMember<TPoco, TReturn>(Expression<Func<TPoco, TReturn>> expression)
         {
-            var member = GetMemberInfo(expression.Body);
+            var member = GetMemberInfo(typeof(TPoco), expression.Body);
             return GetMember(member);
         }
 
         public static EngineTypeMember GetMember<TPoco>(Expression<Func<TPoco, object>> expression)
         {
-            var member = GetMemberInfo(expression.Body);
+            var member = GetMemberInfo(typeof(TPoco), expression.Body);
             return GetMember(member);
         }
 
         public static PropertyInfo GetProperty<TPoco>(Expression<Func<TPoco, object>> expression)
         {
-            var member = GetMemberInfo(expression.Body);
+            var member = GetMemberInfo(typeof(TPoco), expression.Body);
             return member.ReflectedType.GetProperty(member.Name);
         }
 
         public static FieldInfo GetField<TPoco>(Expression<Func<TPoco, object>> expression)
         {
-            var member = GetMemberInfo(expression.Body);
+            var member = GetMemberInfo(typeof(TPoco), expression.Body);
             return member.ReflectedType.GetField(member.Name);
         }
 
-        private static MemberInfo GetMemberInfo(Expression expression)
+        private static MemberInfo GetMemberInfo(Type declaringType, Expression expression)
         {
             MemberExpression memberExpression = expression as MemberExpression;
             if (memberExpression == null)
@@ -42,7 +42,15 @@ namespace AutoPoco.Util
                 throw new ArgumentException("Expression not supported", "expression");
             }
 
-            return memberExpression.Member;              
+            MemberInfo baseMember = memberExpression.Member;
+
+            if (baseMember.DeclaringType != declaringType)
+            {
+                // We need to look to see if this member exists on the derived type
+                MemberInfo topMember = declaringType.GetMember(baseMember.Name).FirstOrDefault();
+                if (topMember != null) { return topMember; }
+            }
+            return baseMember;
         }
         
         public static string GetMethodName<TPoco>(Expression<Action<TPoco>> action)

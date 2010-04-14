@@ -9,20 +9,13 @@ namespace AutoPoco.Configuration
 {
     public class EngineConfigurationFactory : IEngineConfigurationFactory
     {
-        public IEngineConfiguration Create(IEngineConfigurationProvider configurationProvider, IEngineConventionProvider conventionProvider)
+        public virtual IEngineConfiguration Create(IEngineConfigurationProvider configurationProvider, IEngineConventionProvider conventionProvider)
         {
             EngineConfiguration configuration = new EngineConfiguration();
             List<IEngineConfigurationFactoryTypeAction> actions = new List<IEngineConfigurationFactoryTypeAction>();
-            
-            // Create the actions
-            actions.Add(new ApplyTypeConventions(
-                configuration, conventionProvider));
-            actions.Add(new RegisterTypeMembersFromConfiguration(
-                configurationProvider, configuration, conventionProvider));
-            actions.Add(new ApplyTypeMemberConventions(
-               configuration, conventionProvider));
-            actions.Add(new ApplyTypeMemberConfiguration(
-                configurationProvider, configuration, conventionProvider));            
+
+            // Add all the actions
+            actions.AddRange(CreateTypeActions(configuration, configurationProvider, conventionProvider));                  
 
             // Scan for the types
             FindAndRegisterAllTypes(configurationProvider, configuration);
@@ -38,14 +31,30 @@ namespace AutoPoco.Configuration
                 typeConventions.ForEach(x =>
                 {
                     x.Apply(new TypeConventionContext(type));
+                    
                 });
 
                 // Apply all actions to that type             
-                actions.ForEach(a => a.Apply(type));
+                actions.ForEach(a =>
+                {
+                    a.Apply(type);                    
+                });                
             }
+
+            // Job done
             return configuration;
         }
 
+        protected virtual IEnumerable<IEngineConfigurationFactoryTypeAction> CreateTypeActions(EngineConfiguration configuration, IEngineConfigurationProvider configurationProvider, IEngineConventionProvider conventionProvider)
+        {
+            return new IEngineConfigurationFactoryTypeAction[]{
+                new ApplyTypeConventions(configuration, conventionProvider),
+                new RegisterTypeMembersFromConfiguration(configurationProvider, configuration, conventionProvider),
+                new ApplyTypeMemberConventions(configuration, conventionProvider),
+                new ApplyTypeMemberConfiguration(configurationProvider, configuration, conventionProvider)
+            };
+        }
+        
         protected virtual void FindAndRegisterAllTypes(IEngineConfigurationProvider configurationProvider, EngineConfiguration configuration)
         {
             // Perform all type registration
