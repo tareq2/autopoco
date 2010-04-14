@@ -7,7 +7,7 @@ namespace AutoPoco.DataSources
 {
     public class UsStatesSource : DatasourceBase<string>
     {
-        public static readonly Dictionary<string, string> States = new Dictionary<string, string>
+        public static readonly Dictionary<string, string> STATES = new Dictionary<string, string>
                                                                        {
                                                                            {"AL", "Alabama"},
                                                                            {"AK", "Alaska"},
@@ -70,8 +70,8 @@ namespace AutoPoco.DataSources
                                                                            {"GU", "Guam"}
                                                                        };
 
-        private readonly Random _random;
-        private readonly bool _useAbbreviations;
+        private readonly Random mRandom;
+        private readonly bool mUseAbbreviations;
 
         public UsStatesSource()
             : this(false)
@@ -80,16 +80,16 @@ namespace AutoPoco.DataSources
 
         public UsStatesSource(bool useAbbreviations)
         {
-            _useAbbreviations = useAbbreviations;
-            _random = new Random();
+            mUseAbbreviations = useAbbreviations;
+            mRandom = new Random(1337);
         }
 
         #region Overrides of DatasourceBase<string>
 
         public override string Next(IGenerationSession session)
         {
-            int num = _random.Next(0, States.Count - 1);
-            return _useAbbreviations ? States.Keys.ToList()[num] : States.Values.ToList()[num];
+            int num = mRandom.Next(0, STATES.Count - 1);
+            return mUseAbbreviations ? STATES.Keys.ToList()[num] : STATES.Values.ToList()[num];
         }
 
         #endregion

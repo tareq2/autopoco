@@ -5,9 +5,9 @@ namespace AutoPoco.DataSources
 {
     public class DateOfBirthSource : DatasourceBase<DateTime>
     {
-        private readonly Random _random;
-        private readonly int _yearsMax;
-        private readonly int _yearsMin;
+        private readonly Random mRandom;
+        private readonly int mYearsMax;
+        private readonly int mYearsMin;
 
         public DateOfBirthSource()
             :this(16, 59)
@@ -15,14 +15,14 @@ namespace AutoPoco.DataSources
 
         public DateOfBirthSource(int min, int max)
         {
-            _random = new Random();
-            _yearsMax = max;
-            _yearsMin = min;
+            mRandom = new Random(1337);
+            mYearsMax = max;
+            mYearsMin = min;
         }
 
         public override DateTime Next(IGenerationSession session)
         {
-            return DateTime.Now.AddYears(-_random.Next(_yearsMin, _yearsMax));
+            return DateTime.Now.AddYears(-mRandom.Next(mYearsMin, mYearsMax));
         }
     }
 }
