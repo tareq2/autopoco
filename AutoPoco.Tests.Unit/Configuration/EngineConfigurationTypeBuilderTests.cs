@@ -86,7 +86,9 @@ namespace AutoPoco.Tests.Unit.Configuration
         public void NonGeneric_SetupMethodWithParameters_ReturnsConfiguration()
         {
             EngineConfigurationTypeBuilder configuration = new EngineConfigurationTypeBuilder(typeof(SimpleMethodClass));
-            IEngineConfigurationTypeBuilder returnValue = configuration.SetupMethod("SetSomething", "Something" );
+            var context = new MethodInvocationContext();
+            context.AddArgumentValue("Hello");
+            IEngineConfigurationTypeBuilder returnValue = configuration.SetupMethod("SetSomething", context);
 
             Assert.AreEqual(configuration, returnValue);
         }

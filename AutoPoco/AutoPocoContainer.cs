@@ -14,7 +14,7 @@ namespace AutoPoco
         {            
             var config = new EngineConfigurationBuilder();
             setup.Invoke(config);
-            var configFactory = new EngineConfigurationFactory();
+            var configFactory = new DefaultEngineConfigurationFactory();
             return new GenerationSessionFactory(configFactory.Create(config, config.ConventionProvider));
         }
     }

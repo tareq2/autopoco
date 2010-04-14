@@ -1,14 +1,14 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoPoco", "AutoPoco\AutoPoco.csproj", "{EDD484D5-0445-403A-BE50-CF50462DDBA6}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoPoco.Tests.Unit", "AutoPoco.Tests.Unit\AutoPoco.Tests.Unit.csproj", "{C42D227E-9EC0-45A5-A045-2B7E31D70013}"
-EndProject
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9C6B32E9-3192-4FF3-BFBF-CEFA03737780}"
 	ProjectSection(SolutionItems) = preProject
 		todo.txt = todo.txt
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoPoco", "AutoPoco\AutoPoco.csproj", "{EDD484D5-0445-403A-BE50-CF50462DDBA6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoPoco.Tests.Unit", "AutoPoco.Tests.Unit\AutoPoco.Tests.Unit.csproj", "{C42D227E-9EC0-45A5-A045-2B7E31D70013}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoPoco.Tests.Integration", "AutoPoco.Tests.Integration\AutoPoco.Tests.Integration.csproj", "{22E71826-FA19-42E7-B97B-D7D13D270696}"
 EndProject
