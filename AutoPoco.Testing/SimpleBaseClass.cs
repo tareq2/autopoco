@@ -24,5 +24,11 @@ namespace AutoPoco.Testing
 	      set;
           get;
         }
+        
+        public string OtherInterfaceValue
+        {
+            get;
+            set;
+        }
     }
 }
