@@ -26,13 +26,15 @@ namespace AutoPoco.Tests.Integration.Complete
                     c.UseDefaultConventions();
                 });
                 x.Include<ISimpleInterface>()
-                    .Setup(c => c.InterfaceValue).Value("Test");
+                    .Setup(c => c.InterfaceValue).Value("Interface")
+                    .Setup(c=>c.OtherInterfaceValue).Value("Interface");
                  x.Include<SimpleBaseClass>()
                     .Setup(c => c.BaseProperty).Value("Test")
                     .Setup(c => c.BaseVirtualProperty).Value("Base");
                 x.Include<SimpleDerivedClass>()
                     .Setup(c => c.Name).Value("OtherTest")
-                    .Setup(c => c.BaseVirtualProperty).Value("Derived");
+                    .Setup(c => c.BaseVirtualProperty).Value("Derived")
+                    .Setup(c => c.OtherInterfaceValue).Value("Derived");
 
             })
             .CreateSession();
@@ -42,7 +44,14 @@ namespace AutoPoco.Tests.Integration.Complete
         public void DerivedType_HasInterfaceValue()
         {
             SimpleDerivedClass derivedClass = mSession.Single<SimpleDerivedClass>().Get();
-            Assert.AreEqual("Test", derivedClass.InterfaceValue);
+            Assert.AreEqual("Interface", derivedClass.InterfaceValue);
+        }
+
+        [Test]
+        public void DerivedType_HasOverrideInterfaceValue()
+        {
+            SimpleDerivedClass derivedClass = mSession.Single<SimpleDerivedClass>().Get();
+            Assert.AreEqual("Derived", derivedClass.OtherInterfaceValue);
         }
 
         [Test]

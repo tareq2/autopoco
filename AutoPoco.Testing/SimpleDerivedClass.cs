@@ -5,7 +5,7 @@ using System.Text;
 
 namespace AutoPoco.Testing
 {
-    public class SimpleDerivedClass : SimpleBaseClass
+    public class SimpleDerivedClass : SimpleBaseClass, ISimpleInterface
     {
         public string Name
         {
