@@ -24,20 +24,23 @@ namespace AutoPoco.Configuration.FactoryActions
 
         public void Apply(IEngineConfigurationType type)
         {
-            IEngineConfigurationTypeProvider typeProvider = mConfigurationProvider.GetConfigurationTypes().Where(x => x.GetConfigurationType() == type.RegisteredType).SingleOrDefault();
+            var typeProviders = mConfigurationProvider.GetConfigurationTypes().Where(x => x.GetConfigurationType() == type.RegisteredType);
 
-            foreach (var member in typeProvider.GetConfigurationMembers())
+            foreach (var typeProvider in typeProviders)
             {
-                EngineTypeMember typeMember = member.GetConfigurationMember();
-
-                // Get the member
-                var configuredMember = type.GetRegisteredMember(typeMember);
-
-                // Set the action on that member if a datasource has been set explicitly for this type
-                var datasources = member.GetDatasources();
-                if (datasources.Count() > 0)
+                foreach (var member in typeProvider.GetConfigurationMembers())
                 {
-                    configuredMember.SetDatasources(datasources);
+                    EngineTypeMember typeMember = member.GetConfigurationMember();
+
+                    // Get the member
+                    var configuredMember = type.GetRegisteredMember(typeMember);
+
+                    // Set the action on that member if a datasource has been set explicitly for this type
+                    var datasources = member.GetDatasources();
+                    if (datasources.Count() > 0)
+                    {
+                        configuredMember.SetDatasources(datasources);
+                    }
                 }
             }
         }

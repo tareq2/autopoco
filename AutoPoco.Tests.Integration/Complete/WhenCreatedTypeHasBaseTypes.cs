@@ -31,13 +31,15 @@ namespace AutoPoco.Tests.Integration.Complete
                  x.Include<SimpleBaseClass>()
                     .Setup(c => c.BaseProperty).Value("Test")
                     .Setup(c => c.BaseVirtualProperty).Value("Base");
-                x.Include<SimpleDerivedClass>()
-                    .Setup(c => c.Name).Value("OtherTest")
-                    .Setup(c => c.BaseVirtualProperty).Value("Derived")
-                    .Setup(c => c.OtherInterfaceValue).Value("Derived");
+                 x.Include<SimpleDerivedClass>()
+                     .Setup(c => c.Name).Value("OtherTest")
+                     .Setup(c => c.BaseVirtualProperty).Value("Derived")
+                     .Setup(c => c.OtherInterfaceValue).Value("Derived")
+                     .Setup(c => c.Name).Use<FirstNameSource>();
 
             })
             .CreateSession();
+
         }
 
         [Test]
