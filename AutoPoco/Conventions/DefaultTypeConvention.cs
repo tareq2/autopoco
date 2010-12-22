@@ -33,7 +33,7 @@ namespace AutoPoco.Conventions
         {
             if(member.DeclaringType != type) { return false;}
 
-            if (member.MemberType == MemberTypes.Property)
+            if (member.MemberType == MemberTypes.Property && !type.IsInterface)
             {
                 PropertyInfo property = member as PropertyInfo;
 
