@@ -20,14 +20,14 @@ namespace AutoPoco.Tests.Unit.Conventions
         public void SetupObjects()
         {
             mConvention = new DefaultTypeConvention();
-            mTypeConventionContext = new Mock<ITypeConventionContext>();
-            mTypeConventionContext.SetupGet(x => x.Target).Returns(typeof(Class));            
+            mTypeConventionContext = new Mock<ITypeConventionContext>();         
         }
 
         [Test]
         public void Apply_IgnoresBaseProperties()
         {
             int count = 0;
+            mTypeConventionContext.SetupGet(x => x.Target).Returns(typeof(Class));   
             mTypeConventionContext.Setup(x => x.RegisterProperty(It.IsAny<PropertyInfo>()))
                 .Callback(() =>
                 {
@@ -43,7 +43,24 @@ namespace AutoPoco.Tests.Unit.Conventions
         public void Apply_IgnoresBaseFields()
         {
             int count = 0;
+            mTypeConventionContext.SetupGet(x => x.Target).Returns(typeof(Class));   
             mTypeConventionContext.Setup(x => x.RegisterField(It.IsAny<FieldInfo>()))
+                .Callback(() =>
+                {
+                    count++;
+                });
+
+            mConvention.Apply(mTypeConventionContext.Object);
+
+            Assert.AreEqual(1, count);
+        }
+
+        [Test]
+        public void Apply_HandlesNestedInterfaces()
+        {
+            int count = 0;
+            mTypeConventionContext.SetupGet(x => x.Target).Returns(typeof(ITestInterface));
+            mTypeConventionContext.Setup(x => x.RegisterProperty(It.IsAny<PropertyInfo>()))
                 .Callback(() =>
                 {
                     count++;
@@ -71,7 +88,7 @@ namespace AutoPoco.Tests.Unit.Conventions
             }
         }
 
-        public class Class : ITestInterface
+        public class Class : BaseClass, ITestInterface
         {
             public string TopProperty
             {
@@ -86,7 +103,6 @@ namespace AutoPoco.Tests.Unit.Conventions
             }
 
             public string TopField;
-
         }
 
         public interface IBaseTestInteface
@@ -99,7 +115,7 @@ namespace AutoPoco.Tests.Unit.Conventions
         }
 
 
-        public interface ITestInterface
+        public interface ITestInterface : IBaseTestInteface
         {
             string InterfaceProperty
             {
