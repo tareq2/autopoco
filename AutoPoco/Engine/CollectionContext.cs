@@ -26,6 +26,16 @@ namespace AutoPoco.Engine
             return this;
         }
 
+
+        public ICollectionContext<TPoco, TCollection> Source<TMember>(Expression<Func<TPoco, TMember>> propertyExpr, IDatasource dataSource)
+        {
+            foreach (var item in mGenerators)
+            {
+                item.Source(propertyExpr, dataSource);
+            }
+            return this;
+        }
+
         public ICollectionSequenceSelectionContext<TPoco, TCollection> First(int count)
         {
             return new CollectionSequenceSelectionContext<TPoco, TCollection>(

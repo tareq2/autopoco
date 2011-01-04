@@ -9,6 +9,7 @@ using AutoPoco.Util;
 using AutoPoco.Configuration;
 using AutoPoco.Testing;
 using Moq;
+using AutoPoco.DataSources;
 
 namespace AutoPoco.Tests.Unit.Engine
 {

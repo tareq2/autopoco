@@ -30,6 +30,12 @@ namespace AutoPoco.Engine
         IObjectGenerator<TPoco> Invoke(Expression<Action<TPoco>> methodExpr);
 
         /// <summary>
+        /// Overrides the data source for this particular generation scope
+        /// </summary>
+        /// <returns></returns>
+        IObjectGenerator<TPoco> Source<TMember>(Expression<Func<TPoco, TMember>> propertyExpr, IDatasource dataSource);
+
+        /// <summary>
         /// Invokes a method on all the items in the current selection
         /// </summary>
         /// <param name="methodExpr"></param>
