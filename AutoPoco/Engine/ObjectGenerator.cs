@@ -55,6 +55,21 @@ namespace AutoPoco.Engine
                         
             return this;
         }
+        
+        public IObjectGenerator<T> Source<TMember>(Expression<Func<T, TMember>> propertyExpr, IDatasource dataSource)
+        {
+            var member = ReflectionHelper.GetMember(propertyExpr);
+            if (member.IsField)
+            {
+                this.AddAction(new ObjectFieldSetFromSourceAction((EngineTypeFieldMember)member, dataSource));
+            }
+            else if (member.IsProperty)
+            {
+                this.AddAction(new ObjectPropertySetFromSourceAction((EngineTypePropertyMember)member, dataSource));
+            }
+
+            return this;
+        }
 
         public IObjectGenerator<T> Invoke(System.Linq.Expressions.Expression<Action<T>> methodExpr)
         {
@@ -69,5 +84,6 @@ namespace AutoPoco.Engine
             mOverrides.Add(invoker);
             return this;
         }
+
     }
 }

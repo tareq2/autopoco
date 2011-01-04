@@ -14,6 +14,12 @@ namespace AutoPoco.Engine
         ICollectionContext<TPoco, TCollection> Impose<TMember>(Expression<Func<TPoco, TMember>> propertyExpr, TMember value);
 
         /// <summary>
+        /// Overrides the data source for this particular generation scope
+        /// </summary>
+        /// <returns></returns>
+        ICollectionContext<TPoco, TCollection> Source<TMember>(Expression<Func<TPoco, TMember>> propertyExpr, IDatasource dataSource);
+
+        /// <summary>
         /// Invokes a method on all the items in the current selection
         /// </summary>
         /// <param name="methodExpr"></param>
