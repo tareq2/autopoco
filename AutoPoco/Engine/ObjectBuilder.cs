@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using AutoPoco.Configuration;
+using AutoPoco.Actions;
 
 namespace AutoPoco.Engine
 {
@@ -39,9 +41,40 @@ namespace AutoPoco.Engine
         /// Creates this object builder
         /// </summary>
         /// <param name="type"></param>
-        public ObjectBuilder(Type type)
+        public ObjectBuilder(IEngineConfigurationType type)
         {
-            this.InnerType = type;
+            this.InnerType = type.RegisteredType;
+
+            type.GetRegisteredMembers()
+           .ToList()
+           .ForEach(x =>
+           {
+               var sources = x.GetDatasources().Select(s => s.Build()).ToList();
+
+               if (x.Member.IsField)
+               {
+                   if (sources.Count == 0) { return; }
+
+                   this.AddAction(new ObjectFieldSetFromSourceAction(
+                      (EngineTypeFieldMember)x.Member,
+                      sources.First()));
+               }
+               else if (x.Member.IsProperty)
+               {
+                   if (sources.Count == 0) { return; }
+
+                   this.AddAction(new ObjectPropertySetFromSourceAction(
+                      (EngineTypePropertyMember)x.Member,
+                      sources.First()));
+               }
+               else if (x.Member.IsMethod)
+               {
+                   this.AddAction(new ObjectMethodInvokeFromSourceAction(
+                      (EngineTypeMethodMember)x.Member,
+                      sources
+                      ));
+               }
+           });
         }
 
         public Object CreateObject(IGenerationSession session)

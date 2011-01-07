@@ -5,6 +5,8 @@ using System.Text;
 using NUnit.Framework;
 using AutoPoco.Engine;
 using AutoPoco.Testing;
+using Moq;
+using AutoPoco.Configuration;
 
 namespace AutoPoco.Tests.Unit.Engine
 {
@@ -16,11 +18,9 @@ namespace AutoPoco.Tests.Unit.Engine
         [SetUp]
         public void TestSetup()
         {
-            mGenerationSession = new GenerationSession(
-                new ObjectBuilder[] {
-                        new ObjectBuilder(typeof(SimpleUser))
-                    }
-                );
+            IEngineConfiguration configuration = new EngineConfiguration();
+            configuration.RegisterType(typeof(SimpleUser));            
+            mGenerationSession = new GenerationSession(configuration);
         }
 
         [Test]
@@ -31,12 +31,10 @@ namespace AutoPoco.Tests.Unit.Engine
         }
 
         [Test]
-        public void Single_InvalidType_ThrowsException()
+        public void Single_UnknownType_ReturnsObjectGenerator()
         {
-            Assert.Throws<ArgumentException>(() =>
-            {
-                mGenerationSession.Single<SimplePropertyClass>();
-            });
+            IObjectGenerator<SimpleUser> userGenerator = mGenerationSession.Single<SimpleUser>();
+            Assert.NotNull(userGenerator);
         }
 
         [Test]
@@ -48,12 +46,10 @@ namespace AutoPoco.Tests.Unit.Engine
         }
 
         [Test]
-        public void List_InvalidType_ReturnsCollectionContext()
+        public void List_UnknownType_ReturnsObjectGenerator()
         {
-            Assert.Throws<ArgumentException>(() =>
-            {
-                mGenerationSession.List<SimplePropertyClass>(10);
-            });
+            ICollectionContext<SimpleUser, IList<SimpleUser>> userGenerator = mGenerationSession.List<SimpleUser>(10);
+            Assert.NotNull(userGenerator);
         }
     }
 }

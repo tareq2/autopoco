@@ -104,6 +104,7 @@
     <Compile Include="DefaultPropertyClass.cs" />
     <Compile Include="IGenericInterface.cs" />
     <Compile Include="ISimpleInterface.cs" />
+    <Compile Include="OpenGeneric.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SimpleBaseClass.cs" />
     <Compile Include="SimpleDataSource.cs" />

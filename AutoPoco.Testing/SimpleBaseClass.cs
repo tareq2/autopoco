@@ -30,5 +30,11 @@ namespace AutoPoco.Testing
             get;
             set;
         }
+
+
+        public void DoSomething()
+        {
+            
+        }
     }
 }

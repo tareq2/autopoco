@@ -18,5 +18,7 @@ namespace AutoPoco.Testing
             get;
             set;
         }
+
+        void DoSomething();
     }
 }
