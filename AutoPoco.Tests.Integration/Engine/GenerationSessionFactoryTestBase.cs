@@ -5,6 +5,7 @@ using System.Text;
 using NUnit.Framework;
 using AutoPoco.Configuration;
 using AutoPoco.Engine;
+using AutoPoco.Configuration.Providers;
 
 namespace AutoPoco.Tests.Integration.Engine
 {
@@ -27,9 +28,10 @@ namespace AutoPoco.Tests.Integration.Engine
         public void SetupConfiguration()
         {
             Configuration = new EngineConfiguration();
+            IEngineConventionProvider conventionProvider = new EngineConventionConfiguration();
             PopulateConfiguration();
             GenerationSessionFactory factory = new GenerationSessionFactory(
-                this.Configuration);
+                this.Configuration, conventionProvider);
             this.GenerationSession = factory.CreateSession();
         }
 

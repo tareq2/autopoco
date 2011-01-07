@@ -7,6 +7,7 @@ using AutoPoco.Engine;
 using AutoPoco.Testing;
 using Moq;
 using AutoPoco.Configuration;
+using AutoPoco.Configuration.Providers;
 
 namespace AutoPoco.Tests.Unit.Engine
 {
@@ -19,8 +20,9 @@ namespace AutoPoco.Tests.Unit.Engine
         public void TestSetup()
         {
             IEngineConfiguration configuration = new EngineConfiguration();
-            configuration.RegisterType(typeof(SimpleUser));            
-            mGenerationSession = new GenerationSession(configuration);
+            IEngineConventionProvider conventionProvider = new Mock<IEngineConventionProvider>().Object;
+            configuration.RegisterType(typeof(SimpleUser));
+            mGenerationSession = new GenerationSession(configuration, conventionProvider);
         }
 
         [Test]
