@@ -17,5 +17,13 @@ namespace AutoPoco
             var configFactory = new DefaultEngineConfigurationFactory();
             return new GenerationSessionFactory(configFactory.Create(config, config.ConventionProvider));
         }
+
+        public static IGenerationSession CreateDefaultSession()
+        {
+            var config = new EngineConfigurationBuilder();
+            var configFactory = new DefaultEngineConfigurationFactory();
+            return new GenerationSessionFactory(configFactory.Create(config, config.ConventionProvider))
+                .CreateSession();
+        }
     }
 }

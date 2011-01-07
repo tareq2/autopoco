@@ -6,6 +6,7 @@ using NUnit.Framework;
 using AutoPoco.Engine;
 using AutoPoco.Testing;
 using Moq;
+using AutoPoco.Configuration;
 
 namespace AutoPoco.Tests.Unit.Engine
 {
@@ -15,7 +16,9 @@ namespace AutoPoco.Tests.Unit.Engine
         [Test]
         public void CreateObject_ReturnsObject()
         {
-            ObjectBuilder builder = new ObjectBuilder(typeof(SimpleUser));
+            Mock<IEngineConfigurationType> type = new Mock<IEngineConfigurationType>();
+            type.SetupGet(x => x.RegisteredType).Returns(typeof(SimpleUser));
+            ObjectBuilder builder = new ObjectBuilder(type.Object);
             SimpleUser user = builder.CreateObject(null) as SimpleUser;
 
             Assert.NotNull(user);
@@ -24,7 +27,9 @@ namespace AutoPoco.Tests.Unit.Engine
         [Test]
         public void CreateObject_AppliesActionsToObject()
         {
-            ObjectBuilder builder = new ObjectBuilder(typeof(SimpleUser));
+            Mock<IEngineConfigurationType> type = new Mock<IEngineConfigurationType>();
+            type.SetupGet(x => x.RegisteredType).Returns(typeof(SimpleUser));
+            ObjectBuilder builder = new ObjectBuilder(type.Object);
             Mock<IObjectAction> actionMock = new Mock<IObjectAction>();
 
             Object obj = null;
@@ -43,7 +48,9 @@ namespace AutoPoco.Tests.Unit.Engine
         [Test]
         public void AddAction_AddsAction()
         {
-            ObjectBuilder builder = new ObjectBuilder(typeof(SimpleUser));
+            Mock<IEngineConfigurationType> type = new Mock<IEngineConfigurationType>();
+            type.SetupGet(x => x.RegisteredType).Returns(typeof(SimpleUser));
+            ObjectBuilder builder = new ObjectBuilder(type.Object);
             Mock<IObjectAction> actionMock = new Mock<IObjectAction>();
             builder.AddAction(actionMock.Object);
 
@@ -53,7 +60,9 @@ namespace AutoPoco.Tests.Unit.Engine
         [Test]
         public void RemoveAction_RemovesAction()
         {
-            ObjectBuilder builder = new ObjectBuilder(typeof(SimpleUser));
+            Mock<IEngineConfigurationType> type = new Mock<IEngineConfigurationType>();
+            type.SetupGet(x => x.RegisteredType).Returns(typeof(SimpleUser));
+            ObjectBuilder builder = new ObjectBuilder(type.Object);
             Mock<IObjectAction> actionMock = new Mock<IObjectAction>();
             
             builder.AddAction(actionMock.Object);
@@ -66,7 +75,9 @@ namespace AutoPoco.Tests.Unit.Engine
         [Test]
         public void ClearActions_RemovesAllActions()
         {
-            ObjectBuilder builder = new ObjectBuilder(typeof(SimpleUser));
+            Mock<IEngineConfigurationType> type = new Mock<IEngineConfigurationType>();
+            type.SetupGet(x => x.RegisteredType).Returns(typeof(SimpleUser));
+            ObjectBuilder builder = new ObjectBuilder(type.Object);
             Mock<IObjectAction> actionMock = new Mock<IObjectAction>();
             Mock<IObjectAction> actionMock2 = new Mock<IObjectAction>();
 

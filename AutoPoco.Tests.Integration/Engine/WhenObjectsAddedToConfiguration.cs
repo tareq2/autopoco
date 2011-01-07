@@ -73,12 +73,6 @@ namespace AutoPoco.Tests.Integration.Engine
         }
 
         [Test]
-        public void CreateUnknownClass_ThrowsArgumentException()
-        {
-            Assert.Throws<ArgumentException>(() => { this.GenerationSession.Single<SimplePropertyClass>(); });
-        }
-
-        [Test]
         public void CreateUser_EmailAddressIsSet()
         {
             var user = this.GenerationSession.Single<SimpleUser>().Get();

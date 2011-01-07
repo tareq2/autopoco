@@ -23,7 +23,9 @@ namespace AutoPoco.Tests.Unit.Engine
         [SetUp]
         public void TestSetup()
         {
-            var builder = new ObjectBuilder(typeof(SimpleUser));
+            Mock<IEngineConfigurationType> type = new Mock<IEngineConfigurationType>();
+            type.SetupGet(x => x.RegisteredType).Returns(typeof(SimpleUser));
+            ObjectBuilder builder = new ObjectBuilder(type.Object);
             builder.AddAction(
                 new ObjectPropertySetFromSourceAction(
                     ReflectionHelper.GetMember<SimpleUser>(x=>x.FirstName) as EngineTypePropertyMember,
