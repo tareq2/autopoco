@@ -24,7 +24,7 @@ syntax: glob
 *.lib
 *.sbr
 *.scc
-*.pid
+*.pidb
 [Bb]in
 [Db]ebug*/
 obj/

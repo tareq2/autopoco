@@ -5,12 +5,15 @@ using System.Text;
 using AutoPoco.Configuration;
 using AutoPoco.Conventions;
 using AutoPoco.Actions;
+using AutoPoco.Configuration.Providers;
 
 namespace AutoPoco.Engine
 {
     public class GenerationSession : IGenerationSession
     {
         private IEngineConfiguration mConfiguration;
+        private IEngineConventionProvider mConventions;
+
         private List<IObjectBuilder> mObjectBuilders = new List<IObjectBuilder>();
 
         public IEnumerable<IObjectBuilder> RegisteredTypes
@@ -18,9 +21,10 @@ namespace AutoPoco.Engine
             get { return mObjectBuilders; }
         }
 
-        public GenerationSession(IEngineConfiguration configuration)
+        public GenerationSession(IEngineConfiguration configuration, IEngineConventionProvider conventionProvider)
         {
             mConfiguration = configuration;
+            mConventions = conventionProvider;
             mObjectBuilders = new List<IObjectBuilder>();
         }
 

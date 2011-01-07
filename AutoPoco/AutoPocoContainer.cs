@@ -15,14 +15,14 @@ namespace AutoPoco
             var config = new EngineConfigurationBuilder();
             setup.Invoke(config);
             var configFactory = new DefaultEngineConfigurationFactory();
-            return new GenerationSessionFactory(configFactory.Create(config, config.ConventionProvider));
+            return new GenerationSessionFactory(configFactory.Create(config, config.ConventionProvider), config.ConventionProvider);
         }
 
         public static IGenerationSession CreateDefaultSession()
         {
             var config = new EngineConfigurationBuilder();
             var configFactory = new DefaultEngineConfigurationFactory();
-            return new GenerationSessionFactory(configFactory.Create(config, config.ConventionProvider))
+            return new GenerationSessionFactory(configFactory.Create(config, config.ConventionProvider), config.ConventionProvider)
                 .CreateSession();
         }
     }

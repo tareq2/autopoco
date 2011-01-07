@@ -6,6 +6,7 @@ using NUnit.Framework;
 using AutoPoco.Configuration;
 using AutoPoco.Engine;
 using Moq;
+using AutoPoco.Configuration.Providers;
 
 namespace AutoPoco.Tests.Unit.Engine
 {
@@ -15,7 +16,8 @@ namespace AutoPoco.Tests.Unit.Engine
         [Test]
         public void CreateSession_EmptyConfig_ReturnsSession()
         {
-            GenerationSessionFactory config = new GenerationSessionFactory(new EngineConfiguration());
+            IEngineConventionProvider conventionProvider = new EngineConventionConfiguration();
+            GenerationSessionFactory config = new GenerationSessionFactory(new EngineConfiguration(), conventionProvider);
             IGenerationSession session = config.CreateSession();
 
             Assert.NotNull(session);

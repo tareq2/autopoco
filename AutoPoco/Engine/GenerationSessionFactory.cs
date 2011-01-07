@@ -4,29 +4,25 @@ using System.Linq;
 using System.Text;
 using AutoPoco.Configuration;
 using AutoPoco.Actions;
+using AutoPoco.Configuration.Providers;
 
 namespace AutoPoco.Engine
 {
     public class GenerationSessionFactory : IGenerationSessionFactory
     {
         private IEngineConfiguration mConfig;
-        public GenerationSessionFactory(IEngineConfiguration config)
+        private IEngineConventionProvider mConventionProvider;
+
+        public GenerationSessionFactory(IEngineConfiguration config, IEngineConventionProvider conventionProvider)
         {
             mConfig = config;
+            mConventionProvider = conventionProvider;
         }
 
         public IGenerationSession CreateSession()
         {
-            //List<ObjectBuilder> builders = new List<ObjectBuilder>();
-            //foreach(var type in mConfig.GetRegisteredTypes())
-            //{
-            //    // Create the builder around the type
-            //    var builder = new ObjectBuilder(type);
-            //    builders.Add(builder);
-            //}
-
             // TODO: Need to deep-clone the config
-            return new GenerationSession(mConfig);
+            return new GenerationSession(mConfig, mConventionProvider);
         }
     }
 }

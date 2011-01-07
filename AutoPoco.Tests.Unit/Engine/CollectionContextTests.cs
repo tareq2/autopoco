@@ -16,7 +16,7 @@ namespace AutoPoco.Tests.Unit.Engine
         [Test]
         public void Impose_ImposesMemberOnAllItems()
         {
-            // Add 20 mocks to a list
+           // Add 20 mocks to a list
             List<Mock<IObjectGenerator<SimpleUser>>> mocks = new List<Mock<IObjectGenerator<SimpleUser>>>();
             for (int x = 0; x < 20; x++)
             {
@@ -27,7 +27,7 @@ namespace AutoPoco.Tests.Unit.Engine
             CollectionContext<SimpleUser, List<SimpleUser>> context =
                 new CollectionContext<SimpleUser, List<SimpleUser>>(
                         mocks.Select(x => (IObjectGenerator<SimpleUser>)x.Object));
-
+            
             // Call
             Expression<Func<SimpleUser, string>> expr = x => x.LastName;
             context.Impose(expr, "Test");
