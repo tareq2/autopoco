@@ -68,16 +68,12 @@ namespace AutoPoco.Engine
 
         private IEngineConfigurationType RegisterTypeWithDefaults(Type searchType)
         {
-            // This will probably get moved as I push more just-in-time configuration to the API
-            // Perhaps expose this as something to be overriden "Deal with unknown types" delegate
             mConfiguration.RegisterType(searchType);
             var typeConfig = mConfiguration.GetRegisteredType(searchType);
+
+            mConventions.ApplyTypeConventions(mConfiguration, typeConfig);
             
-            DefaultTypeConvention defaultConvention = new DefaultTypeConvention();
-            defaultConvention.Apply(new TypeConventionContext(typeConfig));
-
             return typeConfig;
-
         }
     }
 }

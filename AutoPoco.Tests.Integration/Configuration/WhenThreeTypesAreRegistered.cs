@@ -28,23 +28,24 @@ namespace AutoPoco.Tests.Integration.Configuration
         }
 
         [Test]
-        public void ConfigurationContainsThreeTypes()
+        public void ConfigurationContainsFourTypes()
         {
             var types = this.Configuration.GetRegisteredTypes();
-            Assert.AreEqual(3, types.Count());
+            Assert.AreEqual(4, types.Count());
         }
 
         [Test]
-        public void ConfigurationContainsValidTypes()
+        public void ConfigurationContainsValidTypesIncludingSystemObject()
         {
             var simpleUserType = this.Configuration.GetRegisteredType(typeof(SimpleUser));
             var simplePropertyType = this.Configuration.GetRegisteredType(typeof(SimplePropertyClass));
             var simpleFieldType = this.Configuration.GetRegisteredType(typeof(SimpleFieldClass));
-
-
+            var objectType = this.Configuration.GetRegisteredType(typeof(Object));
+            
             Assert.NotNull(simpleUserType);
             Assert.NotNull(simplePropertyType);
             Assert.NotNull(simpleFieldType);
+            Assert.NotNull(objectType);
         }
     }
 }

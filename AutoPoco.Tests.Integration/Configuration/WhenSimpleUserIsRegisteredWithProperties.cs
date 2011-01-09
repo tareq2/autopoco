@@ -30,7 +30,7 @@ namespace AutoPoco.Tests.Integration.Configuration
         }
 
         [Test]
-        public void ContainsThreeProperties()
+        public void ContainsOnlyTheRegisteredProperties()
         {
             var type = this.Configuration.GetRegisteredType(typeof(SimpleUser));
             var members = type.GetRegisteredMembers();

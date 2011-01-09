@@ -35,19 +35,44 @@ namespace AutoPoco.Configuration
             get { return mPropertyInfo; }
         }
 
-        internal EngineTypePropertyMember(PropertyInfo propertyInfo)
+        public EngineTypePropertyMember(PropertyInfo propertyInfo)
         {
+            if (propertyInfo == null) { throw new ArgumentNullException("propertyInfo"); }
             mPropertyInfo = propertyInfo;
         }
-
+        
         public override bool Equals(object obj)
         {
             var otherMember = obj as EngineTypePropertyMember;
             if (otherMember != null)
             {
-                return otherMember.PropertyInfo == this.PropertyInfo;
+                var propertyOne = GetRootPropertyDefinition(otherMember.PropertyInfo);
+                var propertyTwo = GetRootPropertyDefinition(this.PropertyInfo);
+                
+             //   return pro
+
+
+                return propertyOne == propertyTwo;
+
+                /*
+                
+                // Yes, this is simplistic and going to bite me in the ass soon enough
+                return
+                    (otherMember.PropertyInfo.Name == this.PropertyInfo.Name) &&
+                    (otherMember.PropertyInfo.PropertyType == this.PropertyInfo.PropertyType); */
             }
             return false;
+        }
+
+        private object GetRootPropertyDefinition(PropertyInfo propertyInfo)
+        {
+            return propertyInfo.DeclaringType.GetProperty(
+                propertyInfo.Name,
+                BindingFlags.Default,
+                null,
+                propertyInfo.PropertyType,
+                propertyInfo.GetIndexParameters().Select(x => x.ParameterType).ToArray(),
+                null);
         }
 
         public override int GetHashCode()

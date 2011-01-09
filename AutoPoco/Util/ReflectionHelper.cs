@@ -42,15 +42,7 @@ namespace AutoPoco.Util
                 throw new ArgumentException("Expression not supported", "expression");
             }
 
-            MemberInfo baseMember = memberExpression.Member;
-
-            if (baseMember.DeclaringType != declaringType)
-            {
-                // We need to look to see if this member exists on the derived type
-                MemberInfo topMember = declaringType.GetMember(baseMember.Name).FirstOrDefault();
-                if (topMember != null) { return topMember; }
-            }
-            return baseMember;
+            return memberExpression.Member;
         }
         
         public static string GetMethodName<TPoco>(Expression<Action<TPoco>> action)

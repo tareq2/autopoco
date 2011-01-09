@@ -38,7 +38,7 @@ namespace AutoPoco.Configuration
             }
         }
 
-        internal EngineTypeFieldMember(FieldInfo fieldInfo)
+        public EngineTypeFieldMember(FieldInfo fieldInfo)
         {
             mFieldInfo = fieldInfo;
         }
