@@ -125,6 +125,8 @@
     <Compile Include="Configuration\EngineConventionConfigurationTests.cs" />
     <Compile Include="Configuration\EngineConfigurationTypeBuilderTests.cs" />
     <Compile Include="Configuration\EngineConfigurationTypeMemberBuilderTests.cs" />
+    <Compile Include="Configuration\EngineTypeMethodTests.cs" />
+    <Compile Include="Configuration\EngineTypePropertyTests.cs" />
     <Compile Include="Configuration\MethodInvocationContextTests.cs" />
     <Compile Include="Configuration\TestMapClass.cs" />
     <Compile Include="Configuration\TypeConventionContextTests.cs" />
@@ -157,6 +159,7 @@
     <Compile Include="Engine\ObjectGeneratorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Regression\IEngineConfigurationBuilder.cs" />
+    <Compile Include="Regression\WhenComparingTheSameMemberFromDifferentClasses.cs" />
     <Compile Include="Regression\WhenStronglyTypedVirtualPropertyRequested.cs" />
     <Compile Include="Util\ReflectionHelperTests.cs" />
   </ItemGroup>

@@ -22,7 +22,11 @@ namespace AutoPoco
         {
             var config = new EngineConfigurationBuilder();
             var configFactory = new DefaultEngineConfigurationFactory();
-            return new GenerationSessionFactory(configFactory.Create(config, config.ConventionProvider), config.ConventionProvider)
+
+            config.Conventions(x => x.UseDefaultConventions());
+        
+            return new GenerationSessionFactory(
+                configFactory.Create(config, config.ConventionProvider), config.ConventionProvider)
                 .CreateSession();
         }
     }

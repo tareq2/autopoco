@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using AutoPoco.Engine;
 using AutoPoco.Configuration.Providers;
+using AutoPoco.Conventions;
 
 namespace AutoPoco.Configuration
 {
@@ -57,6 +58,11 @@ namespace AutoPoco.Configuration
         public void RegisterTypeProvider(IEngineConfigurationTypeProvider provider)
         {
             mTypes.Add(provider);
+        }
+
+        public EngineConfigurationBuilder()
+        {
+            mConventions.Register<DefaultTypeRegistrationConvention>(); // Urgh, not really a convention!
         }
     }
 }

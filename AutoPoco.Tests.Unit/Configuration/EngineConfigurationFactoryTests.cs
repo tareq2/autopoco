@@ -26,43 +26,5 @@ namespace AutoPoco.Tests.Unit.Configuration
 
            Assert.NotNull(configuration);
         }
-
-        [Test]
-        public void CreateWithDerivedClassAndOneType_InvokesActionsOnType()
-        {
-            Mock<IEngineConfigurationFactoryTypeAction> testAction = new Mock<IEngineConfigurationFactoryTypeAction>();
-            TestDerivedConfigurationFactory factory = new TestDerivedConfigurationFactory(
-                new IEngineConfigurationFactoryTypeAction[] { testAction.Object });
-
-            var configurationProviderMock = new Mock<IEngineConfigurationProvider>();
-            var typeConfigurationTypeProviderMock = new Mock<IEngineConfigurationTypeProvider>();
-            var conventionProviderMock = new Mock<IEngineConventionProvider>();
-
-            configurationProviderMock.Setup(x => x.GetConfigurationTypes()).Returns(() =>
-            {
-                return new IEngineConfigurationTypeProvider[] { typeConfigurationTypeProviderMock.Object };
-            });
-
-            factory.Create(configurationProviderMock.Object, conventionProviderMock.Object);
-
-            testAction.Verify(x =>
-                x.Apply(It.IsAny<IEngineConfigurationType>()), 
-                Times.Once());
-        }
-
-        public class TestDerivedConfigurationFactory : EngineConfigurationFactory
-        {
-            IEngineConfigurationFactoryTypeAction[] mActions;
-
-            public TestDerivedConfigurationFactory(IEngineConfigurationFactoryTypeAction[] actions)
-            {
-                mActions = actions;
-            }
-
-            protected override IEnumerable<IEngineConfigurationFactoryTypeAction> CreateTypeActions(EngineConfiguration configuration, IEngineConfigurationProvider configurationProvider, IEngineConventionProvider conventionProvider)
-            {
-                return mActions;
-            }
-        }
     }
 }
