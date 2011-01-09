@@ -10,6 +10,11 @@ namespace AutoPoco.Util
 {
     public static class ReflectionHelper
     {
+        public static bool LooseCompare(this MemberInfo info, MemberInfo other)
+        {
+            return info.MetadataToken == other.MetadataToken && info.Module == other.Module;
+        }
+
         public static EngineTypeMember GetMember<TPoco, TReturn>(Expression<Func<TPoco, TReturn>> expression)
         {
             var member = GetMemberInfo(typeof(TPoco), expression.Body);
