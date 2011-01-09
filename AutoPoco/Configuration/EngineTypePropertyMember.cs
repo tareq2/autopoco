@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Reflection;
 
+using AutoPoco.Util;
+
 namespace AutoPoco.Configuration
 {
     public class EngineTypePropertyMember : EngineTypeMember
@@ -46,34 +48,96 @@ namespace AutoPoco.Configuration
             var otherMember = obj as EngineTypePropertyMember;
             if (otherMember != null)
             {
-                var propertyOne = GetRootPropertyDefinition(otherMember.PropertyInfo);
-                var propertyTwo = GetRootPropertyDefinition(this.PropertyInfo);
-                
-             //   return pro
+                var propertyOne = GetSourceProperty(otherMember.PropertyInfo);
+                var propertyTwo = GetSourceProperty(this.PropertyInfo);
 
+                if (propertyOne == null) { throw new InvalidOperationException("AGH1"); }
+                if (propertyTwo == null) { throw new InvalidOperationException("AGH2"); }
 
-                return propertyOne == propertyTwo;
-
-                /*
-                
-                // Yes, this is simplistic and going to bite me in the ass soon enough
-                return
-                    (otherMember.PropertyInfo.Name == this.PropertyInfo.Name) &&
-                    (otherMember.PropertyInfo.PropertyType == this.PropertyInfo.PropertyType); */
+                return propertyOne.MetadataToken == propertyTwo.MetadataToken &&
+                    propertyOne.Module == propertyTwo.Module;
+                   
             }
             return false;
         }
 
-        private object GetRootPropertyDefinition(PropertyInfo propertyInfo)
+        private PropertyInfo GetRootProperty(PropertyInfo pi)
         {
-            return propertyInfo.DeclaringType.GetProperty(
-                propertyInfo.Name,
-                BindingFlags.Default,
-                null,
-                propertyInfo.PropertyType,
-                propertyInfo.GetIndexParameters().Select(x => x.ParameterType).ToArray(),
-                null);
+            if ((pi.GetGetMethod().Attributes & MethodAttributes.Virtual) != MethodAttributes.Virtual) { return pi; }
+
+            var type = pi.DeclaringType;
+
+            while (true)
+            {
+                type = type.BaseType;
+
+                if (type == null)
+                {
+                    return pi;
+                }
+
+                var flags = BindingFlags.NonPublic | BindingFlags.DeclaredOnly | BindingFlags.Instance |
+                            BindingFlags.Public | BindingFlags.Static;
+
+                var inheritedProperty = type.GetProperty(pi.Name, flags);
+
+                if (inheritedProperty == null)
+                {
+                    return pi;
+                }
+
+                pi = inheritedProperty;
+            }
         }
+
+        private PropertyInfo GetSourceProperty(PropertyInfo pi)
+        {
+            var inherited = this.GetRootProperty(pi);
+            if (inherited != pi)
+            {
+                pi = inherited;
+            }
+
+            var implemented = this.GetImplementedProperty(pi);
+            if (implemented != pi)
+            {
+                return implemented;
+            }
+
+            return pi;
+        }
+
+        private PropertyInfo GetImplementedProperty(PropertyInfo pi)
+        {
+            var type = pi.DeclaringType;
+            var interfaces = type.GetInterfaces();
+
+            for(int interfaceIndex = 0; interfaceIndex < interfaces.Length; interfaceIndex++)
+            {
+                var iface = interfaces[interfaceIndex];
+                var interfaceMethods = type.GetInterfaceMap(iface).TargetMethods;
+
+                MethodInfo matchingMethod = null;
+                for (int x = 0; x < interfaceMethods.Length; x++)
+                {
+                    if (pi.GetGetMethod().LooseCompare(interfaceMethods[x]) || pi.GetSetMethod().LooseCompare(interfaceMethods[x]))
+                    {
+                        matchingMethod = type.GetInterfaceMap(iface).InterfaceMethods[x];
+                        break; 
+                    }
+                }
+                if (matchingMethod == null) continue;
+
+                var interfacePi = from i in interfaces
+                                  from property in i.GetProperties()
+                                  where property.GetGetMethod().LooseCompare(matchingMethod) || property.GetSetMethod().LooseCompare(matchingMethod)
+                                  select property;
+
+                return interfacePi.First();
+            }
+            
+            return pi;
+        } 
 
         public override int GetHashCode()
         {

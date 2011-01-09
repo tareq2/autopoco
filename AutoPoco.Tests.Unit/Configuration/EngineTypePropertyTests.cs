@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using AutoPoco.Configuration;
+using System.Reflection;
 
 namespace AutoPoco.Tests.Unit.Configuration
 {
@@ -50,10 +51,24 @@ namespace AutoPoco.Tests.Unit.Configuration
         [Test]
         public void New_Property_Requested_From_Derived_Type_Is_Not_Considered_To_Hidden_Property()
         {
-            EngineTypePropertyMember baseProperty = new EngineTypePropertyMember(typeof(BaseClass).GetProperty("AnotherSealedProperty"));
-            EngineTypePropertyMember overriddenProperty = new EngineTypePropertyMember(typeof(DerivedClass).GetProperty("AnotherSealedProperty"));
+            var flags = BindingFlags.NonPublic | BindingFlags.DeclaredOnly | BindingFlags.Instance |
+                           BindingFlags.Public | BindingFlags.Static;
+
+            EngineTypePropertyMember baseProperty = new EngineTypePropertyMember(typeof(BaseClass).GetProperty("AnotherSealedProperty", flags));
+            EngineTypePropertyMember overriddenProperty = new EngineTypePropertyMember(typeof(DerivedClass)
+                .GetProperty("AnotherSealedProperty", flags));
 
             Assert.False(baseProperty == overriddenProperty);
+        }
+
+
+        [Test]
+        public void Different_Properties_Are_Not_Considered_Equal()
+        {
+            EngineTypePropertyMember propertyOne = new EngineTypePropertyMember(typeof(BaseClass).GetProperty("SealedProperty"));
+            EngineTypePropertyMember propertyTwo = new EngineTypePropertyMember(typeof(BaseClass).GetProperty("AnotherSealedProperty"));
+
+            Assert.False(propertyOne == propertyTwo);
         }
 
         public interface IFoo
@@ -61,7 +76,8 @@ namespace AutoPoco.Tests.Unit.Configuration
             string InterfaceProperty { get; set; }
         }
 
-        public class BaseClass
+        public class BaseClass : IFoo
+
         {
             public string SealedProperty { get; set; }
             public string AnotherSealedProperty { get; set; }
