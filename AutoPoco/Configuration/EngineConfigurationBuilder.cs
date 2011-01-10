@@ -60,9 +60,5 @@ namespace AutoPoco.Configuration
             mTypes.Add(provider);
         }
 
-        public EngineConfigurationBuilder()
-        {
-            mConventions.Register<DefaultTypeRegistrationConvention>(); // Urgh, not really a convention!
-        }
     }
 }

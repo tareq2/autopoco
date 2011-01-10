@@ -9,7 +9,7 @@ namespace AutoPoco.Configuration
 {
     public class EngineConventionConfiguration : IEngineConventionConfiguration, IEngineConventionProvider
     {
-        private List<Type> mConventions = new List<Type>();
+        private HashSet<Type> mConventions = new HashSet<Type>();
 
         public void Register(Type conventionType)
         {

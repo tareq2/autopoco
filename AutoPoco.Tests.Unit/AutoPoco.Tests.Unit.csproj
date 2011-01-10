@@ -116,7 +116,6 @@
     <Compile Include="Actions\ObjectPropertySetFromValueActionTests.cs" />
     <Compile Include="AutoPocoContainerTests.cs" />
     <Compile Include="Configuration\DataSourceFactoryTests.cs" />
-    <Compile Include="Configuration\DefaultEngineConfigurationFactoryTests.cs" />
     <Compile Include="Configuration\EngineConfigurationBuilderTests.cs" />
     <Compile Include="Configuration\EngineConfigurationFactoryTests.cs" />
     <Compile Include="Configuration\EngineConfigurationTests.cs" />

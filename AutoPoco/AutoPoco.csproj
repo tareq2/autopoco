@@ -106,8 +106,9 @@
     <Compile Include="Actions\ObjectPropertySetFromValueAction.cs" />
     <Compile Include="AutoPocoContainer.cs" />
     <Compile Include="ConfigurationExtensions.cs" />
+    <Compile Include="Configuration\AdhocEngineConfigurationProvider.cs" />
+    <Compile Include="Configuration\AdhocEngineTypeProvider.cs" />
     <Compile Include="Configuration\DatasourceFactory.cs" />
-    <Compile Include="Configuration\DefaultEngineConfigurationFactory.cs" />
     <Compile Include="Configuration\EngineConfiguration.cs" />
     <Compile Include="Configuration\EngineConfigurationFactory.cs" />
     <Compile Include="Configuration\EngineConfigurationType.cs" />
@@ -121,14 +122,16 @@
     <Compile Include="Configuration\IConvention.cs" />
     <Compile Include="Configuration\IEngineConfiguration.cs" />
     <Compile Include="Configuration\IEngineConfigurationFactory.cs" />
+    <Compile Include="Configuration\IEngineConfigurationProviderLoadingConvention.cs" />
     <Compile Include="Configuration\IEngineConfigurationType.cs" />
     <Compile Include="Configuration\IEngineConfigurationTypeBuilder%27.cs" />
     <Compile Include="Configuration\IEngineConfigurationTypeMember.cs" />
     <Compile Include="Configuration\IEngineConfigurationDatasource.cs" />
     <Compile Include="Configuration\IEngineConfigurationTypeMemberBuilder%27.cs" />
     <Compile Include="Configuration\IEngineConventionConfiguration.cs" />
-    <Compile Include="Configuration\ITypeRegistrationConvention.cs" />
-    <Compile Include="Configuration\ITypeRegistrationConventionContext.cs" />
+    <Compile Include="Configuration\ITypeRegistrationAction.cs" />
+    <Compile Include="Configuration\ITypeRegistrationService.cs" />
+    <Compile Include="Configuration\IEngineConfigurationProviderLoadingConventionContext.cs" />
     <Compile Include="Configuration\ITypeFieldConvention.cs" />
     <Compile Include="Configuration\ITypeConvention.cs" />
     <Compile Include="Configuration\ITypeConventionContext.cs" />
@@ -148,11 +151,16 @@
     <Compile Include="Configuration\TypeMemberConventionRequirements.cs" />
     <Compile Include="Configuration\TypePropertyConventionContext.cs" />
     <Compile Include="Configuration\TypePropertyConventionRequirements.cs" />
-    <Compile Include="Configuration\TypeRegistrationConventionContext.cs" />
+    <Compile Include="Configuration\TypeRegistrationActions\ApplyTypeConventionsAction.cs" />
+    <Compile Include="Configuration\TypeRegistrationActions\ApplyTypeMemberConfigurationAction.cs" />
+    <Compile Include="Configuration\TypeRegistrationActions\ApplyTypeMemberConventionsAction.cs" />
+    <Compile Include="Configuration\TypeRegistrationActions\CascadeBaseTypeConfigurationAction.cs" />
+    <Compile Include="Configuration\TypeRegistrationActions\RegisterTypeMembersFromConfigurationAction.cs" />
+    <Compile Include="Configuration\TypeRegistrationActions\TypeRegistrationAction.cs" />
+    <Compile Include="Configuration\EngineConfigurationProviderLoadingConventionContext.cs" />
     <Compile Include="Configuration\Use.cs" />
-    <Compile Include="Conventions\AdhocTypeRegistrationConvention.cs" />
+    <Compile Include="Conventions\DefaultEngineConfigurationProviderLoadingConvention.cs" />
     <Compile Include="Conventions\DefaultTypeConvention.cs" />
-    <Compile Include="Conventions\DefaultTypeRegistrationConvention.cs" />
     <Compile Include="Conventions\ReferenceMemberConvention.cs" />
     <Compile Include="DataSources\ColorSource.cs" />
     <Compile Include="DataSources\CountrySource.cs" />
@@ -233,6 +241,7 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

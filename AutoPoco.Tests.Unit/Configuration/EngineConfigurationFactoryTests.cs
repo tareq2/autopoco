@@ -15,7 +15,6 @@ namespace AutoPoco.Tests.Unit.Configuration
         [Test]
         public void Create_WithEmptySetup_ReturnsConfiguration()
         {
-
            var configurationProviderMock = new Mock<IEngineConfigurationProvider>();
            var conventionProviderMock = new Mock<IEngineConventionProvider>();
            var factory = new EngineConfigurationFactory();

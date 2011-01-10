@@ -24,7 +24,7 @@ namespace AutoPoco.Tests.Integration.Configuration
             this.Builder.Include<SimpleUser>();
             this.Builder.Include<SimplePropertyClass>();
             this.Builder.Include<SimpleFieldClass>();
-            this.Configuration = new DefaultEngineConfigurationFactory().Create(this.Builder, this.Builder.ConventionProvider);
+            this.Configuration = new EngineConfigurationFactory().Create(this.Builder, this.Builder.ConventionProvider);
         }
 
         [Test]
