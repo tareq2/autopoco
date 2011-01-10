@@ -30,8 +30,6 @@ namespace AutoPoco.Conventions
                 {
                     context.Target.RegisterMember(existingMemberConfig.Member);
                     currentMemberConfig = context.Target.GetRegisteredMember(existingMemberConfig.Member);
-
-                    // Note: We only override these if it wasn't configured already
                     currentMemberConfig.SetDatasources(existingMemberConfig.GetDatasources());
                 }             
             }
@@ -68,7 +66,62 @@ namespace AutoPoco.Conventions
 
         public virtual void ApplyTypeMemberConventions(ITypeRegistrationConventionContext context)
         {
-            context.ConventionProvider.ApplyTypeConventions(context.Configuration, context.Target);
+             foreach (var member in context.Target.GetRegisteredMembers())
+            {
+                // Apply the appropriate conventions
+                if (member.Member.IsField)
+                {
+                    var convention = context.ConventionProvider.Find<ITypeFieldConvention>()
+                    .Select(t =>
+                    {
+                        var details = new
+                        {
+                            Convention = (ITypeFieldConvention)Activator.CreateInstance(t),
+                            Requirements = new TypeFieldConventionRequirements()
+                        };
+                        details.Convention.SpecifyRequirements(details.Requirements);
+                        return details;
+                    })
+                    .Where(x => x.Requirements.IsValid((EngineTypeFieldMember)member.Member))
+                    .OrderByDescending(x => ScoreRequirements(x.Requirements))
+                    .FirstOrDefault();
+
+                    if (convention != null)
+                    {
+                        convention.Convention.Apply(new TypeFieldConventionContext(context.Configuration, member));
+                    }
+                }
+                if (member.Member.IsProperty)
+                {
+                    var convention = context.ConventionProvider.Find<ITypePropertyConvention>()
+                         .Select(t =>
+                         {
+                             var details = new
+                             {
+                                 Convention = (ITypePropertyConvention)Activator.CreateInstance(t),
+                                 Requirements = new TypePropertyConventionRequirements()
+                             };
+                             details.Convention.SpecifyRequirements(details.Requirements);
+                             return details;
+                         })
+                         .Where(x => x.Requirements.IsValid((EngineTypePropertyMember)member.Member))
+                         .OrderByDescending(x => ScoreRequirements(x.Requirements))
+                         .FirstOrDefault();
+
+                    if (convention != null)
+                    {
+                        convention.Convention.Apply(new TypePropertyConventionContext(context.Configuration, member));
+                    }
+                }
+            }
+        }
+
+        private int ScoreRequirements(TypeMemberConventionRequirements requirements)
+        {
+            int score = 0;
+            if (requirements.HasNameRule()) { score += 2; }
+            if (requirements.HasTypeRule()) { score++; }
+            return score;
         }
 
         public virtual void ApplyTypeMemberConfiguration(ITypeRegistrationConventionContext context)

@@ -14,9 +14,5 @@ namespace AutoPoco.Configuration.Providers
         /// <returns></returns>
         IEnumerable<Type> Find<T>() where T : IConvention;
         
-        /// <summary>
-        /// Applies any applicable type conventions to a configuration object
-        /// </summary>
-        void ApplyTypeConventions(IEngineConfiguration configuration, IEngineConfigurationType type);
     }
 }

@@ -16,14 +16,30 @@ namespace AutoPoco.Tests.Integration.Complete
         [SetUp]
         public void SetupTest()
         {
-           mGenerationSession = AutoPocoContainer.Configure(x => { }).CreateSession();
+           mGenerationSession  = AutoPocoContainer.CreateDefaultSession();
         }
 
         [Test]
-        public void Valid_Object_Is_Returned()
+        public void With_Basic_Type_Valid_Object_Is_Returned()
         {
             SimpleUser user = mGenerationSession.Single<SimpleUser>().Get();
             Assert.NotNull(user);
+        }
+
+        [Ignore("Still not supported")]
+        [Test]
+        public void With_Derived_Type_Base_Properties_Are_Filled()
+        {
+            SimpleDerivedClass obj = mGenerationSession.Single<SimpleDerivedClass>().Get();
+            Assert.NotNull(obj.BaseProperty);
+        }
+        
+        [Ignore("Still not supported")]
+        [Test]
+        public void With_Implemented_Type_Interface_Properties_Are_Filled()
+        {
+            SimpleDerivedClass obj = mGenerationSession.Single<SimpleDerivedClass>().Get();
+            Assert.NotNull(obj.InterfaceValue);
         }
     }
 }

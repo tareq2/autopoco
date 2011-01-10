@@ -12,7 +12,6 @@ namespace AutoPoco.Tests.Integration.Complete
     {
         // This one is for you Hanselman.. ;-)
         [Test]
-        [Ignore("Not just yet though")]
         public void It_Just_Works()
         {
             var session = AutoPocoContainer.CreateDefaultSession();
