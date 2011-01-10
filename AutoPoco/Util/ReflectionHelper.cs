@@ -15,6 +15,22 @@ namespace AutoPoco.Util
             return info.MetadataToken == other.MetadataToken && info.Module == other.Module;
         }
 
+        public static bool ArgumentsAreEqualTo(this MethodInfo one, MethodInfo two)
+        {
+            var paramOne = one.GetParameters();
+            var paramTwo = two.GetParameters();
+
+            if (paramTwo.Length != paramOne.Length) return false;
+
+            for (int x = 0; x < paramOne.Length; x++)
+            {
+                if (paramOne[x] != paramTwo[x]) { return false; }
+            }
+
+            return true;
+        }
+
+
         public static EngineTypeMember GetMember<TPoco, TReturn>(Expression<Func<TPoco, TReturn>> expression)
         {
             var member = GetMemberInfo(typeof(TPoco), expression.Body);
