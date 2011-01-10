@@ -8,9 +8,9 @@ using AutoPoco.Configuration.TypeRegistrationActions;
 namespace AutoPoco.Conventions
 {
     // Still a klooge, but leaves me in a better place for later
-    public class DefaultEngineConfigurationProviderLoadingConvention : IEngineConfigurationProviderLoadingConvention
+    public class DefaultEngineConfigurationProviderLoadingConvention : IEngineConfigurationProviderLoader
     {
-        public void Apply(IEngineConfigurationProviderLoadingConventionContext context)
+        public void Apply(IEngineConfigurationProviderLoaderContext context)
         {
             OnPreTypeLoad(context);
 
@@ -22,17 +22,17 @@ namespace AutoPoco.Conventions
             OnPostTypeLoad(context);
         }
 
-        protected virtual void OnPreTypeLoad(IEngineConfigurationProviderLoadingConventionContext context)
+        protected virtual void OnPreTypeLoad(IEngineConfigurationProviderLoaderContext context)
         {
             FindAndRegisterAllBaseTypes(context);
         }
 
-        protected virtual void OnPostTypeLoad(IEngineConfigurationProviderLoadingConventionContext context)
+        protected virtual void OnPostTypeLoad(IEngineConfigurationProviderLoaderContext context)
         {
             foreach (var type in context.Configuration.GetRegisteredTypes()) ApplyBaseRulesToType(context, type);
         }
 
-        protected virtual void FindAndRegisterAllBaseTypes(IEngineConfigurationProviderLoadingConventionContext context)
+        protected virtual void FindAndRegisterAllBaseTypes(IEngineConfigurationProviderLoaderContext context)
         {
             foreach (var type in context.ConfigurationProvider.GetConfigurationTypes())
             {
@@ -58,7 +58,7 @@ namespace AutoPoco.Conventions
             if(baseType != null) { TryRegisterType(configuration, baseType);}
         }
 
-        protected virtual void ApplyBaseRulesToType(IEngineConfigurationProviderLoadingConventionContext context, IEngineConfigurationType type)
+        protected virtual void ApplyBaseRulesToType(IEngineConfigurationProviderLoaderContext context, IEngineConfigurationType type)
         {
             IEnumerable<IEngineConfigurationTypeMember> membersToApply = GetAllTypeHierarchyMembers(context.Configuration, type);
 
@@ -105,7 +105,7 @@ namespace AutoPoco.Conventions
             return membersToApply;
         }
 
-        protected virtual ITypeRegistrationAction CreateTypeRegistrationActions(IEngineConfigurationProviderLoadingConventionContext context)
+        protected virtual ITypeRegistrationAction CreateTypeRegistrationActions(IEngineConfigurationProviderLoaderContext context)
         {
             return new ApplyTypeConventionsAction(context.Configuration, context.ConventionProvider)
             {

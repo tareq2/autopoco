@@ -6,11 +6,10 @@ using AutoPoco.Configuration.Providers;
 
 namespace AutoPoco.Configuration
 {
-    public interface ITypeRegistrationConventionContext : IConvention
+    public interface IEngineConfigurationProviderLoaderContext
     {
         IEngineConfiguration Configuration { get; }
         IEngineConfigurationProvider ConfigurationProvider { get; }
         IEngineConventionProvider ConventionProvider { get; }
-        IEngineConfigurationType Target { get; }
     }
 }

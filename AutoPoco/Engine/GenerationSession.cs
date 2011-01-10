@@ -68,7 +68,7 @@ namespace AutoPoco.Engine
 
             AdhocEngineConfigurationProvider provider = new AdhocEngineConfigurationProvider(new[] { searchType });
             var coreConvention = new DefaultEngineConfigurationProviderLoadingConvention();
-            coreConvention.Apply(new EngineConfigurationProviderLoadingConventionContext(mConfiguration, provider, mConventions));      
+            coreConvention.Apply(new EngineConfigurationProviderLoaderContext(mConfiguration, provider, mConventions));      
         }
     }
 }
