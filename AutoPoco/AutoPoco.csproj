@@ -150,6 +150,7 @@
     <Compile Include="Configuration\TypePropertyConventionRequirements.cs" />
     <Compile Include="Configuration\TypeRegistrationConventionContext.cs" />
     <Compile Include="Configuration\Use.cs" />
+    <Compile Include="Conventions\AdhocTypeRegistrationConvention.cs" />
     <Compile Include="Conventions\DefaultTypeConvention.cs" />
     <Compile Include="Conventions\DefaultTypeRegistrationConvention.cs" />
     <Compile Include="Conventions\ReferenceMemberConvention.cs" />

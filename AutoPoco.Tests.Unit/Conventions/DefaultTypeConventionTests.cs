@@ -7,6 +7,7 @@ using AutoPoco.Conventions;
 using AutoPoco.Configuration;
 using Moq;
 using System.Reflection;
+using AutoPoco.Testing;
 
 namespace AutoPoco.Tests.Unit.Conventions
 {
@@ -56,19 +57,12 @@ namespace AutoPoco.Tests.Unit.Conventions
         }
 
         [Test]
-        public void Apply_HandlesNestedInterfaces()
+        public void Apply_Registers_Interface_Properties_When_Running_Against_That_Interface()
         {
-            int count = 0;
             mTypeConventionContext.SetupGet(x => x.Target).Returns(typeof(ITestInterface));
-            mTypeConventionContext.Setup(x => x.RegisterProperty(It.IsAny<PropertyInfo>()))
-                .Callback(() =>
-                {
-                    count++;
-                });
-
             mConvention.Apply(mTypeConventionContext.Object);
+            mTypeConventionContext.Verify(x => x.RegisterProperty(It.IsAny<PropertyInfo>()), Times.Once());
 
-            Assert.AreEqual(1, count);
         }
 
         public class BaseClass : IBaseTestInteface

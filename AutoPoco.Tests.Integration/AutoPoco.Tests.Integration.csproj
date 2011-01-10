@@ -103,6 +103,7 @@
   <ItemGroup>
     <Compile Include="Complete\WhenCreatedTypeHasBaseTypes.cs" />
     <Compile Include="Complete\WhenCreatingACustomisedList.cs" />
+    <Compile Include="Complete\WhenCreatingObjectsWithHaveAnInterfaceThatIsNotConfigured.cs" />
     <Compile Include="Complete\WhenOverridingDataSourceOnObjectCreation.cs" />
     <Compile Include="Complete\WhenRequestingClosedGenericType.cs" />
     <Compile Include="Complete\WhenRequestingUnknownType.cs" />
