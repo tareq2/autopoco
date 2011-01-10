@@ -6,7 +6,7 @@ using AutoPoco.Configuration.Providers;
 
 namespace AutoPoco.Configuration
 {
-    public class EngineConfigurationProviderLoadingConventionContext : IEngineConfigurationProviderLoadingConventionContext
+    public class EngineConfigurationProviderLoaderContext : IEngineConfigurationProviderLoaderContext
     {
         public IEngineConfiguration Configuration
         {
@@ -26,7 +26,7 @@ namespace AutoPoco.Configuration
             private set;
         }
 
-        public EngineConfigurationProviderLoadingConventionContext(
+        public EngineConfigurationProviderLoaderContext(
             IEngineConfiguration configuration, 
             IEngineConfigurationProvider configurationProvider, 
             IEngineConventionProvider conventionProvider)

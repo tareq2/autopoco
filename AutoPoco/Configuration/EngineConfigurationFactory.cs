@@ -13,7 +13,7 @@ namespace AutoPoco.Configuration
         {
             EngineConfiguration configuration = new EngineConfiguration();
             var coreConvention = new DefaultEngineConfigurationProviderLoadingConvention();
-            coreConvention.Apply(new EngineConfigurationProviderLoadingConventionContext(configuration, configurationProvider, conventionProvider));
+            coreConvention.Apply(new EngineConfigurationProviderLoaderContext(configuration, configurationProvider, conventionProvider));
             return configuration;
         }
     }

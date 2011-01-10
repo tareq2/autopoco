@@ -1,4 +1,0 @@
-Arrays/Collections in Setup
-References to other objects
-Parameters to sources
-Conventions

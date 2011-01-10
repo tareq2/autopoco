@@ -122,7 +122,7 @@
     <Compile Include="Configuration\IConvention.cs" />
     <Compile Include="Configuration\IEngineConfiguration.cs" />
     <Compile Include="Configuration\IEngineConfigurationFactory.cs" />
-    <Compile Include="Configuration\IEngineConfigurationProviderLoadingConvention.cs" />
+    <Compile Include="Configuration\IEngineConfigurationProviderLoader.cs" />
     <Compile Include="Configuration\IEngineConfigurationType.cs" />
     <Compile Include="Configuration\IEngineConfigurationTypeBuilder%27.cs" />
     <Compile Include="Configuration\IEngineConfigurationTypeMember.cs" />
@@ -131,7 +131,7 @@
     <Compile Include="Configuration\IEngineConventionConfiguration.cs" />
     <Compile Include="Configuration\ITypeRegistrationAction.cs" />
     <Compile Include="Configuration\ITypeRegistrationService.cs" />
-    <Compile Include="Configuration\IEngineConfigurationProviderLoadingConventionContext.cs" />
+    <Compile Include="Configuration\IEngineConfigurationProviderLoaderContext.cs" />
     <Compile Include="Configuration\ITypeFieldConvention.cs" />
     <Compile Include="Configuration\ITypeConvention.cs" />
     <Compile Include="Configuration\ITypeConventionContext.cs" />
@@ -157,7 +157,7 @@
     <Compile Include="Configuration\TypeRegistrationActions\CascadeBaseTypeConfigurationAction.cs" />
     <Compile Include="Configuration\TypeRegistrationActions\RegisterTypeMembersFromConfigurationAction.cs" />
     <Compile Include="Configuration\TypeRegistrationActions\TypeRegistrationAction.cs" />
-    <Compile Include="Configuration\EngineConfigurationProviderLoadingConventionContext.cs" />
+    <Compile Include="Configuration\EngineConfigurationProviderLoaderContext.cs" />
     <Compile Include="Configuration\Use.cs" />
     <Compile Include="Conventions\DefaultEngineConfigurationProviderLoadingConvention.cs" />
     <Compile Include="Conventions\DefaultTypeConvention.cs" />

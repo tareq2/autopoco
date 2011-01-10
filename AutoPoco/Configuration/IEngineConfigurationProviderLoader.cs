@@ -5,8 +5,8 @@ using System.Text;
 
 namespace AutoPoco.Configuration
 {
-    public interface IEngineConfigurationFactoryTypeAction
+    public interface IEngineConfigurationProviderLoader
     {
-        void Apply(IEngineConfigurationType type);
+        void Apply(IEngineConfigurationProviderLoaderContext context);
     }
 }
