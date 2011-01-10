@@ -26,7 +26,6 @@ namespace AutoPoco.Tests.Integration.Complete
             Assert.NotNull(user);
         }
 
-        [Ignore("Still not supported")]
         [Test]
         public void With_Derived_Type_Base_Properties_Are_Filled()
         {
@@ -34,7 +33,6 @@ namespace AutoPoco.Tests.Integration.Complete
             Assert.NotNull(obj.BaseProperty);
         }
         
-        [Ignore("Still not supported")]
         [Test]
         public void With_Implemented_Type_Interface_Properties_Are_Filled()
         {

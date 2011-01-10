@@ -10,9 +10,9 @@ namespace AutoPoco.Configuration
 {
     public class EngineConfigurationTypeMemberBuilder : IEngineConfigurationTypeMemberBuilder, IEngineConfigurationTypeMemberProvider
     {
-           private EngineConfigurationTypeBuilder mParentConfiguration;
-           private EngineTypeMember mMember;
-           private List<DatasourceFactory> mDatasources = new List<DatasourceFactory>();
+        private EngineConfigurationTypeBuilder mParentConfiguration;
+        private EngineTypeMember mMember;
+        private List<DatasourceFactory> mDatasources = new List<DatasourceFactory>();
 
         public EngineConfigurationTypeMemberBuilder(EngineTypeMember member, EngineConfigurationTypeBuilder parentConfiguration)
         {

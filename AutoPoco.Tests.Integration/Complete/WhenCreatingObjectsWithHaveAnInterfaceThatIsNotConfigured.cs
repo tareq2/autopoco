@@ -27,7 +27,6 @@ namespace AutoPoco.Tests.Integration.Complete
             .CreateSession();
         }
 
-        [Ignore("Still not supported")]
         [Test]
         public void Default_Interface_Rules_Cascade_Onto_Implementing_Types()
         {

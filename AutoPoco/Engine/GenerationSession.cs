@@ -55,30 +55,20 @@ namespace AutoPoco.Engine
 
         private IObjectBuilder CreateBuilderForType(Type searchType)
         {
-            EnsureTypeAndBaseTypesExist(searchType);
+            EnsureTypeExists(searchType);
             IEngineConfigurationType type = mConfiguration.GetRegisteredType(searchType);
             var builder = new ObjectBuilder(type);
             mObjectBuilders.Add(builder);
             return builder;
         }
 
-        private void EnsureTypeAndBaseTypesExist(Type searchType)
+        private void EnsureTypeExists(Type searchType)
         {
-            if (mConfiguration.GetRegisteredType(searchType) == null)
-            {
-                if (searchType.BaseType != null) { EnsureTypeAndBaseTypesExist(searchType.BaseType); }
+            if (mConfiguration.GetRegisteredType(searchType) != null) return;
 
-                mConfiguration.RegisterType(searchType);
-                var typeConfig = mConfiguration.GetRegisteredType(searchType);
-                ApplyDefaultsToType(typeConfig);
-            }
+            AdhocEngineConfigurationProvider provider = new AdhocEngineConfigurationProvider(new[] { searchType });
+            var coreConvention = new DefaultEngineConfigurationProviderLoadingConvention();
+            coreConvention.Apply(new EngineConfigurationProviderLoadingConventionContext(mConfiguration, provider, mConventions));      
         }
-
-        private void ApplyDefaultsToType(IEngineConfigurationType typeConfig)
-        {
-            AdhocTypeRegistrationConvention hack = new AdhocTypeRegistrationConvention();
-            hack.Apply(new TypeRegistrationConventionContext(mConfiguration, null, mConventions, typeConfig));
-        }
-
     }
 }
