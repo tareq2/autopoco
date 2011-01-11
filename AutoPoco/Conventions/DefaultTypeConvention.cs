@@ -16,7 +16,10 @@ namespace AutoPoco.Conventions
                 .GetProperties( System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance)
                 .Where(x => !x.PropertyType.ContainsGenericParameters && IsDefinedOnType(x, context.Target)))
             {
-                context.RegisterProperty(property);
+                if(PropertyHasPublicSetter(property))
+                {
+                    context.RegisterProperty(property);
+                }
             }
 
             // Register every public field on this type
@@ -28,7 +31,12 @@ namespace AutoPoco.Conventions
             }                
         }
 
-
+        private bool PropertyHasPublicSetter(PropertyInfo property)
+        {
+            var setter = property.GetSetMethod();
+            return setter != null && setter.IsPublic;
+        }
+        
         private bool IsDefinedOnType(MemberInfo member, Type type)
         {
             if(member.DeclaringType != type) { return false;}
