@@ -8,12 +8,10 @@ namespace AutoPoco.Configuration.TypeRegistrationActions
 {
     public class RegisterTypeMembersFromConfigurationAction : TypeRegistrationAction
     {
-        private IEngineConfiguration mConfiguration;
         private IEngineConfigurationProvider mConfigurationProvider;
 
-        public RegisterTypeMembersFromConfigurationAction(IEngineConfiguration configuration, IEngineConfigurationProvider configurationProvider)
+        public RegisterTypeMembersFromConfigurationAction(IEngineConfigurationProvider configurationProvider)
         {
-            mConfiguration = configuration;
             mConfigurationProvider = configurationProvider;
         }
 

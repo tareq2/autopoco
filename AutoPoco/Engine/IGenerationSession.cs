@@ -12,7 +12,6 @@ namespace AutoPoco.Engine
         /// </summary>
         /// <typeparam name="TPoco"></typeparam>
         /// <returns></returns>
-
         IObjectGenerator<TPoco> Single<TPoco>();
 
         /// <summary>

@@ -173,7 +173,10 @@
     <Compile Include="DataSources\ValueSource.cs" />
     <Compile Include="Engine\CollectionContext.cs" />
     <Compile Include="Engine\CollectionSequenceSelectionContext.cs" />
+    <Compile Include="Engine\ContextualGenerationSession.cs" />
     <Compile Include="Engine\DatasourceBase.cs" />
+    <Compile Include="Engine\GenerationContext.cs" />
+    <Compile Include="Engine\GenerationContextNode.cs" />
     <Compile Include="Engine\GenerationSessionFactory.cs" />
     <Compile Include="Engine\ICollectionContext.cs" />
     <Compile Include="Engine\IDatasource.cs" />
@@ -188,6 +191,8 @@
     <Compile Include="Conventions\DefaultFloatMemberConvention.cs" />
     <Compile Include="Conventions\DefaultIntegerMemberConvention.cs" />
     <Compile Include="Conventions\DefaultStringMemberConvention.cs" />
+    <Compile Include="Engine\IGenerationContext.cs" />
+    <Compile Include="Engine\IGenerationContextNode.cs" />
     <Compile Include="Engine\IGenerationSessionFactory.cs" />
     <Compile Include="Engine\IObjectAction.cs" />
     <Compile Include="Actions\ObjectFieldSetFromSourceAction.cs" />

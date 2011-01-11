@@ -44,17 +44,17 @@ namespace AutoPoco.Configuration
         }
 
 
-        private MethodInvocationContext GetMethodArgs<TPoco>(Expression<Action<TPoco>> action)
+        private MethodInvocationContext GetMethodArgs(Expression<Action<TPoco>> action)
         {
             MethodCallExpression methodExpression = action.Body as MethodCallExpression;
             if (methodExpression == null) { throw new ArgumentException("Method expression expected, and not passed in", "action"); }
             return GetMethodArgs(methodExpression);
         }
 
-        private MethodInvocationContext GetMethodArgs<TPoco, TReturn>(Expression<Func<TPoco, TReturn>> function)
+        private MethodInvocationContext GetMethodArgs<TReturn>(Expression<Func<TPoco, TReturn>> function)
         {
             MethodCallExpression methodExpression = function.Body as MethodCallExpression;
-            if (methodExpression == null) { throw new ArgumentException("Method expression expected, and not passed in", "action"); }
+            if (methodExpression == null) { throw new ArgumentException("Method expression expected, and not passed in", "function"); }
             return GetMethodArgs(methodExpression);
         }
 
@@ -83,7 +83,7 @@ namespace AutoPoco.Configuration
                         context.AddArgumentValue(paramConstant);
                         break;
                     default:
-                        throw new ArgumentException("Unsupported argument used in method invocation list", "action");
+                        throw new ArgumentException("Unsupported argument used in method invocation list", "methodExpression");
                 }
             }
 
@@ -94,7 +94,7 @@ namespace AutoPoco.Configuration
         {
             if (!paramCall.Method.IsGenericMethod)
             {
-                throw new ArgumentException("Method expression is not generic and types cannot be resolved", "action");
+                throw new ArgumentException("Method expression is not generic and types cannot be resolved", "paramCall");
             }
             Type sourceType = paramCall.Method.GetGenericArguments().Skip(1).FirstOrDefault();
 
