@@ -8,6 +8,7 @@ using AutoPoco.Testing;
 namespace AutoPoco.Tests.Integration.Complete
 {
     [TestFixture]
+    // This is the Scott Hanselman Class
     public class WhenUsingDefaultSession
     {
         [Test]

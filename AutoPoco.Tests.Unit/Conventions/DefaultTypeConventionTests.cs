@@ -25,6 +25,14 @@ namespace AutoPoco.Tests.Unit.Conventions
         }
 
         [Test]
+        public void Apply_Ignores_Properties_Without_Public_Setter()
+        {
+            mTypeConventionContext.SetupGet(x => x.Target).Returns(typeof(ClassWithPrivateSetters));
+            mConvention.Apply(mTypeConventionContext.Object);
+            mTypeConventionContext.Verify(x => x.RegisterProperty(It.IsAny<PropertyInfo>()), Times.Never());
+        }
+
+        [Test]
         public void Apply_IgnoresBaseProperties()
         {
             int count = 0;
@@ -80,6 +88,13 @@ namespace AutoPoco.Tests.Unit.Conventions
                 get;
                 set;
             }
+        }
+
+        public class ClassWithPrivateSetters
+        {
+            public string Protected { get; protected set; }
+            public string Private { get; private set; }
+            public string Internal { get; private set; }
         }
 
         public class Class : BaseClass, ITestInterface
