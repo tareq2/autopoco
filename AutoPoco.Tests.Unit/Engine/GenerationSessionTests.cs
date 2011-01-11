@@ -26,14 +26,14 @@ namespace AutoPoco.Tests.Unit.Engine
         }
 
         [Test]
-        public void Single_ValidType_ReturnsObjectGenerator()
+        public void Single_ValidType_ReturnsObject()
         {
            IObjectGenerator<SimpleUser> userGenerator = mGenerationSession.Single<SimpleUser>();
            Assert.NotNull(userGenerator);
         }
 
         [Test]
-        public void Single_UnknownType_ReturnsObjectGenerator()
+        public void Single_UnknownType_ReturnsObject()
         {
             IObjectGenerator<SimpleUser> userGenerator = mGenerationSession.Single<SimpleUser>();
             Assert.NotNull(userGenerator);
