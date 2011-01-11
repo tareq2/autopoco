@@ -43,6 +43,31 @@ namespace AutoPoco.Engine
                .AsEnumerable());
         }
 
+        public TPoco Next<TPoco>()
+        {
+            return this.Single<TPoco>().Get();
+        }
+
+        public TPoco Next<TPoco>(Action<IObjectGenerator<TPoco>> cfg)
+        {
+            var generator = this.Single<TPoco>();
+            cfg.Invoke(generator);
+            return generator.Get();
+        }
+
+        public IEnumerable<TPoco> Collection<TPoco>(int count)
+        {
+            var generator = this.List<TPoco>(count);
+            return generator.Get();
+        }
+
+        public IEnumerable<TPoco> Collection<TPoco>(int count, Action<ICollectionContext<TPoco, IList<TPoco>>> cfg)
+        {
+            var generator = this.List<TPoco>(count);
+            cfg.Invoke(generator);
+            return generator.Get();
+        }
+
         private IObjectBuilder GetBuilderForType(Type searchType)
         {
             IObjectBuilder builder = mObjectBuilders.Where(x => x.InnerType == searchType).SingleOrDefault();
