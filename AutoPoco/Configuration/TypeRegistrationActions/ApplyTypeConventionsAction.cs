@@ -8,12 +8,10 @@ namespace AutoPoco.Configuration.TypeRegistrationActions
 {
     public class ApplyTypeConventionsAction : TypeRegistrationAction
     {
-        private IEngineConfiguration mConfiguration;
-        private IEngineConventionProvider mConventionProvider;
+        private readonly IEngineConventionProvider mConventionProvider;
 
-        public ApplyTypeConventionsAction(IEngineConfiguration configuration, IEngineConventionProvider conventions)
+        public ApplyTypeConventionsAction(IEngineConventionProvider conventions)
         {
-            mConfiguration = configuration;
             mConventionProvider = conventions;
         }
 
@@ -22,10 +20,7 @@ namespace AutoPoco.Configuration.TypeRegistrationActions
             mConventionProvider.Find<ITypeConvention>()
                 .Select(t => (ITypeConvention)Activator.CreateInstance(t))
                 .ToList()
-                .ForEach(x =>
-                {
-                     x.Apply(new TypeConventionContext(type));
-                });
+                .ForEach(x => x.Apply(new TypeConventionContext(type)));
         }
     }
 }

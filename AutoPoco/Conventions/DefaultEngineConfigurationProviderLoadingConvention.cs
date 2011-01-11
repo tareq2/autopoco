@@ -107,13 +107,13 @@ namespace AutoPoco.Conventions
 
         protected virtual ITypeRegistrationAction CreateTypeRegistrationActions(IEngineConfigurationProviderLoaderContext context)
         {
-            return new ApplyTypeConventionsAction(context.Configuration, context.ConventionProvider)
+            return new ApplyTypeConventionsAction(context.ConventionProvider)
             {
-                NextAction = new RegisterTypeMembersFromConfigurationAction(context.Configuration, context.ConfigurationProvider)
+                NextAction = new RegisterTypeMembersFromConfigurationAction(context.ConfigurationProvider)
                 {
                     NextAction = new ApplyTypeMemberConventionsAction(context.Configuration, context.ConventionProvider)
                     {
-                        NextAction = new ApplyTypeMemberConfigurationAction(context.Configuration, context.ConfigurationProvider)
+                        NextAction = new ApplyTypeMemberConfigurationAction(context.ConfigurationProvider)
                         {
                             NextAction = new CascadeBaseTypeConfigurationAction(context.Configuration)
                         }

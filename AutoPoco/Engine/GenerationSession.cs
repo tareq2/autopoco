@@ -28,7 +28,7 @@ namespace AutoPoco.Engine
             mObjectBuilders = new List<IObjectBuilder>();
         }
 
-        public IObjectGenerator<TPoco> Single<TPoco>()
+        public virtual IObjectGenerator<TPoco> Single<TPoco>()
         {
             Type searchType = typeof(TPoco);
             IObjectBuilder foundType = GetBuilderForType(searchType);

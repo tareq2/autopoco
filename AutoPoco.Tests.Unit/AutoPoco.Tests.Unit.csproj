@@ -152,6 +152,8 @@
     <Compile Include="DataSources\ValueSourceTests.cs" />
     <Compile Include="Engine\CollectionContextTests.cs" />
     <Compile Include="Engine\CollectionSequenceSelectionContextTests.cs" />
+    <Compile Include="Engine\GenerationContextNodeTests.cs" />
+    <Compile Include="Engine\GenerationContextTests.cs" />
     <Compile Include="Engine\GenerationSessionFactoryTests.cs" />
     <Compile Include="Engine\GenerationSessionTests.cs" />
     <Compile Include="Engine\ObjectBuilderTests.cs" />
