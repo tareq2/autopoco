@@ -43,6 +43,7 @@ namespace AutoPoco.Tests.Integration.Complete
             }
         }
 
+
         private class DummySource : IDatasource<string>
         {
             private int count = 0;

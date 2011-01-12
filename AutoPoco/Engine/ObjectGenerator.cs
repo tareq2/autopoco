@@ -27,9 +27,10 @@ namespace AutoPoco.Engine
             var createdObject = mType.CreateObject(mContext);
             
             // And overrides
+             var typeContext = new GenerationContext(mContext.Builders, new TypeGenerationContextNode(mContext.Node, createdObject));
             foreach (var action in mOverrides)
             {
-                action.Enact(mContext, createdObject);
+                action.Enact(typeContext, createdObject);
             }
 
             // And return the created object
