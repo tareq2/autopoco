@@ -13,23 +13,23 @@ namespace AutoPoco.Engine
     {
         private IObjectBuilder mType;
         private List<IObjectAction> mOverrides = new List<IObjectAction>();
-        private IGenerationSession mSession;
+        private IGenerationContext mContext;
 
-        public ObjectGenerator(IGenerationSession session, IObjectBuilder type)
+        public ObjectGenerator(IGenerationContext session, IObjectBuilder type)
         {
-            mSession = session;
+            mContext = session;
             mType = type;
         }
 
         public T Get()
         {
             // Create the object     
-            Object createdObject = mType.CreateObject(mSession);
+            Object createdObject = mType.CreateObject(mContext);
  
             // And overrides
             foreach (var action in mOverrides)
             {                
-                action.Enact(mSession, createdObject);
+                action.Enact(mContext, createdObject);
             }
 
             // And return the created object

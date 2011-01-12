@@ -15,7 +15,7 @@ namespace AutoPoco.DataSources
             mValue = value;
         }
 
-        public object Next(IGenerationSession session)
+        public object Next(IGenerationContext context)
         {
             return mValue;
         }

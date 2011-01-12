@@ -17,7 +17,7 @@ namespace AutoPoco.DataSources
             mTimes = times;
         }
 
-        public override string Next(IGenerationSession session)
+        public override string Next(IGenerationContext context)
         {
             var builder = new StringBuilder(Resources.LoremIpsum);
 

@@ -10,7 +10,7 @@ namespace AutoPoco.DataSources
     {
         int mCurrentId = 0;
 
-        public override int Next(IGenerationSession session)
+        public override int Next(IGenerationContext context)
         {
             return mCurrentId++;
         }

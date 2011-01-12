@@ -6,16 +6,16 @@ using AutoPoco.Configuration;
 
 namespace AutoPoco.Engine
 {
-    public interface IGenerationContext
+    public interface IGenerationContext : IGenerationSession
     {
         /// <summary>
-        /// Gets a session from which new objects can be requested and created from
+        /// Gets the context under which this call is being made
         /// </summary>
-        IGenerationSession Session { get; }
+        IGenerationContextNode Node { get; }
 
         /// <summary>
-        /// Gets the context for which this call is being made
+        /// Gets access to the builders available to this context
         /// </summary>
-        IGenerationContextNode Site { get; }
+        IObjectBuilderRepository Builders { get; }
     }
 }

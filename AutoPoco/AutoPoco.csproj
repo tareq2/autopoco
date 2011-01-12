@@ -173,11 +173,9 @@
     <Compile Include="DataSources\ValueSource.cs" />
     <Compile Include="Engine\CollectionContext.cs" />
     <Compile Include="Engine\CollectionSequenceSelectionContext.cs" />
-    <Compile Include="Engine\ContextualGenerationSession.cs" />
     <Compile Include="Engine\DatasourceBase.cs" />
-    <Compile Include="Engine\GenerationContext.cs" />
-    <Compile Include="Engine\GenerationContextNode.cs" />
     <Compile Include="Engine\GenerationSessionFactory.cs" />
+    <Compile Include="Engine\GenerationTargetTypes.cs" />
     <Compile Include="Engine\ICollectionContext.cs" />
     <Compile Include="Engine\IDatasource.cs" />
     <Compile Include="Configuration\IEngineConfigurationBuilder.cs" />
@@ -194,11 +192,19 @@
     <Compile Include="Engine\IGenerationContext.cs" />
     <Compile Include="Engine\IGenerationContextNode.cs" />
     <Compile Include="Engine\IGenerationSessionFactory.cs" />
+    <Compile Include="Engine\IGenerationTarget.cs" />
     <Compile Include="Engine\IObjectAction.cs" />
     <Compile Include="Actions\ObjectFieldSetFromSourceAction.cs" />
     <Compile Include="Actions\ObjectPropertySetFromSourceAction.cs" />
     <Compile Include="Engine\IObjectBuilder.cs" />
     <Compile Include="Engine\ICollectionSequenceSelectionContext.cs" />
+    <Compile Include="Engine\IObjectBuilderRepository.cs" />
+    <Compile Include="Engine\ObjectBuilderRepository.cs" />
+    <Compile Include="Engine\RootGenerationContextNode.cs" />
+    <Compile Include="Engine\TypeFieldGenerationContextNode.cs" />
+    <Compile Include="Engine\TypeGenerationContextNode.cs" />
+    <Compile Include="Engine\TypeMethodGenerationContextNode.cs" />
+    <Compile Include="Engine\TypePropertyGenerationContextNode.cs" />
     <Compile Include="StandardExtensions.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -211,7 +217,7 @@
     <Compile Include="DataSources\DefaultIntegerSource.cs" />
     <Compile Include="DataSources\DefaultStringSource.cs" />
     <Compile Include="DataSources\IntegerIdSource.cs" />
-    <Compile Include="Engine\GenerationSession.cs" />
+    <Compile Include="Engine\GenerationContext.cs" />
     <Compile Include="Engine\IObjectGenerator.cs" />
     <Compile Include="Engine\ObjectGenerator.cs" />
     <Compile Include="Engine\ObjectBuilder.cs" />

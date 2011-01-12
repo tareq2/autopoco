@@ -15,7 +15,7 @@ namespace AutoPoco.Actions
             mAction = action;
         }
 
-        public void Enact(IGenerationSession session, object target)
+        public void Enact(IGenerationContext context, object target)
         {
             mAction.Invoke((TPoco)target);
         }

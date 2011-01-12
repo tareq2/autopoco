@@ -18,7 +18,7 @@ namespace AutoPoco.Actions
             mValue = value;
         }
 
-        public void Enact(IGenerationSession session, object target)
+        public void Enact(IGenerationContext context, object target)
         {
             mMember.PropertyInfo.SetValue(target, mValue, null);
         }

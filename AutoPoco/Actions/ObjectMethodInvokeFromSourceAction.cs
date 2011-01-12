@@ -18,13 +18,17 @@ namespace AutoPoco.Actions
             mSources = sources.ToArray();
         }
 
-        public void Enact(IGenerationSession session, object target)
+        public void Enact(IGenerationContext context, object target)
         {
             List<Object> paramList = new List<object>();
+            var methodContext = new GenerationContext(context.Builders,
+                                                      new TypeMethodGenerationContextNode((TypeGenerationContextNode)context.Node, mMember));
+
             foreach (var source in mSources)
             {
-                paramList.Add(source.Next(session));
+                paramList.Add(source.Next(methodContext));
             }
+
             mMember.MethodInfo.Invoke(target, paramList.ToArray());
         }
     }

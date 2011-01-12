@@ -18,9 +18,12 @@ namespace AutoPoco.Engine
             mDatasource = source;
         }
 
-        public void Enact(IGenerationSession session, object target)
+        public void Enact(IGenerationContext context, object target)
         {
-            mMember.PropertyInfo.SetValue(target, this.mDatasource.Next(session), null);
+            var propertyContext = new GenerationContext(context.Builders, new TypePropertyGenerationContextNode(
+                                                                           (TypeGenerationContextNode)context.Node,
+                                                                           mMember));
+            mMember.PropertyInfo.SetValue(target, mDatasource.Next(propertyContext), null);
         }
     }
 }

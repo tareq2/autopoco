@@ -8,9 +8,9 @@ namespace AutoPoco.DataSources
 {
     public class AutoSource<T> : DatasourceBase<T>
     {
-        public override T Next(IGenerationSession session)
+        public override T Next(IGenerationContext context)
         {
-            return session.Single<T>().Get();
+            return context.Single<T>().Get();
         }
     }
 }

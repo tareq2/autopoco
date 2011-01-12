@@ -12,7 +12,7 @@ namespace AutoPoco.DataSources
             mRandom = new Random(1337);
         }
 
-        public override Guid Next(IGenerationSession session)
+        public override Guid Next(IGenerationContext context)
         {
             Byte[] buffer = new Byte[16];
             mRandom.NextBytes(buffer);

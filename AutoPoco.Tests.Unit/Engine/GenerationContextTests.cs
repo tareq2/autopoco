@@ -4,22 +4,68 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using AutoPoco.Engine;
+using AutoPoco.Testing;
 using Moq;
+using AutoPoco.Configuration;
+using AutoPoco.Configuration.Providers;
 
 namespace AutoPoco.Tests.Unit.Engine
 {
     [TestFixture]
-    public class GenerationContextTests 
+    public class GenerationContextTests
     {
-        [Test]
-        public void DatasourceContext_Default_Ctor_Sets_Properties()
-        {
-            Mock<IGenerationSession> session = new Mock<IGenerationSession>();
-            Mock<IGenerationContextNode> site = new Mock<IGenerationContextNode>();
-            IGenerationContext sourceContext = new GenerationContext(session.Object, site.Object);
+        private GenerationContext mGenerationSession;
 
-            Assert.AreEqual(session.Object, sourceContext.Session);
-            Assert.AreEqual(site.Object, sourceContext.Site);
+        [SetUp]
+        public void TestSetup()
+        {
+            IEngineConfiguration configuration = new EngineConfiguration();
+            IEngineConventionProvider conventionProvider = new Mock<IEngineConventionProvider>().Object;
+            ObjectBuilderRepository repository = new ObjectBuilderRepository(configuration, conventionProvider);
+            configuration.RegisterType(typeof(SimpleUser));
+            mGenerationSession = new GenerationContext(repository);
+        }
+
+        [Test]
+        public void Single_ValidType_ReturnsObject()
+        {
+           IObjectGenerator<SimpleUser> userGenerator = mGenerationSession.Single<SimpleUser>();
+           Assert.NotNull(userGenerator);
+        }
+
+        [Test]
+        public void Single_UnknownType_ReturnsObject()
+        {
+            IObjectGenerator<SimpleUser> userGenerator = mGenerationSession.Single<SimpleUser>();
+            Assert.NotNull(userGenerator);
+        }
+
+        [Test]
+        public void List_ValidType_ReturnsCollectionContext()
+        {
+            ICollectionContext<SimpleUser, IList<SimpleUser>> userGenerator = mGenerationSession.List<SimpleUser>(10);
+
+            Assert.NotNull(userGenerator);
+        }
+
+        [Test]
+        public void List_UnknownType_ReturnsObjectGenerator()
+        {
+            ICollectionContext<SimpleUser, IList<SimpleUser>> userGenerator = mGenerationSession.List<SimpleUser>(10);
+            Assert.NotNull(userGenerator);
+        }
+
+        [Test]
+        public void Single_Passes_Context_Through_To_Session()
+        {
+            Mock<IObjectBuilder> builder = new Mock<IObjectBuilder>();
+            Mock<IObjectBuilderRepository> builderRepository = new Mock<IObjectBuilderRepository>();
+            builderRepository.Setup(x => x.GetBuilderForType(typeof (Object))).Returns(builder.Object);
+            IGenerationContext context = new GenerationContext(builderRepository.Object);
+
+            context.Single<Object>().Get();
+
+            builder.Verify(x => x.CreateObject(context), Times.Once());
         }
     }
 }

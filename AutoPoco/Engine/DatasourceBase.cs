@@ -11,11 +11,11 @@ namespace AutoPoco.Engine
         /// Gets the next object from this data source
         /// </summary>
         /// <returns></returns>
-        public abstract T Next(IGenerationSession session);
+        public abstract T Next(IGenerationContext context);
 
-        object IDatasource.Next(IGenerationSession session)
+        object IDatasource.Next(IGenerationContext context)
         {
-            return Next(session);
+            return Next(context);
         }
     }
 }

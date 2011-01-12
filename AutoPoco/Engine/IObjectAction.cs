@@ -14,6 +14,6 @@ namespace AutoPoco.Engine
         /// Enacts this action on the target object
         /// </summary>
         /// <param name="target"></param>
-        void Enact(IGenerationSession session, Object target);
+        void Enact(IGenerationContext context, Object target);
     }
 }

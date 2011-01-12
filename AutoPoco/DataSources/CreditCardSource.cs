@@ -29,7 +29,7 @@ namespace AutoPoco.DataSources
             mRandom = new Random(1337);
         }
 
-        public override string Next(IGenerationSession session)
+        public override string Next(IGenerationContext context)
         {
             var cardType = mPreferred;
 

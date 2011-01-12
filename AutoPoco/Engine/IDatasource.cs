@@ -7,7 +7,7 @@ namespace AutoPoco.Engine
 {
     public interface IDatasource
     {
-        Object Next(IGenerationSession session);
+        Object Next(IGenerationContext context);
     }
 
     public interface IDatasource<T> : IDatasource
