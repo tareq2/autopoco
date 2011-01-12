@@ -9,18 +9,10 @@ namespace AutoPoco.Engine
     public interface IGenerationContextNode
     {
         /// <summary>
-        /// Gets the details for which why context has been invoked
+        /// Gets the next level up in the call graph
         /// </summary>
-        IGenerationContextNode Site { get; }
-       
-        /// <summary>
-        /// Gets the member for which this node was created
-        /// </summary>
-        EngineTypeMember TargetMember { get; }
+        IGenerationContextNode Parent { get; }
 
-        /// <summary>
-        /// Gets the object for which this node was created
-        /// </summary>
-        Object TargetObject { get; }
+        GenerationTargetTypes ContextType { get; }
     }
 }

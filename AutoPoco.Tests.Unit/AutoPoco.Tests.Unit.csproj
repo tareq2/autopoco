@@ -27,7 +27,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <ApplicationVersion>1.0.0.0</ApplicationVersion>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -152,10 +152,8 @@
     <Compile Include="DataSources\ValueSourceTests.cs" />
     <Compile Include="Engine\CollectionContextTests.cs" />
     <Compile Include="Engine\CollectionSequenceSelectionContextTests.cs" />
-    <Compile Include="Engine\GenerationContextNodeTests.cs" />
-    <Compile Include="Engine\GenerationContextTests.cs" />
     <Compile Include="Engine\GenerationSessionFactoryTests.cs" />
-    <Compile Include="Engine\GenerationSessionTests.cs" />
+    <Compile Include="Engine\GenerationContextTests.cs" />
     <Compile Include="Engine\ObjectBuilderTests.cs" />
     <Compile Include="Engine\ObjectGeneratorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

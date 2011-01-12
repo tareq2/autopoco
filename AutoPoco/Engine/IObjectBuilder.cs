@@ -44,6 +44,6 @@ namespace AutoPoco.Engine
         /// Creates the object and applies any objects
         /// </summary>
         /// <returns></returns>
-        Object CreateObject(IGenerationSession session);
+        Object CreateObject(IGenerationContext context);
     }
 }

@@ -10,7 +10,7 @@ namespace AutoPoco.DataSources
     {
         private int mIndex = 0;
 
-        public override string Next(IGenerationSession session)
+        public override string Next(IGenerationContext context)
         {
             return string.Format("{0}@example.com", mIndex++);
         }

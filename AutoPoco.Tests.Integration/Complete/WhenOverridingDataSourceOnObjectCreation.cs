@@ -47,7 +47,7 @@ namespace AutoPoco.Tests.Integration.Complete
         {
             private int count = 0;
 
-            public object Next(IGenerationSession session)
+            public object Next(IGenerationContext context)
             {
                 return "Test" + count++;
             }

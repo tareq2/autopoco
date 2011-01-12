@@ -84,14 +84,10 @@ namespace AutoPoco.DataSources
             mRandom = new Random(1337);
         }
 
-        #region Overrides of DatasourceBase<string>
-
-        public override string Next(IGenerationSession session)
+        public override string Next(IGenerationContext context)
         {
             int num = mRandom.Next(0, STATES.Count - 1);
             return mUseAbbreviations ? STATES.Keys.ToList()[num] : STATES.Values.ToList()[num];
         }
-
-        #endregion
     }
 }

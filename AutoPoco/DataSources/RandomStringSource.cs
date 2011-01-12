@@ -18,7 +18,7 @@ namespace AutoPoco.DataSources
             mMax = max;
         }
 
-        public override string Next(IGenerationSession session)
+        public override string Next(IGenerationContext context)
         {            
             StringBuilder builder = new StringBuilder();
             int length = mRandom.Next(mMin, mMax + 1);

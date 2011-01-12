@@ -71,7 +71,6 @@ namespace AutoPoco.Util
             MethodCallExpression methodExpression = action.Body as MethodCallExpression;
             if (methodExpression == null) { throw new ArgumentException("Method expression expected, and not passed in", "action"); }
             return methodExpression.Method.Name;
-            throw new NotImplementedException();
         }
 
         public static string GetMethodName<TPoco, TReturn>(Expression<Func<TPoco, TReturn>> function)
@@ -79,7 +78,6 @@ namespace AutoPoco.Util
             MethodCallExpression methodExpression = function.Body as MethodCallExpression;
             if (methodExpression == null) { throw new ArgumentException("Method expression expected, and not passed in", "action"); }
             return methodExpression.Method.Name;
-            throw new NotImplementedException();
         }
 
         public static EngineTypeMember GetMember(MemberInfo info)

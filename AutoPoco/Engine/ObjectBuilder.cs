@@ -77,16 +77,21 @@ namespace AutoPoco.Engine
            });
         }
 
-        public Object CreateObject(IGenerationSession session)
+        public Object CreateObject(IGenerationContext context)
         {
+            // TODO: Allow Ctor injection!!
             Object createdObject = Activator.CreateInstance(this.InnerType);
+            EnactActionsOnObject(context, createdObject);
+            return createdObject;
+        }
 
-            // Perform configuration actions
+        private void EnactActionsOnObject(IGenerationContext context, object createdObject)
+        {
+            var typeContext = new GenerationContext(context.Builders, new TypeGenerationContextNode(context.Node, createdObject));
             foreach (var action in this.mActions)
             {
-                action.Enact(session, createdObject);
+                action.Enact(typeContext, createdObject);
             }
-            return createdObject;
         }
     }
 }

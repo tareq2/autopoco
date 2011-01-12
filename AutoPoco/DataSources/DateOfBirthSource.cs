@@ -20,7 +20,7 @@ namespace AutoPoco.DataSources
             mYearsMin = min;
         }
 
-        public override DateTime Next(IGenerationSession session)
+        public override DateTime Next(IGenerationContext context)
         {
             return DateTime.Now.AddYears(-mRandom.Next(mYearsMin, mYearsMax));
         }

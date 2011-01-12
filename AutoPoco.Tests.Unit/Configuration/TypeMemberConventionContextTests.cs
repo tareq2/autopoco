@@ -80,7 +80,7 @@ namespace AutoPoco.Tests.Unit.Configuration
 
         public class TestSource : IDatasource
         {
-            public object Next(IGenerationSession session)
+            public object Next(IGenerationContext context)
             {
                 throw new NotImplementedException();
             }

@@ -8,7 +8,7 @@ namespace AutoPoco.DataSources
 {
     public class DefaultStringSource : DatasourceBase<String>
     {
-        public override string Next(IGenerationSession session)
+        public override string Next(IGenerationContext context)
         {
             return string.Empty;
         }

@@ -30,10 +30,10 @@ namespace AutoPoco.DataSources
             mSource = (IDatasource<T>)factory.Build();
         }
 
-        public override IEnumerable<T> Next(IGenerationSession session)
+        public override IEnumerable<T> Next(IGenerationContext context)
         {
             for (var i = 0; i < mCount; i++)
-                yield return (T)mSource.Next(session);
+                yield return (T)mSource.Next(context);
         }
     }
 }

@@ -17,9 +17,7 @@ namespace AutoPoco.DataSources
             mMax = 255;
         }
 
-        #region Overrides of DatasourceBase<Color>
-
-        public override Color Next(IGenerationSession session)
+        public override Color Next(IGenerationContext context)
         {
             return Color.FromArgb(
                 mRandom.Next(mMin, mMax), 
@@ -27,7 +25,5 @@ namespace AutoPoco.DataSources
                 mRandom.Next(mMin, mMax)
                 );
         }
-
-        #endregion
     }
 }

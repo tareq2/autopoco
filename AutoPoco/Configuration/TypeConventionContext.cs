@@ -52,6 +52,5 @@ namespace AutoPoco.Configuration
         {
             mType = type;
         }
-
     }
 }

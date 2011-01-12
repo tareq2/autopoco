@@ -14,7 +14,7 @@ namespace AutoPoco.Testing
             mValue = value;
         }
 
-        public override string Next(IGenerationSession session)
+        public override string Next(IGenerationContext context)
         {
             return mValue;
         }

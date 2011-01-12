@@ -78,7 +78,7 @@ namespace AutoPoco.Tests.Integration.Configuration
 
         public class TestDataSource : IDatasource
         {
-            public object Next(IGenerationSession session)
+            public object Next(IGenerationContext context)
             {
                 return null;
             }

@@ -16,9 +16,7 @@ namespace AutoPoco.DataSources
             mCultures = CultureInfo.GetCultures(CultureTypes.AllCultures & ~CultureTypes.NeutralCultures);
         }
 
-        #region Overrides of DatasourceBase<string>
-
-        public override string Next(IGenerationSession session)
+        public override string Next(IGenerationContext context)
         {
             string country = string.Empty;
             
@@ -37,7 +35,5 @@ namespace AutoPoco.DataSources
 
             return country;
         }
-
-        #endregion
     }
 }

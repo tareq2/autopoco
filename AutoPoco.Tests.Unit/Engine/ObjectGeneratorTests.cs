@@ -19,6 +19,7 @@ namespace AutoPoco.Tests.Unit.Engine
         string mTestPropertyValue = "TestValue";
         ObjectGenerator<SimpleUser> mUserGenerator;
         ObjectGenerator<SimpleMethodClass> mMethodGenerator;
+        private GenerationContext mGenerationContext;
 
         [SetUp]
         public void TestSetup()
@@ -42,10 +43,14 @@ namespace AutoPoco.Tests.Unit.Engine
                     new SimpleDataSource(mTestPropertyValue)
                     ));
 
-            mMethodGenerator = new ObjectGenerator<SimpleMethodClass>(
-                null, builder);
+            Mock<IObjectBuilderRepository> builderRepository = new Mock<IObjectBuilderRepository>();
+            builderRepository.Setup(x=>x.GetBuilderForType(typeof(SimpleUser))).Returns(builder);
 
-            mUserGenerator = new ObjectGenerator<SimpleUser>(null,builder);               
+            mGenerationContext = new GenerationContext(builderRepository.Object);
+            mMethodGenerator = new ObjectGenerator<SimpleMethodClass>(
+                mGenerationContext, builder);
+
+            mUserGenerator = new ObjectGenerator<SimpleUser>(mGenerationContext, builder);               
         }
 
         [Test]
@@ -62,7 +67,7 @@ namespace AutoPoco.Tests.Unit.Engine
         {
             Mock<IObjectAction> action = new Mock<IObjectAction>();
             Object actionObject = null;
-            action.Setup(x => x.Enact(null, It.IsAny<Object>()))
+            action.Setup(x => x.Enact(It.IsAny<IGenerationContext>(), It.IsAny<Object>()))
                 .Callback((IGenerationSession session, Object dest) =>
                 {
                     actionObject = dest;

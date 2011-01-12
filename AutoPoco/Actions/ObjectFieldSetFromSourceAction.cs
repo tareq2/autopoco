@@ -19,9 +19,12 @@ namespace AutoPoco.Actions
             mDatasource = source;
         }
 
-        public void Enact(IGenerationSession session, object target)
+        public void Enact(IGenerationContext context, object target)
         {
-            mMember.FieldInfo.SetValue(target, mDatasource.Next(session));
+            var fieldContext = new GenerationContext(context.Builders, new TypeFieldGenerationContextNode(
+                                                                           (TypeGenerationContextNode) context.Node,
+                                                                           mMember));
+            mMember.FieldInfo.SetValue(target, mDatasource.Next(fieldContext));
         }
     }
 }

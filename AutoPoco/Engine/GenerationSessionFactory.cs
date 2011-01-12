@@ -22,7 +22,7 @@ namespace AutoPoco.Engine
         public IGenerationSession CreateSession()
         {
             // TODO: Need to deep-clone the config
-            return new GenerationSession(mConfig, mConventionProvider);
+            return new GenerationContext(new ObjectBuilderRepository(mConfig, mConventionProvider));
         }
     }
 }
