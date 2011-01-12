@@ -64,6 +64,19 @@ namespace AutoPoco.Tests.Unit.Engine
         }
 
         [Test]
+        public void Single_Wraps_Up_Context_With_Type_Context()
+        {
+            Mock<IObjectAction> action = new Mock<IObjectAction>();
+            Object actionObject = null;
+
+            mUserGenerator.AddAction(action.Object);
+            SimpleUser user = mUserGenerator.Get();
+
+            action.Verify(x => x.Enact(It.Is<IGenerationContext>(
+                y => y.Node is TypeGenerationContextNode), user), Times.Once());
+        }
+
+        [Test]
         public void Single_AppliesExtraActions()
         {
             Mock<IObjectAction> action = new Mock<IObjectAction>();
