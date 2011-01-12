@@ -112,6 +112,7 @@
     <Compile Include="SimpleFieldClass.cs" />
     <Compile Include="SimpleMemberConvention.cs" />
     <Compile Include="SimpleMethodClass.cs" />
+    <Compile Include="SimpleNode.cs" />
     <Compile Include="SimplePropertyClass.cs" />
     <Compile Include="SimpleTypeConvention.cs" />
     <Compile Include="SimpleUser.cs" />

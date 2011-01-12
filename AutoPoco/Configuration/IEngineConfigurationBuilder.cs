@@ -32,5 +32,6 @@ namespace AutoPoco.Configuration
         /// Manually adds a type provider to the builder
         /// </summary>
         void RegisterTypeProvider(IEngineConfigurationTypeProvider provider);
+
     }
 }

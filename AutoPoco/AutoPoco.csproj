@@ -169,6 +169,7 @@
     <Compile Include="DataSources\EnumerableSource.cs" />
     <Compile Include="DataSources\GuidSource.cs" />
     <Compile Include="DataSources\LoremIpsumSource.cs" />
+    <Compile Include="DataSources\ParentSource.cs" />
     <Compile Include="DataSources\UsStatesSource.cs" />
     <Compile Include="DataSources\ValueSource.cs" />
     <Compile Include="Engine\CollectionContext.cs" />
@@ -198,8 +199,8 @@
     <Compile Include="Actions\ObjectPropertySetFromSourceAction.cs" />
     <Compile Include="Engine\IObjectBuilder.cs" />
     <Compile Include="Engine\ICollectionSequenceSelectionContext.cs" />
-    <Compile Include="Engine\IObjectBuilderRepository.cs" />
-    <Compile Include="Engine\ObjectBuilderRepository.cs" />
+    <Compile Include="Engine\IGenerationConfiguration.cs" />
+    <Compile Include="Engine\GenerationConfiguration.cs" />
     <Compile Include="Engine\RootGenerationContextNode.cs" />
     <Compile Include="Engine\TypeFieldGenerationContextNode.cs" />
     <Compile Include="Engine\TypeGenerationContextNode.cs" />

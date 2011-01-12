@@ -24,11 +24,11 @@ namespace AutoPoco.Engine
         public T Get()
         {
             // Create the object     
-            Object createdObject = mType.CreateObject(mContext);
- 
+            var createdObject = mType.CreateObject(mContext);
+            
             // And overrides
             foreach (var action in mOverrides)
-            {                
+            {
                 action.Enact(mContext, createdObject);
             }
 

@@ -21,7 +21,7 @@ namespace AutoPoco.Tests.Unit.Engine
         {
             IEngineConfiguration configuration = new EngineConfiguration();
             IEngineConventionProvider conventionProvider = new Mock<IEngineConventionProvider>().Object;
-            ObjectBuilderRepository repository = new ObjectBuilderRepository(configuration, conventionProvider);
+            GenerationConfiguration repository = new GenerationConfiguration(configuration, conventionProvider, 10);
             configuration.RegisterType(typeof(SimpleUser));
             mGenerationSession = new GenerationContext(repository);
         }
@@ -59,7 +59,7 @@ namespace AutoPoco.Tests.Unit.Engine
         public void Single_Passes_Context_Through_To_Session()
         {
             Mock<IObjectBuilder> builder = new Mock<IObjectBuilder>();
-            Mock<IObjectBuilderRepository> builderRepository = new Mock<IObjectBuilderRepository>();
+            Mock<IGenerationConfiguration> builderRepository = new Mock<IGenerationConfiguration>();
             builderRepository.Setup(x => x.GetBuilderForType(typeof (Object))).Returns(builder.Object);
             IGenerationContext context = new GenerationContext(builderRepository.Object);
 

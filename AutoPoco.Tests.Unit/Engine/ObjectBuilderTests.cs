@@ -17,7 +17,9 @@ namespace AutoPoco.Tests.Unit.Engine
         {
             Mock<IGenerationContext> context = new Mock<IGenerationContext>();
             context.SetupGet(x => x.Node).Returns(new Mock<IGenerationContextNode>().Object);
-            context.SetupGet(x => x.Builders).Returns(new Mock<IObjectBuilderRepository>().Object);
+            context.SetupGet(x => x.Builders).Returns(new Mock<IGenerationConfiguration>().Object);
+            context.SetupGet(x => x.Builders.RecursionLimit).Returns(10);
+            context.SetupGet(x => x.Depth).Returns(0);
             return context.Object;
         }
 
@@ -101,9 +103,10 @@ namespace AutoPoco.Tests.Unit.Engine
         [Test]
         public void Create_Wraps_Context_With_TypeContext()
         {
-            IObjectBuilderRepository builderRepository = new Mock<IObjectBuilderRepository>().Object;
+            var builderRepository = new Mock<IGenerationConfiguration>();
+            builderRepository.SetupGet(x => x.RecursionLimit).Returns(10);
             IGenerationContextNode parent = new Mock<IGenerationContextNode>().Object;
-            GenerationContext context = new GenerationContext(builderRepository, parent);
+            GenerationContext context = new GenerationContext(builderRepository.Object, parent);
             Mock<IObjectAction> actionMock = new Mock<IObjectAction>();
             ObjectBuilder builder = new ObjectBuilder(new EngineConfigurationType(typeof (SimpleUser)));
 

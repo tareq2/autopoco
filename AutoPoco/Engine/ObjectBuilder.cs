@@ -81,7 +81,12 @@ namespace AutoPoco.Engine
         {
             // TODO: Allow Ctor injection!!
             Object createdObject = Activator.CreateInstance(this.InnerType);
-            EnactActionsOnObject(context, createdObject);
+            
+            // Don't set it up if we've reached recursion limit
+            if (context.Depth < context.Builders.RecursionLimit)
+            {
+                EnactActionsOnObject(context, createdObject);
+            }
             return createdObject;
         }
 

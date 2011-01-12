@@ -11,29 +11,55 @@ namespace AutoPoco.Engine
 {
     public class GenerationContext : IGenerationContext
     {
-        private readonly IObjectBuilderRepository mObjectBuilders;
+        private readonly IGenerationConfiguration mObjectBuilders;
         private readonly IGenerationContextNode mNode;
+        private readonly int mRecursionLimit;
 
         public IGenerationContextNode Node
         {
             get { return mNode; }
         }
+
+        public int Depth { get; private set; }
         
-        public IObjectBuilderRepository Builders
+        public IGenerationConfiguration Builders
         {
             get { return mObjectBuilders; }
         }
 
-        public GenerationContext(IObjectBuilderRepository objectBuilders)
+        public GenerationContext(IGenerationConfiguration objectBuilders)
             : this(objectBuilders, null)
         {
 
         }
 
-        public GenerationContext(IObjectBuilderRepository objectBuilders, IGenerationContextNode node)
+        public GenerationContext(IGenerationConfiguration objectBuilders, IGenerationContextNode node)
         {
             mObjectBuilders = objectBuilders;
             this.mNode = node;
+            CalculateDepth();
+        }
+
+        private void CalculateDepth()
+        {
+            var currentNode = mNode;
+            int depth = 0;
+            while(currentNode != null)
+            {
+                currentNode = FindNextTypeNode(currentNode);
+                depth++;
+            }
+            this.Depth = depth;
+        }
+
+        private IGenerationContextNode FindNextTypeNode(IGenerationContextNode currentNode)
+        {
+            while(true)
+            {
+                currentNode = currentNode.Parent;
+                if (currentNode == null || currentNode.ContextType == GenerationTargetTypes.Object) { break; }
+            }
+            return currentNode;
         }
 
         public virtual IObjectGenerator<TPoco> Single<TPoco>()

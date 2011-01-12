@@ -43,8 +43,9 @@ namespace AutoPoco.Tests.Unit.Engine
                     new SimpleDataSource(mTestPropertyValue)
                     ));
 
-            Mock<IObjectBuilderRepository> builderRepository = new Mock<IObjectBuilderRepository>();
+            Mock<IGenerationConfiguration> builderRepository = new Mock<IGenerationConfiguration>();
             builderRepository.Setup(x=>x.GetBuilderForType(typeof(SimpleUser))).Returns(builder);
+            builderRepository.SetupGet(x => x.RecursionLimit).Returns(10);
 
             mGenerationContext = new GenerationContext(builderRepository.Object);
             mMethodGenerator = new ObjectGenerator<SimpleMethodClass>(
