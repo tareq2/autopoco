@@ -10,9 +10,9 @@ namespace AutoPoco.Tests.Unit.DataSources
         [Test]
         public void Next_Returns_A_Enumration_Of_A_Hundred()
         {
-            var source = new EnumerableSource<RandomStringSource, string>(100,4, 20);
+            var source = new EnumerableSource<RandomStringSource, string>(100, new object[] { 4, 20});
             var value = source.Next(null);
-            Assert.IsTrue(value.ToList().Count == 100);
+            Assert.AreEqual(100, value.Count());
         }
     }
 }

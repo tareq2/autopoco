@@ -1,9 +1,40 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using AutoPoco.Configuration;
 using AutoPoco.Engine;
+using System.Collections;
 
 namespace AutoPoco.DataSources
 {
+    // Woah
+    public class FlexibleEnumerableSource<TSource, TCollectionType, TCollectionElement> : IDatasource<TCollectionType>
+        where TCollectionType : IEnumerable<TCollectionElement> 
+        where TSource : DatasourceBase<TCollectionElement> 
+        
+    {
+        private readonly EnumerableSource<TSource, TCollectionElement> mInnerSource;
+        
+         public FlexibleEnumerableSource(int count)
+            : this(count, count, new object[] { })
+        { }
+
+        public FlexibleEnumerableSource(int min, int max)
+            : this(min, max, new object[] { })
+        { }
+
+        public FlexibleEnumerableSource(int minCount, int maxCount, params object[] args)
+        {
+            mInnerSource = new EnumerableSource<TSource, TCollectionElement>(minCount, maxCount, args);
+        }
+
+        object IDatasource.Next(IGenerationContext context)
+        {
+            var ctor = typeof(TCollectionType).GetConstructor(new[] { typeof(IEnumerable<TCollectionElement>) });
+            return (TCollectionType)ctor.Invoke(new[] { mInnerSource.Next(context) });
+        }
+    }
+
+
     /// <summary>
     /// Allows you to use another Source to generate an enumerable collection
     /// </summary>
@@ -12,17 +43,28 @@ namespace AutoPoco.DataSources
     public class EnumerableSource<TSource, T> : DatasourceBase<IEnumerable<T>>
         where TSource : IDatasource<T>
     {
-        private readonly int mCount;
+        private readonly int mMinCount;
+        private readonly int mMaxCount;
         private readonly object[] mArgs;
         private readonly IDatasource<T> mSource;
+        private readonly Random mRandom = new Random(1337);
 
         public EnumerableSource(int count)
-            : this(count, new object[] { })
+            : this(count, count, new object[] { })
         { }
 
-        public EnumerableSource(int count, params object[] args)
+        public EnumerableSource(int count, object[] args)
+            : this(count, count, args)
+        { }
+        
+        public EnumerableSource(int min, int max)
+            : this(min, max, new object[] { })
+        { }
+
+        public EnumerableSource(int minCount, int maxCount, object[] args)
         {
-            mCount = count;
+            mMinCount = minCount;
+            mMaxCount = maxCount;
             mArgs = args;
 
             var factory = new DatasourceFactory(typeof(TSource));
@@ -32,7 +74,8 @@ namespace AutoPoco.DataSources
 
         public override IEnumerable<T> Next(IGenerationContext context)
         {
-            for (var i = 0; i < mCount; i++)
+            var count = mRandom.Next(mMinCount, mMaxCount + 1);
+            for (var i = 0; i < count; i++)
                 yield return (T)mSource.Next(context);
         }
     }

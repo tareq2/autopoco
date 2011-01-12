@@ -16,5 +16,6 @@ namespace AutoPoco
         {
            return memberConfig.Use<RandomStringSource>(minLength, maxLength);
         }
+
     }
 }

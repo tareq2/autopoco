@@ -5,7 +5,7 @@ using System.Text;
 
 namespace AutoPoco.Engine
 {
-    public interface IObjectBuilderRepository
+    public interface IGenerationConfiguration
     {
         /// <summary>
         /// Gets the object builder for a certain type
@@ -13,5 +13,10 @@ namespace AutoPoco.Engine
         /// <param name="searchType"></param>
         /// <returns></returns>
         IObjectBuilder GetBuilderForType(Type searchType);
+
+        /// <summary>
+        /// Gets the recursion limit for this configuration
+        /// </summary>
+        int RecursionLimit { get; }
     }
 }

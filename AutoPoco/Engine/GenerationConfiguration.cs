@@ -8,16 +8,19 @@ using AutoPoco.Conventions;
 
 namespace AutoPoco.Engine
 {
-    public class ObjectBuilderRepository : IObjectBuilderRepository
+    public class GenerationConfiguration : IGenerationConfiguration
     {
         private IEngineConfiguration mConfiguration;
         private IEngineConventionProvider mConventions;
         private List<IObjectBuilder> mObjectBuilders = new List<IObjectBuilder>();
 
-        public ObjectBuilderRepository(IEngineConfiguration configuration, IEngineConventionProvider conventionProvider)
+        public int RecursionLimit { get; private set; }
+
+        public GenerationConfiguration(IEngineConfiguration configuration, IEngineConventionProvider conventionProvider, int recursionLimit)
         {
             mConfiguration = configuration;
             mConventions = conventionProvider;
+            RecursionLimit = recursionLimit;
         }
 
         public IObjectBuilder GetBuilderForType(Type searchType)

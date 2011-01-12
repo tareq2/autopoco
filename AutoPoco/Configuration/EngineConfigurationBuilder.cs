@@ -59,6 +59,5 @@ namespace AutoPoco.Configuration
         {
             mTypes.Add(provider);
         }
-
     }
 }

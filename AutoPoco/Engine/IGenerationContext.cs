@@ -16,6 +16,11 @@ namespace AutoPoco.Engine
         /// <summary>
         /// Gets access to the builders available to this context
         /// </summary>
-        IObjectBuilderRepository Builders { get; }
+        IGenerationConfiguration Builders { get; }
+
+        /// <summary>
+        /// Gets the current depth of this generation context
+        /// </summary>
+        int Depth { get; }
     }
 }

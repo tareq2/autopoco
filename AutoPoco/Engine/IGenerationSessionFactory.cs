@@ -12,5 +12,13 @@ namespace AutoPoco.Engine
         /// </summary>
         /// <returns></returns>
         IGenerationSession CreateSession();
+
+        /// <summary>
+        /// Creates a session, overriding the default recursion limit
+        /// Note: This method signature will probably change at some point
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
+        IGenerationSession CreateSession(int recursionLimit);
     }
 }

@@ -28,6 +28,5 @@ namespace AutoPoco.Configuration
         /// </summary>
         /// <returns></returns>
         IEngineConfigurationTypeBuilder<TPoco> Default();
-
     }
 }

@@ -101,12 +101,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Complete\WhenConfiguringPropertyWithRandomCollection.cs" />
+    <Compile Include="Complete\WhenConfiguringPropertyWithParent.cs" />
     <Compile Include="Complete\WhenCreatedTypeHasBaseTypes.cs" />
     <Compile Include="Complete\WhenCreatingACustomisedList.cs" />
     <Compile Include="Complete\WhenCreatingObjectsWithHaveAnInterfaceThatIsNotConfigured.cs" />
     <Compile Include="Complete\WhenOverridingDataSourceOnObjectCreation.cs" />
     <Compile Include="Complete\WhenRequestingClosedGenericType.cs" />
     <Compile Include="Complete\WhenRequestingUnknownType.cs" />
+    <Compile Include="Complete\WhenSettingALimitOnRecursiveTrees.cs" />
     <Compile Include="Complete\WhenUsingDefaultConventionsWithExplicitSetup.cs" />
     <Compile Include="Complete\WhenUsingDefaultConventionsWithNoExplicitSetup.cs" />
     <Compile Include="Complete\WhenUsingCustomConventionsWithNoExplicitSetup.cs" />
