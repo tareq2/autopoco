@@ -107,6 +107,7 @@
     <Compile Include="OpenGeneric.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SimpleBaseClass.cs" />
+    <Compile Include="SimpleCtorClass.cs" />
     <Compile Include="SimpleDataSource.cs" />
     <Compile Include="SimpleDerivedClass.cs" />
     <Compile Include="SimpleFieldClass.cs" />

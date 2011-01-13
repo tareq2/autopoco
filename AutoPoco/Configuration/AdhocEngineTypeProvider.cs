@@ -21,5 +21,10 @@ namespace AutoPoco.Configuration
         {
             return new IEngineConfigurationTypeMemberProvider[] { };
         }
+
+        public IEngineConfigurationDatasource GetFactory()
+        {
+            return null;
+        }
     }
 }

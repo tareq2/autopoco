@@ -152,6 +152,7 @@
     <Compile Include="Configuration\TypePropertyConventionContext.cs" />
     <Compile Include="Configuration\TypePropertyConventionRequirements.cs" />
     <Compile Include="Configuration\TypeRegistrationActions\ApplyTypeConventionsAction.cs" />
+    <Compile Include="Configuration\TypeRegistrationActions\ApplyTypeFactoryAction.cs" />
     <Compile Include="Configuration\TypeRegistrationActions\ApplyTypeMemberConfigurationAction.cs" />
     <Compile Include="Configuration\TypeRegistrationActions\ApplyTypeMemberConventionsAction.cs" />
     <Compile Include="Configuration\TypeRegistrationActions\CascadeBaseTypeConfigurationAction.cs" />

@@ -110,6 +110,7 @@
     <Compile Include="Complete\WhenRequestingClosedGenericType.cs" />
     <Compile Include="Complete\WhenRequestingUnknownType.cs" />
     <Compile Include="Complete\WhenSettingALimitOnRecursiveTrees.cs" />
+    <Compile Include="Complete\WhenSettingUpCtor.cs" />
     <Compile Include="Complete\WhenUsingDefaultConventionsWithExplicitSetup.cs" />
     <Compile Include="Complete\WhenUsingDefaultConventionsWithNoExplicitSetup.cs" />
     <Compile Include="Complete\WhenUsingCustomConventionsWithNoExplicitSetup.cs" />
@@ -133,6 +134,10 @@
     <ProjectReference Include="..\AutoPoco.Testing\AutoPoco.Testing.csproj">
       <Project>{260D2207-AB8C-409F-A322-F8EC7573EB42}</Project>
       <Name>AutoPoco.Testing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AutoPoco.Tests.Unit\AutoPoco.Tests.Unit.csproj">
+      <Project>{C42D227E-9EC0-45A5-A045-2B7E31D70013}</Project>
+      <Name>AutoPoco.Tests.Unit</Name>
     </ProjectReference>
     <ProjectReference Include="..\AutoPoco\AutoPoco.csproj">
       <Project>{EDD484D5-0445-403A-BE50-CF50462DDBA6}</Project>

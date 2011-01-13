@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using AutoPoco.Engine;
+using Moq;
 using NUnit.Framework;
 using AutoPoco.Configuration;
 using AutoPoco.Testing;
@@ -34,6 +36,24 @@ namespace AutoPoco.Tests.Unit.Configuration
 
             var members = type.GetRegisteredMembers();
             Assert.AreEqual(2, members.Count());
+        }
+
+        [Test]
+        public void Set_Factory_With_Type_Sets_Factory()
+        {
+            EngineConfigurationType type = new EngineConfigurationType(typeof(SimpleUser));
+            Mock<IEngineConfigurationDatasource> source = new Mock<IEngineConfigurationDatasource>();
+            type.SetFactory(source.Object);
+            var factory = type.GetFactory();
+            Assert.AreEqual(source.Object, factory);
+        }
+
+        public class TestFactory : IDatasource<SimpleCtorClass>
+        {
+            public object Next(IGenerationContext context)
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }

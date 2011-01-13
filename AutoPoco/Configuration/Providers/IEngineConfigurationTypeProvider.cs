@@ -18,5 +18,11 @@ namespace AutoPoco.Configuration.Providers
         /// </summary>
         /// <returns></returns>
         IEnumerable<IEngineConfigurationTypeMemberProvider> GetConfigurationMembers();
+
+        /// <summary>
+        /// Gets the factory that will be used to construct objects
+        /// </summary>
+        /// <returns></returns>
+        IEngineConfigurationDatasource GetFactory();
     }
 }

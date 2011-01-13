@@ -36,5 +36,18 @@ namespace AutoPoco.Configuration
         /// <param name="member"></param>
         /// <returns></returns>
         IEngineConfigurationTypeMember GetRegisteredMember(EngineTypeMember member);
+
+        /// <summary>
+        /// Sets the factory used to instantiate instances of this type
+        /// </summary>
+        /// <param name="factory"></param>
+        void SetFactory(IEngineConfigurationDatasource factory);
+
+        /// <summary>
+        /// Gets the factory used to instantiate instances of this type
+        /// </summary>
+        /// <returns></returns>
+        IEngineConfigurationDatasource GetFactory();
+         
     }
 }

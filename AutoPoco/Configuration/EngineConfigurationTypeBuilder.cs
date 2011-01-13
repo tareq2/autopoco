@@ -15,6 +15,7 @@ namespace AutoPoco.Configuration
     {
         private List<IEngineConfigurationTypeMemberProvider> mMembers = new List<IEngineConfigurationTypeMemberProvider>();
         private Type mType;
+        private DatasourceFactory mFactory;
 
         public EngineConfigurationTypeBuilder(Type type)
         {
@@ -29,6 +30,11 @@ namespace AutoPoco.Configuration
         IEnumerable<IEngineConfigurationTypeMemberProvider> IEngineConfigurationTypeProvider.GetConfigurationMembers()
         {
             return mMembers;
+        }
+
+        IEngineConfigurationDatasource IEngineConfigurationTypeProvider.GetFactory()
+        {
+            return mFactory;
         }
 
         IEngineConfigurationTypeMemberBuilder IEngineConfigurationTypeBuilder.SetupProperty(string propertyName)
@@ -71,9 +77,22 @@ namespace AutoPoco.Configuration
             return this;
         }
 
-        protected void RegisterTypeMemberProvider(IEngineConfigurationTypeMemberProvider memberProvider)
+        public void RegisterTypeMemberProvider(IEngineConfigurationTypeMemberProvider memberProvider)
         {
             this.mMembers.Add(memberProvider);
+        }
+
+        public IEngineConfigurationTypeBuilder ConstructWith(Type type)
+        {
+            mFactory = new DatasourceFactory(type);
+            return this;
+        }
+
+        public IEngineConfigurationTypeBuilder ConstructWith(Type type, params object[] args)
+        {
+            mFactory = new DatasourceFactory(type);
+            mFactory.SetParams(args);
+            return this;
         }
     }
 }

@@ -24,6 +24,19 @@ namespace AutoPoco.Tests.Unit.Engine
         }
 
         [Test]
+        public void CreateObject_Uses_Factory_To_Create_Object()
+        {
+            var type = new Mock<IEngineConfigurationType>();
+            type.SetupGet(x => x.RegisteredType).Returns(typeof (SimpleCtorClass));
+            type.Setup(x => x.GetFactory()).Returns(new DatasourceFactory(typeof(TestFactory)));
+           
+            ObjectBuilder builder = new ObjectBuilder(type.Object);
+            SimpleCtorClass result = builder.CreateObject(CreateDummyContext()) as SimpleCtorClass;
+            Assert.AreEqual("one", result.ReadOnlyProperty);
+        }
+
+    
+        [Test]
         public void CreateObject_ReturnsObject()
         {
             Mock<IEngineConfigurationType> type = new Mock<IEngineConfigurationType>();
@@ -115,6 +128,25 @@ namespace AutoPoco.Tests.Unit.Engine
 
             actionMock.Verify(
                 x => x.Enact(It.Is<IGenerationContext>(y => y.Node is TypeGenerationContextNode), It.IsAny<SimpleUser>()), Times.Once());
+        }
+
+        public class TestFactory : IDatasource<SimpleCtorClass>
+        {
+            private string mValue = "one";
+
+            public TestFactory()
+            {
+            }
+
+            public TestFactory(string value)
+            {
+                mValue = value;
+            }
+
+            public object Next(IGenerationContext context)
+            {
+                return new SimpleCtorClass(mValue);
+            }
         }
     }
 }

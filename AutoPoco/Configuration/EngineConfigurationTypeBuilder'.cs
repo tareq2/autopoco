@@ -25,7 +25,18 @@ namespace AutoPoco.Configuration
         }
 
         public EngineConfigurationTypeBuilder() : base(typeof(TPoco)) { }
-        
+
+        public IEngineConfigurationTypeBuilder<TPoco> ConstructWith<TSource>() where TSource : Engine.IDatasource<TPoco>
+        {
+            base.ConstructWith(typeof (TSource));
+            return this;
+        }
+
+        public  IEngineConfigurationTypeBuilder<TPoco> ConstructWith<TSource>(params object[] args) where TSource : Engine.IDatasource<TPoco>
+        {
+            base.ConstructWith(typeof (TSource), args);
+            return this;
+        }
 
         public IEngineConfigurationTypeBuilder<TPoco> Invoke(Expression<Action<TPoco>> action)
         {
@@ -125,6 +136,6 @@ namespace AutoPoco.Configuration
             }            
       
             return args.ToArray();
-        }        
+        }
     }
 }

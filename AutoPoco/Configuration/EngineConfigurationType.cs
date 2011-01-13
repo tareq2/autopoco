@@ -9,7 +9,8 @@ namespace AutoPoco.Configuration
     {
         private List<EngineConfigurationTypeMember> mRegisteredMembers = new List<EngineConfigurationTypeMember>();
         private Type mRegisteredType;
-
+        private IEngineConfigurationDatasource mFactory;
+        
         public Type RegisteredType
         {
             get
@@ -40,6 +41,16 @@ namespace AutoPoco.Configuration
         public IEnumerable<IEngineConfigurationTypeMember> GetRegisteredMembers()
         {
             return mRegisteredMembers.ConvertAll(x => (IEngineConfigurationTypeMember)x);
+        }
+
+        public void SetFactory(IEngineConfigurationDatasource factory)
+        {
+            this.mFactory = factory;
+        }
+
+        public IEngineConfigurationDatasource GetFactory()
+        {
+            return mFactory;
         }
     }
 }
