@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using AutoPoco.Engine;
 using NUnit.Framework;
 using AutoPoco.Configuration;
 using AutoPoco.DataSources;
@@ -14,6 +15,27 @@ namespace AutoPoco.Tests.Unit.Configuration
     [TestFixture]
     public class EngineConfigurationTypeBuilderTests
     {
+        [Test]
+        public void Generic_Setup_Ctor_With_Factory_Sets_Factory()
+        {
+            var configuration = new EngineConfigurationTypeBuilder<SimpleCtorClass>();
+            configuration.ConstructWith<TestFactory>();
+
+            var t = ((IEngineConfigurationTypeProvider) configuration).GetFactory();
+            Assert.AreEqual(typeof (TestFactory), t.Build().GetType());
+        }
+
+        [Test]
+        public void Generic_Setup_Ctor_With_Factory_With_Args_Sets_Factory_With_Args()
+        {
+            var configuration = new EngineConfigurationTypeBuilder<SimpleCtorClass>();
+            configuration.ConstructWith<TestFactory>("one", "two");
+
+            var t = (TestFactory)((IEngineConfigurationTypeProvider) configuration).GetFactory().Build();
+
+            Assert.AreEqual("one", t.ArgOne);
+            Assert.AreEqual("two", t.ArgTwo);
+        }
 
         [Test]
         public void NonGeneric_Setup_WithProperty_ReturnsMemberConfiguration()
@@ -169,6 +191,27 @@ namespace AutoPoco.Tests.Unit.Configuration
         public static class TestGenericClass
         {
             public static T Something<T>() { return default(T); }
+        }
+
+        public class TestFactory : IDatasource< SimpleCtorClass>
+        {
+            public readonly string ArgOne;
+            public readonly string ArgTwo;
+
+            public TestFactory()
+            {
+            }
+
+            public TestFactory(string argOne, string argTwo)
+            {
+                this.ArgOne = argOne;
+                this.ArgTwo = argTwo;
+            }
+
+            public object Next(IGenerationContext context)
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }

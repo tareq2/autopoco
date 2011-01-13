@@ -10,6 +10,7 @@ namespace AutoPoco.Engine
     public class ObjectBuilder : IObjectBuilder
     {
         private List<IObjectAction> mActions = new List<IObjectAction>();
+        private IDatasource mFactory = null;
 
         public Type InnerType
         {
@@ -45,6 +46,11 @@ namespace AutoPoco.Engine
         {
             this.InnerType = type.RegisteredType;
 
+            if(type.GetFactory() != null)
+            {
+                mFactory = type.GetFactory().Build();
+            }
+
             type.GetRegisteredMembers()
            .ToList()
            .ForEach(x =>
@@ -79,9 +85,17 @@ namespace AutoPoco.Engine
 
         public Object CreateObject(IGenerationContext context)
         {
-            // TODO: Allow Ctor injection!!
-            Object createdObject = Activator.CreateInstance(this.InnerType);
+            Object createdObject = null;
             
+            if(mFactory != null)
+            {
+                createdObject = mFactory.Next(context);
+                
+            } else
+            {
+                createdObject = Activator.CreateInstance(this.InnerType);
+            }
+
             // Don't set it up if we've reached recursion limit
             if (context.Depth < context.Builders.RecursionLimit)
             {
