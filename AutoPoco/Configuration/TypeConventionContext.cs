@@ -19,6 +19,18 @@ namespace AutoPoco.Configuration
             }
         }
 
+        public void SetFactory(Type factory)
+        {
+            mType.SetFactory(new DatasourceFactory(factory));
+        }
+
+        public void SetFactory(Type factory, params object[] ctorArgs)
+        {
+            var sourceFactory = new DatasourceFactory(factory);
+            sourceFactory.SetParams(ctorArgs);
+            mType.SetFactory(sourceFactory);
+        }
+
         public void RegisterField(FieldInfo field)
         {
             var member = ReflectionHelper.GetMember(field);

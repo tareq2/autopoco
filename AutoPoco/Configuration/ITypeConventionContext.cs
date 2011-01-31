@@ -17,6 +17,18 @@ namespace AutoPoco.Configuration
         }
 
         /// <summary>
+        /// Sets the factory for instantiating this type
+        /// </summary>
+        /// <param name="factory"></param>
+        void SetFactory(Type factory);
+
+        /// <summary>
+        /// Sets the factory for instantiating this type along with arguments for that factory
+        /// </summary>
+        void SetFactory(Type factory, params object[] ctorArgs);
+
+
+        /// <summary>
         /// Registers a field for auto-population
         /// </summary>
         /// <param name="fieldName"></param>

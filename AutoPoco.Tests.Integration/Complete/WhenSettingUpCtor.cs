@@ -27,18 +27,19 @@ namespace AutoPoco.Tests.Integration.Complete
             Assert.AreEqual("two", result.SecondaryProperty); 
         }
 
-        /*
+  
      [Test]
-     public void With_No_Config_Greediest_Constructor_With_Default_Conventions_Is_Used_By_Default()
+     public void With_No_Config_Least_Greedy_Constructor_With_Default_Conventions_Is_Used_By_Default()
      {
          mSession = AutoPocoContainer.CreateDefaultSession();
 
          var result = mSession.Next<SimpleCtorClass>();
 
          Assert.NotNull(result.ReadOnlyProperty);
-         Assert.NotNull(result.SecondaryProperty);
+         Assert.Null(result.SecondaryProperty);
      }
-
+		
+      /*
      
      [Test]
      public void With_Literal_Literal_Is_Used()

@@ -66,6 +66,8 @@
     <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
     <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
     <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>false</Optimize>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\x86\Release\</OutputPath>
@@ -82,6 +84,7 @@
     <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
     <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
     <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -161,12 +164,16 @@
     <Compile Include="Configuration\EngineConfigurationProviderLoaderContext.cs" />
     <Compile Include="Configuration\Use.cs" />
     <Compile Include="Conventions\DefaultEngineConfigurationProviderLoadingConvention.cs" />
+    <Compile Include="Conventions\DefaultPrimitiveCtorConvention.cs" />
     <Compile Include="Conventions\DefaultTypeConvention.cs" />
+    <Compile Include="Conventions\DefaultComplexTypeCtorConvention.cs" />
     <Compile Include="Conventions\ReferenceMemberConvention.cs" />
     <Compile Include="DataSources\ColorSource.cs" />
     <Compile Include="DataSources\CountrySource.cs" />
     <Compile Include="DataSources\CreditCardSource.cs" />
+    <Compile Include="DataSources\CtorSource.cs" />
     <Compile Include="DataSources\DateOfBirthSource.cs" />
+    <Compile Include="DataSources\DefaultSource.cs" />
     <Compile Include="DataSources\EnumerableSource.cs" />
     <Compile Include="DataSources\GuidSource.cs" />
     <Compile Include="DataSources\LoremIpsumSource.cs" />
@@ -230,6 +237,7 @@
     <Compile Include="DataSources\RandomStringSource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\ReflectionHelper.cs" />
+    <Compile Include="DataSources\FallbackObjectFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -256,6 +264,7 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

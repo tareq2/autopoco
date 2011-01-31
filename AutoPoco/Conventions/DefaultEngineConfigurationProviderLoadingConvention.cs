@@ -111,8 +111,6 @@ namespace AutoPoco.Conventions
             {
                 NextAction = new ApplyTypeFactoryAction(context.ConfigurationProvider)
                                  {
-
-
                                      NextAction = new RegisterTypeMembersFromConfigurationAction(context.ConfigurationProvider)
                                      {
                                          NextAction = new ApplyTypeMemberConventionsAction(context.Configuration, context.ConventionProvider)

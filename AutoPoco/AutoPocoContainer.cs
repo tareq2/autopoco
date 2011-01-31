@@ -14,6 +14,7 @@ namespace AutoPoco
         public static IGenerationSessionFactory Configure(Action<IEngineConfigurationBuilder> setup)
         {            
             var config = new EngineConfigurationBuilder();
+            config.Conventions(x => x.Register<DefaultPrimitiveCtorConvention>());
             setup.Invoke(config);
             var configFactory = new EngineConfigurationFactory();
             return new GenerationSessionFactory(configFactory.Create(config, config.ConventionProvider), config.ConventionProvider);

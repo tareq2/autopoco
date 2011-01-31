@@ -27,7 +27,7 @@ namespace AutoPoco.Engine
         /// <typeparam name="TPoco"></typeparam>
         /// <returns></returns>
         TPoco Next<TPoco>();
-        
+       
         /// <summary>
         /// Generates the next poco and returns it, setting it up if necessary
         /// </summary>
