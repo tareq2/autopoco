@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using AutoPoco.Engine;
+using AutoPoco.Testing;
 using NUnit.Framework;
 using Moq;
 using AutoPoco.Configuration;
@@ -36,6 +38,16 @@ namespace AutoPoco.Tests.Unit.Configuration
             PropertyInfo property = typeof(TestClass).GetProperty("Property");
             mContext.RegisterProperty(property);
             mTypeMock.Verify(x => x.RegisterMember(It.Is<EngineTypeMember>(y => y.Name == property.Name)), Times.Once());
+        }
+
+        public void SetFactory_FactoryIsSet()
+        {
+            var type = new EngineConfigurationType(typeof (SimpleUser));
+            var context = new TypeConventionContext(type);
+            context.SetFactory(typeof (SimpleUserFactory));
+            var factory = type.GetFactory().Build();
+
+            Assert.True(factory is SimpleUserFactory);
         }
 
         [Test]
@@ -81,6 +93,14 @@ namespace AutoPoco.Tests.Unit.Configuration
             {
 
             }
+        }
+    }
+
+    public class SimpleUserFactory : IDatasource<SimpleUser>
+    {
+        public object Next(IGenerationContext context)
+        {
+            throw new NotImplementedException();
         }
     }
 }

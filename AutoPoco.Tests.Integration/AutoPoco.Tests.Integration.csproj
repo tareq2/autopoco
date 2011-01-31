@@ -36,7 +36,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>C:\Builds\RavenDB\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -108,6 +108,7 @@
     <Compile Include="Complete\WhenCreatingObjectsWithHaveAnInterfaceThatIsNotConfigured.cs" />
     <Compile Include="Complete\WhenOverridingDataSourceOnObjectCreation.cs" />
     <Compile Include="Complete\WhenRequestingClosedGenericType.cs" />
+    <Compile Include="Complete\WhenRequestingPrimitiveTypes.cs" />
     <Compile Include="Complete\WhenRequestingUnknownType.cs" />
     <Compile Include="Complete\WhenSettingALimitOnRecursiveTrees.cs" />
     <Compile Include="Complete\WhenSettingUpCtor.cs" />
