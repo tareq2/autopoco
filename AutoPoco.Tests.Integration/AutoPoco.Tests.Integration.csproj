@@ -101,6 +101,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bugs\WhenConfiguringClosedGenericCollection.cs" />
     <Compile Include="Complete\WhenConfiguringPropertyWithRandomCollection.cs" />
     <Compile Include="Complete\WhenConfiguringPropertyWithParent.cs" />
     <Compile Include="Complete\WhenCreatedTypeHasBaseTypes.cs" />

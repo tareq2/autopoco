@@ -29,8 +29,13 @@ namespace AutoPoco.DataSources
 
         object IDatasource.Next(IGenerationContext context)
         {
-            var ctor = typeof(TCollectionType).GetConstructor(new[] { typeof(IEnumerable<TCollectionElement>) });
-            return (TCollectionType)ctor.Invoke(new[] { mInnerSource.Next(context) });
+            var ctor = typeof(TCollectionType).GetConstructor(Type.EmptyTypes);
+            var propertyCollection = (ICollection<TCollectionElement>)Activator.CreateInstance(typeof (TCollectionType));
+            var collectionContents = mInnerSource.Next(context);
+
+            foreach (var item in collectionContents) propertyCollection.Add(item);
+
+            return propertyCollection;
         }
     }
 

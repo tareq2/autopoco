@@ -164,7 +164,6 @@
     <Compile Include="Engine\ObjectGeneratorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Regression\IEngineConfigurationBuilder.cs" />
-    <Compile Include="Regression\WhenComparingTheSameMemberFromDifferentClasses.cs" />
     <Compile Include="Regression\WhenStronglyTypedVirtualPropertyRequested.cs" />
     <Compile Include="Util\ReflectionHelperTests.cs" />
     <Compile Include="DataSources\DefaultObjectFactoryTests.cs" />
