@@ -23,7 +23,7 @@ namespace AutoPoco.DataSources
             // skip the invariant culture (not a country)
             do
             {
-                var index = mRandom.Next(1, mCultures.Count() - 1);
+                var index = mRandom.Next(1, mCultures.Count());
                 country = mCultures[index].EnglishName;
             
                 // some are combination of countries, let's skip them

@@ -12,7 +12,7 @@ namespace AutoPoco.DataSources
 
         public override string Next(IGenerationContext context)
         {
-            return FirstNames[mRandom.Next(0, FirstNames.Length - 1)];
+            return FirstNames[mRandom.Next(0, FirstNames.Length)];
         }
 
         private static string[] FirstNames = new String[]{
