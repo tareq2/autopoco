@@ -38,6 +38,13 @@ namespace AutoPoco.Configuration
             return this;
         }
 
+        public IEngineConfigurationTypeBuilder<TPoco> Ctor(Expression<Func<TPoco>> creationExpr)
+        {
+            var ctor = creationExpr.Body as NewExpression;
+           // this.fa
+            return this;
+        }
+
         public IEngineConfigurationTypeBuilder<TPoco> Invoke(Expression<Action<TPoco>> action)
         {
             MethodInvocationContext context = GetMethodArgs(action);
