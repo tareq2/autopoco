@@ -38,32 +38,31 @@ namespace AutoPoco.Tests.Integration.Complete
          Assert.NotNull(result.ReadOnlyProperty);
          Assert.Null(result.SecondaryProperty);
      }
-		
-      /*
-     
-     [Test]
-     public void With_Literal_Literal_Is_Used()
-     {
-         mSession = AutoPocoContainer.Configure(x => x.Include<SimpleCtorClass>()
-                                                         .Ctor(() => new SimpleCtorClass("hello"))).CreateSession();
 
-         var result = mSession.Next<SimpleCtorClass>();
-         Assert.AreEqual("hello", result.ReadOnlyProperty); 
-     }
+        /*
+ [Test]
+ public void With_Literal_Literal_Is_Used()
+ {
+     mSession = AutoPocoContainer.Configure(x => x.Include<SimpleCtorClass>()
+                                                     .Ctor(() => new SimpleCtorClass("hello"))).CreateSession();
 
-     [Test]
-     public void With_Ctor_Sources_Sources_Are_Used_To_Populate_Ctor()
-     {
-         mSession = AutoPocoContainer.Configure(x => x.Include<SimpleCtorClass>()
-                                                         .Ctor(() => new SimpleCtorClass(
-                                                                         Use.Source<String, FirstNameSource>())))
-         .CreateSession();
+     var result = mSession.Next<SimpleCtorClass>();
+     Assert.AreEqual("hello", result.ReadOnlyProperty); 
+ }
 
-         var result = mSession.Next<SimpleCtorClass>();
-         Assert.True(result.ReadOnlyProperty.Length > 0);
-     }
-      * 
-      * */
+ [Test]
+ public void With_Ctor_Sources_Sources_Are_Used_To_Populate_Ctor()
+ {
+     mSession = AutoPocoContainer.Configure(x => x.Include<SimpleCtorClass>()
+                                                     .Ctor(() => new SimpleCtorClass(
+                                                                     Use.Source<String, FirstNameSource>())))
+     .CreateSession();
+
+     var result = mSession.Next<SimpleCtorClass>();
+     Assert.True(result.ReadOnlyProperty.Length > 0);
+ }
+  * 
+  * */
     }
 
     public class TestFactory  : IDatasource<SimpleCtorClass>

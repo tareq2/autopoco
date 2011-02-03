@@ -40,6 +40,14 @@ namespace AutoPoco.Configuration
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         IEngineConfigurationTypeBuilder<TPoco> ConstructWith<T>(params Object[] args) where T : IDatasource<TPoco>;
+
+        /*
+        /// <summary>
+        /// Allows manual configuration of a constructor's arguments
+        /// </summary>
+        /// <param name="creationExpr"></param>
+        /// <returns></returns>
+        IEngineConfigurationTypeBuilder<TPoco> Ctor(Expression<Func<TPoco>> creationExpr); */
     }
 
 }
