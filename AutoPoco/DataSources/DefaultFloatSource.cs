@@ -1,15 +1,15 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using AutoPoco.Engine;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="DefaultFloatSource.cs" company="AutoPoco">
+//   Microsoft Public License (Ms-PL)
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace AutoPoco.DataSources
 {
-    public class DefaultFloatSource : DatasourceBase<float>
+    /// <summary>
+    /// The default float source.
+    /// </summary>
+    public class DefaultFloatSource : DefaultSource<float>
     {
-        public override float Next(IGenerationContext context)
-        {
-            return 0;
-        }
     }
 }

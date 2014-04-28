@@ -1,51 +1,63 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using AutoPoco;
-using AutoPoco.Engine;
-using AutoPoco.Testing;
-using NUnit.Framework;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="WhenConfiguringPropertyWithParent.cs" company="">
+//   
+// </copyright>
+// <summary>
+//   The when configuring property with parent.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace AutoPoco.Tests.Integration.Complete
 {
+    using System.Linq;
+
+    using AutoPoco.DataSources;
+    using AutoPoco.Engine;
+    using AutoPoco.Testing;
+
+    using NUnit.Framework;
+
+    /// <summary>
+    /// The when configuring property with parent.
+    /// </summary>
     [TestFixture]
     public class WhenConfiguringPropertyWithParent
     {
-        IGenerationSession mSession;
+        #region Public Methods and Operators
 
-        [SetUp]
-        public void Setup()
-        {
-            mSession = AutoPocoContainer.Configure(x =>
-            {
-                x.Conventions(c =>
-                {
-                    c.UseDefaultConventions();
-                });
-                x.Include<SimpleNode>()
-                    .Setup(y => y.Parent).FromParent()
-                    .Setup(y => y.Children).Collection(1, 1);
-
-
-            })
-            .CreateSession();
-        }
-
-
+        /// <summary>
+        /// The property_ is_ set_ with_ null_ value_ if_ no_ parent_ exists.
+        /// </summary>
         [Test]
         public void Property_Is_Set_With_Null_Value_If_No_Parent_Exists()
         {
-            var node = mSession.Next<SimpleNode>();
+            IGenerationSession session = AutoPocoContainer.Configure(
+                x =>
+                    {
+                        x.Include<SimpleNode>().Setup(y => y.Children).Collection(1, 1);
+                    }).CreateSession();
+
+            var node = session.Next<SimpleNode>();
+
             Assert.Null(node.Parent);
         }
 
+        /// <summary>
+        /// The property_ is_ set_ with_ parent_ value_ if_ parent_ exists.
+        /// </summary>
         [Test]
-        public  void Property_Is_Set_With_Parent_Value_If_Parent_Exists()
+        public void Property_Is_Set_With_Parent_Value_If_Parent_Exists()
         {
-            var node = mSession.Next<SimpleNode>();
+            IGenerationSession session = AutoPocoContainer.Configure(
+                x => x.Include<SimpleNode>()
+                         .Setup(y => y.Children).Collection(1, 1)
+                         .Setup(y => y.Parent).Use<ParentSource<SimpleNode>>()).CreateSession();
+
+            var node = session.Next<SimpleNode>();
+
             Assert.AreEqual(node, node.Children.First().Parent);
         }
+
+        #endregion
     }
 }

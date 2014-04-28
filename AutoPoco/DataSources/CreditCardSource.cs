@@ -1,41 +1,107 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using AutoPoco.Engine;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="CreditCardSource.cs" company="AutoPoco">
+//   Microsoft Public License (Ms-PL)
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace AutoPoco.DataSources
 {
+    using AutoPoco.Engine;
+    using AutoPoco.Util;
+
+    /// <summary>
+    /// The credit card source.
+    /// </summary>
     public class CreditCardSource : DatasourceBase<string>
     {
-        private readonly CreditCardType mPreferred;
-        private readonly Random mRandom;
+        #region Fields
 
+        /// <summary>
+        /// The m preferred.
+        /// </summary>
+        private readonly CreditCardType preferred;
+        
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CreditCardSource"/> class.
+        /// </summary>
+        public CreditCardSource()
+            : this(CreditCardType.Random)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CreditCardSource"/> class.
+        /// </summary>
+        /// <param name="preferred">
+        /// The preferred.
+        /// </param>
+        public CreditCardSource(CreditCardType preferred)
+        {
+            this.preferred = preferred;
+        }
+
+        #endregion
+
+        #region Enums
+
+        /// <summary>
+        /// The credit card type.
+        /// </summary>
         public enum CreditCardType
         {
-            Random = 0,
-            MasterCard = 1,
-            Visa = 2,
-            AmericanExpress = 3,
+            /// <summary>
+            /// The random.
+            /// </summary>
+            Random = 0, 
+
+            /// <summary>
+            /// The master card.
+            /// </summary>
+            MasterCard = 1, 
+
+            /// <summary>
+            /// The visa.
+            /// </summary>
+            Visa = 2, 
+
+            /// <summary>
+            /// The american express.
+            /// </summary>
+            AmericanExpress = 3, 
+
+            /// <summary>
+            /// The discover.
+            /// </summary>
             Discover = 4
         }
 
-        public CreditCardSource()
-            :this(CreditCardType.Random)
-        {}
+        #endregion
 
-        public CreditCardSource(CreditCardType preferred)
-        {
-            mPreferred = preferred;
-            mRandom = new Random(1337);
-        }
+        #region Public Methods and Operators
 
+        /// <summary>
+        /// The next.
+        /// </summary>
+        /// <param name="context">
+        /// The context.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
         public override string Next(IGenerationContext context)
         {
-            var cardType = mPreferred;
+            CreditCardType cardType = this.preferred;
 
-            if (mPreferred == CreditCardType.Random)
-                cardType = (CreditCardType)mRandom.Next(1, 4);
+            if (this.preferred == CreditCardType.Random)
+            {
+                cardType = (CreditCardType)RandomNumberGenerator.Current.Next(1, 4);
+            }
 
+            // TODO: Actually generate numbers
             switch (cardType)
             {
                 case CreditCardType.AmericanExpress:
@@ -50,5 +116,7 @@ namespace AutoPoco.DataSources
                     return null;
             }
         }
+
+        #endregion
     }
 }

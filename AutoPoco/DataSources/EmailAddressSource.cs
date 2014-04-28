@@ -1,18 +1,46 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using AutoPoco.Engine;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="EmailAddressSource.cs" company="AutoPoco">
+//   Microsoft Public License (Ms-PL)
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace AutoPoco.DataSources
 {
-    public class EmailAddressSource : DatasourceBase<String>
-    {
-        private int mIndex = 0;
+    using System;
 
+    using AutoPoco.Engine;
+
+    /// <summary>
+    /// The email address source.
+    /// </summary>
+    public class EmailAddressSource : DatasourceBase<string>
+    {
+        #region Fields
+
+        /// <summary>
+        /// The index.
+        /// </summary>
+        private int index;
+
+        #endregion
+
+        #region Public Methods and Operators
+
+        /// <summary>
+        /// The next.
+        /// </summary>
+        /// <param name="context">
+        /// The context.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
         public override string Next(IGenerationContext context)
         {
-            return string.Format("{0}@example.com", mIndex++);
+            // TODO: See if first name/last name has been used in this context
+            return string.Format("{0}@example.com", this.index++);
         }
+
+        #endregion
     }
 }

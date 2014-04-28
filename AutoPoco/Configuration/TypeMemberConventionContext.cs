@@ -26,7 +26,8 @@ namespace AutoPoco.Configuration
 
         public void SetValue(object value)
         {
-            var factory = new DatasourceFactory(typeof(ValueSource));
+            Type type = typeof(ValueSource<>).MakeGenericType(value.GetType());
+            var factory = new DatasourceFactory(type);
             factory.SetParams(value);
             mTypeMember.SetDatasource(factory);
         }

@@ -16,17 +16,17 @@ namespace AutoPoco.Tests.Unit.DataSources
         }
 
 
-        [Test]
-        public void Next_WithTwoSources_Returns_RepeatedGuids()
-        {
-            GuidSource source1 = new GuidSource();
-            var value1 = source1.Next(null);
+        ////[Test]
+        ////public void Next_WithTwoSources_Returns_RepeatedGuids()
+        ////{
+        ////    GuidSource source1 = new GuidSource();
+        ////    var value1 = source1.Next(null);
 
-            GuidSource source2 = new GuidSource();
-            var value2 = source2.Next(null);
+        ////    GuidSource source2 = new GuidSource();
+        ////    var value2 = source2.Next(null);
 
-            Assert.AreEqual(value1, value2);
-        }
+        ////    Assert.AreEqual(value1, value2);
+        ////}
 
         [Test]
         public void Next_WithOneSource_ReturnsDifferentGuids()
