@@ -1,29 +1,67 @@
-﻿using System;
-using System.Drawing;
-using AutoPoco.Engine;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="ColorSource.cs" company="AutoPoco">
+//   Microsoft Public License (Ms-PL)
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace AutoPoco.DataSources
 {
+    using System.Drawing;
+
+    using AutoPoco.Engine;
+    using AutoPoco.Util;
+
+    /// <summary>
+    /// The color source.
+    /// </summary>
     public class ColorSource : DatasourceBase<Color>
     {
-        private readonly int mMax;
-        private readonly Random mRandom;
-        private readonly int mMin;
+        #region Fields
 
+        /// <summary>
+        /// The m max.
+        /// </summary>
+        private readonly int max;
+
+        /// <summary>
+        /// The m min.
+        /// </summary>
+        private readonly int min;
+
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ColorSource"/> class.
+        /// </summary>
         public ColorSource()
         {
-            mRandom = new Random(1337);
-            mMin = 0;
-            mMax = 255;
+            this.min = 0;
+            this.max = 255;
         }
 
+        #endregion
+
+        #region Public Methods and Operators
+
+        /// <summary>
+        /// The next.
+        /// </summary>
+        /// <param name="context">
+        /// The context.
+        /// </param>
+        /// <returns>
+        /// The <see cref="Color"/>.
+        /// </returns>
         public override Color Next(IGenerationContext context)
         {
             return Color.FromArgb(
-                mRandom.Next(mMin, mMax), 
-                mRandom.Next(mMin, mMax), 
-                mRandom.Next(mMin, mMax)
-                );
+                RandomNumberGenerator.Current.Next(this.min, this.max), 
+                RandomNumberGenerator.Current.Next(this.min, this.max), 
+                RandomNumberGenerator.Current.Next(this.min, this.max));
         }
+
+        #endregion
     }
 }

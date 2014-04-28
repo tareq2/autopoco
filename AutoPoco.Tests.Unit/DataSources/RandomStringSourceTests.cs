@@ -25,19 +25,19 @@ namespace AutoPoco.Tests.Unit.DataSources
             }            
         }
 
-        [Test]
-        public void Next_ReturnsSameStringFromTwoSources()
-        {
-            RandomStringSource sourceOne = new RandomStringSource(0, 10);
-            RandomStringSource sourceTwo = new RandomStringSource(0, 10);
+        ////[Test]
+        ////public void Next_ReturnsSameStringFromTwoSources()
+        ////{
+        ////    RandomStringSource sourceOne = new RandomStringSource(0, 10);
+        ////    RandomStringSource sourceTwo = new RandomStringSource(0, 10);
 
-            for (int x = 0; x < 10; x++)
-            {
-                String one = sourceOne.Next(null);
-                String two = sourceTwo.Next(null);
+        ////    for (int x = 0; x < 10; x++)
+        ////    {
+        ////        String one = sourceOne.Next(null);
+        ////        String two = sourceTwo.Next(null);
 
-                Assert.AreEqual(one, two);
-            }
-        }
+        ////        Assert.AreEqual(one, two);
+        ////    }
+        ////}
     }
 }

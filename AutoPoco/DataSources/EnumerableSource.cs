@@ -1,87 +1,137 @@
-﻿using System;
-using System.Collections.Generic;
-using AutoPoco.Configuration;
-using AutoPoco.Engine;
-using System.Collections;
-
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="EnumerableSource.cs" company="AutoPoco">
+//   Microsoft Public License (Ms-PL)
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
 namespace AutoPoco.DataSources
 {
-    // Woah
-    public class FlexibleEnumerableSource<TSource, TCollectionType, TCollectionElement> : IDatasource<TCollectionType>
-        where TCollectionType : IEnumerable<TCollectionElement> 
-        where TSource : DatasourceBase<TCollectionElement> 
-        
-    {
-        private readonly EnumerableSource<TSource, TCollectionElement> mInnerSource;
-        
-         public FlexibleEnumerableSource(int count)
-            : this(count, count, new object[] { })
-        { }
+    using System.Collections.Generic;
 
-        public FlexibleEnumerableSource(int min, int max)
-            : this(min, max, new object[] { })
-        { }
-
-        public FlexibleEnumerableSource(int minCount, int maxCount, params object[] args)
-        {
-            mInnerSource = new EnumerableSource<TSource, TCollectionElement>(minCount, maxCount, args);
-        }
-
-        object IDatasource.Next(IGenerationContext context)
-        {
-            var ctor = typeof(TCollectionType).GetConstructor(Type.EmptyTypes);
-            var propertyCollection = (ICollection<TCollectionElement>)Activator.CreateInstance(typeof (TCollectionType));
-            var collectionContents = mInnerSource.Next(context);
-
-            foreach (var item in collectionContents) propertyCollection.Add(item);
-
-            return propertyCollection;
-        }
-    }
-
+    using AutoPoco.Configuration;
+    using AutoPoco.Engine;
+    using AutoPoco.Util;
 
     /// <summary>
     /// Allows you to use another Source to generate an enumerable collection
     /// </summary>
-    /// <typeparam name="TSource">The type of the source.</typeparam>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="TSource">
+    /// The type of the source.
+    /// </typeparam>
+    /// <typeparam name="T">
+    /// </typeparam>
     public class EnumerableSource<TSource, T> : DatasourceBase<IEnumerable<T>>
         where TSource : IDatasource<T>
     {
-        private readonly int mMinCount;
-        private readonly int mMaxCount;
-        private readonly object[] mArgs;
-        private readonly IDatasource<T> mSource;
-        private readonly Random mRandom = new Random(1337);
+        #region Fields
 
+        /// <summary>
+        /// The args.
+        /// </summary>
+        private readonly object[] args;
+
+        /// <summary>
+        /// The max count.
+        /// </summary>
+        private readonly int maxCount;
+
+        /// <summary>
+        /// The min count.
+        /// </summary>
+        private readonly int minCount;
+
+        /// <summary>
+        /// The source.
+        /// </summary>
+        private readonly IDatasource<T> source;
+
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EnumerableSource{TSource,T}"/> class.
+        /// </summary>
+        /// <param name="count">
+        /// The count.
+        /// </param>
         public EnumerableSource(int count)
             : this(count, count, new object[] { })
-        { }
+        {
+        }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EnumerableSource{TSource,T}"/> class.
+        /// </summary>
+        /// <param name="count">
+        /// The count.
+        /// </param>
+        /// <param name="args">
+        /// The args.
+        /// </param>
         public EnumerableSource(int count, object[] args)
             : this(count, count, args)
-        { }
-        
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EnumerableSource{TSource,T}"/> class.
+        /// </summary>
+        /// <param name="min">
+        /// The min.
+        /// </param>
+        /// <param name="max">
+        /// The max.
+        /// </param>
         public EnumerableSource(int min, int max)
             : this(min, max, new object[] { })
-        { }
+        {
+        }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EnumerableSource{TSource,T}"/> class.
+        /// </summary>
+        /// <param name="minCount">
+        /// The min count.
+        /// </param>
+        /// <param name="maxCount">
+        /// The max count.
+        /// </param>
+        /// <param name="args">
+        /// The args.
+        /// </param>
         public EnumerableSource(int minCount, int maxCount, object[] args)
         {
-            mMinCount = minCount;
-            mMaxCount = maxCount;
-            mArgs = args;
+            this.minCount = minCount;
+            this.maxCount = maxCount;
+            this.args = args;
 
             var factory = new DatasourceFactory(typeof(TSource));
-            factory.SetParams(mArgs);
-            mSource = (IDatasource<T>)factory.Build();
+            factory.SetParams(this.args);
+            this.source = (IDatasource<T>)factory.Build();
         }
 
+        #endregion
+
+        #region Public Methods and Operators
+
+        /// <summary>
+        /// The next.
+        /// </summary>
+        /// <param name="context">
+        /// The context.
+        /// </param>
+        /// <returns>
+        /// The next in the generation of list of T
+        /// </returns>
         public override IEnumerable<T> Next(IGenerationContext context)
         {
-            var count = mRandom.Next(mMinCount, mMaxCount + 1);
-            for (var i = 0; i < count; i++)
-                yield return (T)mSource.Next(context);
+            int count = RandomNumberGenerator.Current.Next(this.minCount, this.maxCount + 1);
+            for (int i = 0; i < count; i++)
+            {
+                yield return (T)this.source.Next(context);
+            }
         }
+
+        #endregion
     }
 }

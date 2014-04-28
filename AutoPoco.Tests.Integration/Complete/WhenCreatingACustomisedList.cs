@@ -80,7 +80,9 @@ namespace AutoPoco.Tests.Integration.Complete
         [Test]
         public void AllRobsAreAshtons()
         {
-            Assert.AreEqual(50, mUsers.Count(x => x.FirstName == "Rob" &&  x.LastName == "Ashton"));
+            int actual = mUsers.Count(x => x.FirstName == "Rob" && x.LastName == "Ashton");
+
+            Assert.AreEqual(50, actual);
         }
 
         [Test]

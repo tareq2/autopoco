@@ -1,29 +1,43 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using AutoPoco.Engine;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="ValueSource.cs" company="">
+//   
+// </copyright>
+// <summary>
+//   The value source.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace AutoPoco.DataSources
 {
-    public class ValueSource : IDatasource
-    {
-        private Object mValue;
+    using AutoPoco.Engine;
 
-        public ValueSource(Object value)
+    /// <summary>
+    /// The value source.
+    /// </summary>
+    /// <typeparam name="T">
+    /// </typeparam>
+    public class ValueSource<T> : IDatasource<T>
+    {
+        private readonly T value;
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ValueSource{T}"/> class.
+        /// </summary>
+        /// <param name="value">
+        /// The value.
+        /// </param>
+        public ValueSource(T value)
         {
-            mValue = value;
+            this.value = value;
         }
+
+        #endregion
 
         public object Next(IGenerationContext context)
         {
-            return mValue;
+            return this.value;
         }
     }
-
-    public class ValueSource<T> : ValueSource, IDatasource<T>
-    {
-        public ValueSource(Object value) : base(value) { }
-    }
-    
 }

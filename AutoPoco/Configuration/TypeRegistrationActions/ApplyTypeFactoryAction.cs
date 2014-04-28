@@ -28,7 +28,7 @@ namespace AutoPoco.Configuration.TypeRegistrationActions
             else if (type.GetFactory() == null)
             {
                 // Activator.CreateInstance as a last resort
-                Type fallbackType = typeof (FallbackObjectFactory<>).MakeGenericType(type.RegisteredType);
+                Type fallbackType = typeof (DefaultSource<>).MakeGenericType(type.RegisteredType);
                 type.SetFactory(new DatasourceFactory(fallbackType));
             }
         }

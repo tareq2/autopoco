@@ -1,18 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using AutoPoco.Engine;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="IntegerIdSource.cs" company="AutoPoco">
+//   Microsoft Public License (Ms-PL)
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace AutoPoco.DataSources
 {
+    using AutoPoco.Engine;
+
+    /// <summary>
+    /// The integer id source.
+    /// </summary>
     public class IntegerIdSource : DatasourceBase<int>
     {
-        int mCurrentId = 0;
+        #region Fields
+
+        /// <summary>
+        /// The current id.
+        /// </summary>
+        private int currentId;
+
+        #endregion
+
+        #region Public Methods and Operators
 
         public override int Next(IGenerationContext context)
         {
-            return mCurrentId++;
+            return this.currentId++;
         }
+
+        #endregion
     }
 }

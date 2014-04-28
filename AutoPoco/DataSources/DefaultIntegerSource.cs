@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using AutoPoco.Engine;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="DefaultIntegerSource.cs" company="AutoPoco">
+//   Microsoft Public License (Ms-PL)
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace AutoPoco.DataSources
 {
-    public class DefaultIntegerSource : DatasourceBase<int>
+    /// <summary>
+    /// The default integer source.
+    /// </summary>
+    public class DefaultIntegerSource : DefaultSource<int>
     {
-        public override int Next(IGenerationContext context)
-        {
-            return 0;
-        }
     }
 }

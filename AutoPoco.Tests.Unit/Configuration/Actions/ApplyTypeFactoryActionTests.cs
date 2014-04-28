@@ -47,7 +47,7 @@ namespace AutoPoco.Tests.Unit.Configuration.Actions
             action.Apply(targetType.Object);
             
             targetType.Verify(x => x.SetFactory(
-                It.Is<IEngineConfigurationDatasource>(y=> y.Build() is FallbackObjectFactory<SimpleUser>)),
+                It.Is<IEngineConfigurationDatasource>(y=> y.Build() is DefaultSource<SimpleUser>)),
                 Times.Once());
         }
 

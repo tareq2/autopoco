@@ -67,11 +67,10 @@ namespace AutoPoco.Tests.Integration.Configuration
         public void MethodWithLiteralArgument_HasValueDatasource()
         {
             IEngineConfigurationTypeMember member = mEngineConfigurationType.GetRegisteredMember(mSingleArgMethod);
-
             IEngineConfigurationDatasource configurationSource = member.GetDatasources().Single();
             IDatasource source = configurationSource.Build();
 
-            Assert.AreEqual( typeof(ValueSource), source.GetType());
+            Assert.AreEqual(typeof(ValueSource<object>), source.GetType());
         }
     
         [Test]

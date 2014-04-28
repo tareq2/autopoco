@@ -24,7 +24,7 @@ namespace AutoPoco.Configuration
 
         public void AddArgumentValue(Object value)
         {
-            AddArgumentSource(typeof(ValueSource), value);
+            AddArgumentSource(typeof(ValueSource<object>), value);
         }
 
         public IEnumerable<DatasourceFactory> GetArguments()
